@@ -13,8 +13,6 @@ vector<int> g_vecVK =
 	// MAX
 };
 
-CKeyManager* CKeyManager::g_pInst = nullptr;
-
 CKeyManager::CKeyManager()
 {
 }
@@ -50,6 +48,7 @@ void CKeyManager::Update()
 					float fPressedInterval = CTimeManager::GetInstance()->GetTime() - m_vecKey[i].fLastPressedTime;
 					if (fPressedInterval < fDoubleClickThreshold)
 					{
+						cout << "Double Pressed!" << endl;
 						m_vecKey[i].eKeyState = EKeyState::DOUBLE_PRESSED;
 					}
 					else

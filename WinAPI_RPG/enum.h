@@ -1,6 +1,6 @@
 #pragma once
 
-enum class EGroupType
+enum class EObjectType
 {
 	DEFAULT,
 	PLAYER,

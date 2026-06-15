@@ -6,14 +6,22 @@ class CScene
 {
 
 public:
-	CScene();
+	CScene(const wstring& wstr);
 	virtual ~CScene();
 
-	void SetName(const wstring& strName) { m_strName = strName; }
+	virtual void Initialize();
+	virtual void Update();
+	virtual void Release();
+
+	virtual void Render();
+
 	const wstring& GetName() { return m_strName; }
 
+	void Enter();
+	void Exit();
+
 private:
-	vector<CObject*> m_vecObject[(UINT)EGroupType::MAX];
-	wstring m_strName;
+	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
+	const wstring m_strName;
 };
 

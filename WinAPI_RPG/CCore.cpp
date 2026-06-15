@@ -1,10 +1,10 @@
 #include "pch.h"
 #include "CCore.h"
-#include "CObject.h"
+
 #include "CTimeManager.h"
 #include "CKeyManager.h"
-
-CCore* CCore::g_pInst = nullptr;
+#include "CSceneManager.h"
+#include "CPathManager.h"
 
 CCore::CCore()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
@@ -19,8 +19,6 @@ CCore::~CCore()
 	DeleteDC(m_hDCMem);
 	DeleteObject(m_hBitmap);
 }
-
-CObject g_obj;
 
 HRESULT CCore::Initialize(HWND hWnd, POINT WndResolution)
 {
@@ -43,6 +41,8 @@ HRESULT CCore::Initialize(HWND hWnd, POINT WndResolution)
 	// Manager initialize
 	CTimeManager::GetInstance()->Initialize();
 	CKeyManager::GetInstance()->Initialize();
+	CSceneManager::GetInstance()->Initialize();
+	CPathManager::GetInstance()->Initialize();
 
 	// get device context
 	m_hDC = GetDC(m_hWnd);
@@ -52,10 +52,6 @@ HRESULT CCore::Initialize(HWND hWnd, POINT WndResolution)
 	m_hDCMem = CreateCompatibleDC(m_hDC);
 	SelectObject(m_hDCMem, m_hBitmap);
 
-	// object handling
-	g_obj.SetPosition(Vec2{ m_WndResolution.x / 2, m_WndResolution.y / 2 });
-	g_obj.SetScale(Vec2{ 100, 100 });
-
 	return S_OK;
 }
 
@@ -64,40 +60,17 @@ void CCore::Update()
 	// update other managers
 	// get deltatime
 	CTimeManager::GetInstance()->Update();
-	// float fDeltaTime = CTimeManager::GetInstance()->GetDeltaTime();
-	float fDeltaTime = 1;
-
 	CKeyManager::GetInstance()->Update();
+	CSceneManager::GetInstance()->Update();
 
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::PRESSED)
-	{
-		g_obj.SetPosition(g_obj.GetPosition() + fDeltaTime * Vec2{-100.f, 0.f});
-	}
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::PRESSED)
-	{
-		g_obj.SetPosition(g_obj.GetPosition() + fDeltaTime * Vec2{100.f, 0.f});
-	}
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::UP) == EKeyState::PRESSED)
-	{
-		g_obj.SetPosition(g_obj.GetPosition() + fDeltaTime * Vec2{0.f, -100.f});
-	}
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::DOWN) == EKeyState::PRESSED)
-	{
-		g_obj.SetPosition(g_obj.GetPosition() + fDeltaTime * Vec2{0.f, 100.f});
-	}
+
 }
 
 void CCore::Render()
 {
 	Rectangle(m_hDCMem, -1, -1, m_WndResolution.x + 1, m_WndResolution.y + 1);
-	
-	Rectangle(
-		m_hDCMem,
-		(int)g_obj.GetPosition().x - (int)g_obj.GetScale().x / 2,
-		(int)g_obj.GetPosition().y - (int)g_obj.GetScale().y / 2,
-		(int)g_obj.GetPosition().x + (int)g_obj.GetScale().x / 2,
-		(int)g_obj.GetPosition().y + (int)g_obj.GetScale().y / 2
-	);
+
+	CSceneManager::GetInstance()->Render();
 
 	BitBlt(m_hDC, 0, 0, m_WndResolution.x, m_WndResolution.y,
 		m_hDCMem, 0, 0, SRCCOPY);

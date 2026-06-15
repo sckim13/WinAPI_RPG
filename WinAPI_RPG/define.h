@@ -4,24 +4,11 @@
 public:								\
 	static Type* GetInstance()		\
 	{								\
-		if (!g_pInst)				\
-		{							\
-			g_pInst = new Type;		\
-		}							\
-		return g_pInst;				\
-	}								\
-									\
-	static void Release()			\
-	{								\
-		if (g_pInst)				\
-		{							\
-			delete g_pInst;			\
-			g_pInst = nullptr;		\
-		}							\
+		static Type g_Inst;			\
+		return &g_Inst;				\
 	}								\
 									\
 private:							\
 	Type();							\
 	~Type();						\
-	static Type* g_pInst;			\
 

@@ -10,6 +10,7 @@ public:
 	void Render();
 
 	inline HWND GetHWnd() { return m_hWnd; }
+	inline HDC GetMemDC() { return m_hDCMem; }
 
 private:
 	HWND m_hWnd;

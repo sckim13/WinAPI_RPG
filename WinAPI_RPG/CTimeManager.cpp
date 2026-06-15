@@ -2,8 +2,6 @@
 #include "CTimeManager.h"
 #include "CCore.h"
 
-CTimeManager* CTimeManager::g_pInst = nullptr;
-
 CTimeManager::CTimeManager()
 	: m_llGlobalCount{}, m_llCurrentCount {}, m_llFrequency{}, m_llPreviousCount{}, m_dDeltaTime(0),
 	m_dAccumulatedTime(0), m_iCountPerSecond(0), m_iFPS(0)
