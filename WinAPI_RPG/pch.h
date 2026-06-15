@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 using namespace std;
 
@@ -18,6 +18,8 @@ using namespace std;
 #include "enum.h"
 #include "memory.h"
 #include "constant.h"
+#include "Vec2.h"
+#include "Mat3.h"
 
 
 // library
@@ -47,5 +49,11 @@ using namespace std;
 	virtual void Release() override;
 
 	virtual void Render() override;
+
+	virtual void Initialize();
+	virtual void Update();
+	virtual void Release();
+
+	virtual void Render();
 
 */

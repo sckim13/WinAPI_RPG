@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #define SINGLETON(Type)				\
 public:								\
@@ -11,4 +11,3 @@ public:								\
 private:							\
 	Type();							\
 	~Type();						\
-

@@ -1,8 +1,8 @@
-#pragma once
+﻿#pragma once
 
-class CObject;
+#include "CObject.h"
 
-class CCollider
+class CCollider : public CObject
 {
 public:
 	virtual void Initialize();
@@ -16,11 +16,6 @@ public:
 	inline CObject* GetOwner() { return m_pOwner; }
 
 private:
-	CObject* m_pOwner;
-
-	Vec2 m_Pos;
-	Vec2 m_Scale;
-
 	//void OnCollisionBegin();
 	//void OnCollision();
 	//void OnCollisionEnd();

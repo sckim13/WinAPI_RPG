@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CPlayer.h"
 #include "CKeyManager.h"
 #include "CCore.h"
@@ -7,7 +7,7 @@
 #include "CPathManager.h"
 #include "CResourceManager.h"
 
-CPlayer::CPlayer() : m_pTexture(nullptr)
+CPlayer::CPlayer()
 {
 	Initialize();
 }
@@ -19,9 +19,6 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize()
 {	
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
-
-	CreateCollider();
-	
 }
 
 void CPlayer::Update()

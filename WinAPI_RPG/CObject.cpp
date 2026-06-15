@@ -1,38 +1,17 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CObject.h"
 #include "CCollider.h"
+#include "CTransform.h"
 
 CObject::CObject()
-	: m_vPosition{}, m_vScale{}
+	: m_vPosition{}, m_fRotation(0.f), m_vScale{}, m_pOwner(nullptr), m_pTexture(nullptr), m_pTransform(nullptr), m_pCollider(nullptr)
 {
 }
 
 CObject::~CObject()
 {
-	if (m_pCollider)
-	{
-		Safe_Delete(m_pCollider);
-	}
-}
-
-void CObject::Initialize()
-{
-}
-
-void CObject::Update()
-{
-}
-
-void CObject::Release()
-{
-}
-
-void CObject::Render()
-{
-}
-
-void CObject::CreateCollider()
-{
-	m_pCollider = new CCollider;
-	m_pCollider->SetOwner(this);
+	Safe_Delete<CObject*>(m_pOwner);
+	Safe_Delete<CCollider*>(m_pCollider);
+	Safe_Delete<CTransform*>(m_pTransform);
+	Safe_Delete<CCollider*>(m_pCollider);
 }

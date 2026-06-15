@@ -1,8 +1,9 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CScene.h"
 #include "CPlayer.h"
 #include "CTexture.h"
 #include "CPathManager.h"
+#include "CMonster.h"
 
 CScene::CScene(const wstring& wstr) : m_strName(wstr)
 {
@@ -27,12 +28,10 @@ void CScene::Initialize()
 	pPlayer->SetPosition(Vec2{ 400, 300 });
 	pPlayer->SetScale(Vec2{ 100, 100 });
 
-	//CTexture* pTexture = new CTexture;
-
-	//wstring strTexturePath = CPathManager::GetInstance()->GetAssetPath();
-	//strTexturePath += L"Texture\\Player.bmp";
-
-	//pTexture->Load(strTexturePath);
+	CMonster* pMonsterA = new CMonster;
+	m_vecObject[(UINT)EObjectType::MONSTER].push_back(pMonsterA);
+	pMonsterA->SetPosition(Vec2{ 100, 100 });
+	pMonsterA->SetScale(Vec2{ 70, 70 });
 }
 
 void CScene::Update()

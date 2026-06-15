@@ -1,6 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CCollider.h"
 #include "CObject.h"
+#include "CCore.h"
 
 void CCollider::Initialize()
 {
@@ -17,6 +18,6 @@ void CCollider::Release()
 
 void CCollider::Render()
 {
-	Rectangle(
-	);
+	HDC hDC = CCore::GetInstance()->GetMemDC();
+	// Rectangle(hDC, );
 }

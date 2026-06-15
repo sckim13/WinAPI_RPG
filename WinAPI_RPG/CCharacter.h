@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CObject.h"
 
 class CCharacter : public CObject
@@ -14,6 +14,5 @@ public:
 	virtual void Render() override;
 
 private:
-	// texture info
 };
 

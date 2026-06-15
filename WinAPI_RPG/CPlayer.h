@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CCharacter.h"
 
 class CTexture;
@@ -17,6 +17,5 @@ public:
 	virtual void Render() override;
 
 private:
-	CTexture* m_pTexture;
 };
 
