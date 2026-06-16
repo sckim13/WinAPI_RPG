@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "CCore.h"
+#include "CMainGame.h"
 
 #include "CTimeManager.h"
 #include "CKeyManager.h"
 #include "CSceneManager.h"
 #include "CPathManager.h"
 
-CCore::CCore()
+CMainGame::CMainGame()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
 	m_hBitmap(nullptr), m_hDCMem(nullptr)
 {
 }
 
-CCore::~CCore()
+CMainGame::~CMainGame()
 {
 	ReleaseDC(m_hWnd, m_hDC);
 
@@ -20,7 +20,7 @@ CCore::~CCore()
 	DeleteObject(m_hBitmap);
 }
 
-HRESULT CCore::Initialize(HWND hWnd, POINT WndResolution)
+HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 {
 	// handle initialize
 	m_hWnd = hWnd;
@@ -55,7 +55,7 @@ HRESULT CCore::Initialize(HWND hWnd, POINT WndResolution)
 	return S_OK;
 }
 
-void CCore::Update()
+void CMainGame::Update()
 {
 	// update other managers
 	// get deltatime
@@ -63,14 +63,22 @@ void CCore::Update()
 	CKeyManager::GetInstance()->Update();
 	CSceneManager::GetInstance()->Update();
 
-
+	if(CKeyManager::GetInstance()->GetKeyState(EKey::ESCAPE) == EKeyState::PRESSED)
+	{
+		DestroyWindow(m_hWnd);
+		return;
+	}
 }
 
-void CCore::Render()
+void CMainGame::Release()
+{
+}
+
+void CMainGame::Render()
 {
 	Rectangle(m_hDCMem, -1, -1, m_WndResolution.x + 1, m_WndResolution.y + 1);
 
-	CSceneManager::GetInstance()->Render();
+	CSceneManager::GetInstance()->Render(m_hDC);
 
 	BitBlt(m_hDC, 0, 0, m_WndResolution.x, m_WndResolution.y,
 		m_hDCMem, 0, 0, SRCCOPY);
@@ -84,4 +92,9 @@ void CCore::Render()
 	//	(int)g_obj.GetPosition().x + (int)g_obj.GetScale().x / 2,
 	//	(int)g_obj.GetPosition().y + (int)g_obj.GetScale().y / 2
 	//);
+}
+
+void CMainGame::Initialize()
+{
+	// DEPRECATED
 }

@@ -1,12 +1,16 @@
 #pragma once
+#include "CManagerBase.h"
 
-class CCore
+class CMainGame : public CManagerBase
 {
-	SINGLETON(CCore);
+	SINGLETON(CMainGame);
 
 public:
 	HRESULT Initialize(HWND hWnd, POINT WndResolution);
-	void Update();
+	virtual void Initialize() override;
+	virtual void Update() override;
+	virtual void Release() override;
+
 	void Render();
 
 	inline HWND GetHWnd() { return m_hWnd; }
@@ -19,6 +23,5 @@ private:
 
 	HBITMAP m_hBitmap;
 	HDC m_hDCMem;
-
 };
 

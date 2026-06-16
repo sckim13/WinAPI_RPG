@@ -21,6 +21,6 @@ void CMonster::Release()
 {
 }
 
-void CMonster::Render()
+void CMonster::Render(HDC hDC)
 {
 }

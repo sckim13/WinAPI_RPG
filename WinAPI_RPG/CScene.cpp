@@ -49,13 +49,13 @@ void CScene::Release()
 {
 }
 
-void CScene::Render()
+void CScene::Render(HDC hDC)
 {
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
 		for (auto& pObject : m_vecObject[i])
 		{
-			pObject->Render();
+			pObject->Render(hDC);
 		}
 	}
 }

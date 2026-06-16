@@ -8,14 +8,15 @@ class CPlayer : public CCharacter
 
 public:
 	CPlayer();
-	~CPlayer();
+	virtual ~CPlayer();
 
 	virtual void Initialize() override;
 	virtual void Update() override;
 	virtual void Release() override;
 	
-	virtual void Render() override;
+	virtual void Render(HDC hDC) override;
 
 private:
+
 };
 

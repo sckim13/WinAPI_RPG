@@ -1,19 +1,18 @@
 ﻿#pragma once
 
-#include "CObject.h"
+#include "CObjectBase.h"
 
-class CCollider : public CObject
+class CCollider : public CObjectBase
 {
 public:
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Release();
+	CCollider();
+	virtual ~CCollider();
 
-	virtual void Render();
+	virtual void Initialize() override;
+	virtual void Update() override;
+	virtual void Release() override;
 
-
-	inline void SetOwner(CObject* pObject) { m_pOwner = pObject; }
-	inline CObject* GetOwner() { return m_pOwner; }
+	virtual void Render(HDC hDC) override;
 
 private:
 	//void OnCollisionBegin();

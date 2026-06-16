@@ -1,4 +1,5 @@
 #pragma once
+#include "CManagerBase.h"
 
 enum class EKeyState
 {
@@ -16,6 +17,8 @@ enum class EKey
 	UP,
 	DOWN,
 
+	ESCAPE,
+
 	MAX,
 };
 
@@ -26,13 +29,14 @@ struct tKeyInfo
 	float fLastPressedTime; // for check double click
 };
 
-class CKeyManager
+class CKeyManager : public CManagerBase
 {
 	SINGLETON(CKeyManager);
 
 public:
-	void Initialize();
-	void Update();
+	virtual void Initialize() override;
+	virtual void Update() override;
+	virtual void Release() override;
 
 	inline EKeyState GetKeyState(EKey eKey) { return m_vecKey[(int)eKey].eKeyState; }
 

@@ -1,12 +1,14 @@
 #pragma once
-class CPathManager
+#include "CManagerBase.h"
+
+class CPathManager : public CManagerBase
 {
 	SINGLETON(CPathManager);
 
 public:
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Release();
+	virtual void Initialize() override;
+	virtual void Update() override;
+	virtual void Release() override;
 
 	inline const wchar_t* GetBasePath() { return m_szBasePath; }
 

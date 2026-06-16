@@ -21,6 +21,6 @@ void CCharacter::Release()
 {
 }
 
-void CCharacter::Render()
+void CCharacter::Render(HDC hDC)
 {
 }

@@ -1,7 +1,15 @@
 ﻿#include "pch.h"
 #include "CCollider.h"
-#include "CObject.h"
-#include "CCore.h"
+#include "CObjectBase.h"
+#include "CMainGame.h"
+
+CCollider::CCollider()
+{
+}
+
+CCollider::~CCollider()
+{
+}
 
 void CCollider::Initialize()
 {
@@ -9,15 +17,14 @@ void CCollider::Initialize()
 
 void CCollider::Update()
 {
-	SetPosition(m_pOwner->GetPosition());
+	// SetPosition(m_pOwner->GetPosition());
 }
 
 void CCollider::Release()
 {
 }
 
-void CCollider::Render()
+void CCollider::Render(HDC hDC)
 {
-	HDC hDC = CCore::GetInstance()->GetMemDC();
-	// Rectangle(hDC, );
+	Rectangle(hDC, 50, 50, 100, 100);
 }

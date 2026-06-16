@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
-#include "CCore.h"
+#include "CMainGame.h"
 
 vector<int> g_vecVK =
 {
@@ -9,6 +9,8 @@ vector<int> g_vecVK =
 	VK_RIGHT,
 	VK_UP,
 	VK_DOWN,
+
+	VK_ESCAPE,
 
 	// MAX
 };
@@ -91,4 +93,8 @@ void CKeyManager::Update()
 			}
 		}
 	}
+}
+
+void CKeyManager::Release()
+{
 }

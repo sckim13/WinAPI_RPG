@@ -1,15 +1,15 @@
 #pragma once
-class CResource
+class CResourceBase
 {
 public:
-	CResource();
-	virtual ~CResource();
+	CResourceBase();
+	virtual ~CResourceBase();
 
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Release();
+	virtual void Initialize() PURE;
+	virtual void Update() PURE;
+	virtual void Release() PURE;
 
-	virtual void Render();
+	virtual void Render(HDC hDC) PURE;
 
 	inline void SetKey(const wstring& strKey) { m_strKey = strKey; }
 	inline void SetRelativePath(const wstring& strRelPath) { m_strRelPath = strRelPath; }

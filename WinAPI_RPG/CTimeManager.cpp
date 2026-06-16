@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CTimeManager.h"
-#include "CCore.h"
+#include "CMainGame.h"
 
 CTimeManager::CTimeManager()
 	: m_llGlobalCount{}, m_llCurrentCount {}, m_llFrequency{}, m_llPreviousCount{}, m_dDeltaTime(0),
@@ -37,9 +37,13 @@ void CTimeManager::Update()
 
 		wchar_t szBuffer[255] = {};
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", m_iFPS, m_dDeltaTime);
-		SetWindowText(CCore::GetInstance()->GetHWnd(), szBuffer);
+		SetWindowText(CMainGame::GetInstance()->GetHWnd(), szBuffer);
 	}
 
 
 	m_llPreviousCount = m_llCurrentCount;
+}
+
+void CTimeManager::Release()
+{
 }

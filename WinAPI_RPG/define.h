@@ -10,4 +10,4 @@ public:								\
 									\
 private:							\
 	Type();							\
-	~Type();						\
+	virtual ~Type();				\

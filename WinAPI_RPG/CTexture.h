@@ -1,6 +1,8 @@
 #pragma once
-#include "CResource.h"
-class CTexture : public CResource
+
+#include "CResourceBase.h"
+
+class CTexture : public CResourceBase
 {
 public:
 	CTexture();
@@ -10,7 +12,7 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-	virtual void Render() override;
+	virtual void Render(HDC hDC) override;
 
 	void Load(const wstring& strPath);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-class CObject;
+class CObjectBase;
 
 class CScene
 {
@@ -13,7 +13,7 @@ public:
 	virtual void Update();
 	virtual void Release();
 
-	virtual void Render();
+	virtual void Render(HDC hDC);
 
 	const wstring& GetName() { return m_strName; }
 
@@ -21,7 +21,7 @@ public:
 	void Exit();
 
 private:
-	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
+	vector<CObjectBase*> m_vecObject[(UINT)EObjectType::MAX];
 	const wstring m_strName;
 };
 

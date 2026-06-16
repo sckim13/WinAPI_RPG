@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "CPlayer.h"
 #include "CKeyManager.h"
-#include "CCore.h"
+#include "CMainGame.h"
 #include "CTimeManager.h"
 #include "CTexture.h"
 #include "CPathManager.h"
@@ -46,10 +46,8 @@ void CPlayer::Release()
 {
 }
 
-void CPlayer::Render()
+void CPlayer::Render(HDC hDC)
 {
-	HDC hDC = CCore::GetInstance()->GetMemDC();
-
 	/*
 	Rectangle(
 		hDC,
@@ -59,7 +57,7 @@ void CPlayer::Render()
 		(int)GetPosition().y + (int)(GetScale().y / 2)
 	);
 	BitBlt(
-		CCore::GetInstance()->GetMemDC(),
+		CMainGame::GetInstance()->GetMemDC(),
 		(int)(vPos.x - (float)(iWidth / 2)),
 		(int)(vPos.y - (float)(iHeight / 2)),
 		iWidth, iHeight,
@@ -75,7 +73,7 @@ void CPlayer::Render()
 
 
 	TransparentBlt(
-		CCore::GetInstance()->GetMemDC(),
+		hDC,
 		(int)(vPos.x - (float)(iWidth / 2)),
 		(int)(vPos.y - (float)(iHeight / 2)),
 		iWidth, iHeight,

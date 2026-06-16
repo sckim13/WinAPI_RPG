@@ -1,7 +1,8 @@
 #pragma once
-#include "CResource.h"
-class CSound :
-    public CResource
+#include "CResourceBase.h"
+
+class CSound : public CResourceBase
 {
+
 };
 

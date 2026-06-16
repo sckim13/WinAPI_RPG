@@ -10,7 +10,7 @@ public:
 	virtual void Update() override;
 	virtual void Release() override;
 
-	virtual void Render() override;
+	virtual void Render(HDC hDC) override;
 
 private:
 };

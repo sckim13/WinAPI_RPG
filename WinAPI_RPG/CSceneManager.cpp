@@ -22,7 +22,11 @@ void CSceneManager::Update()
 	m_pCurrentScene->Update();
 }
 
-void CSceneManager::Render()
+void CSceneManager::Release()
 {
-	m_pCurrentScene->Render();
+}
+
+void CSceneManager::Render(HDC hDC)
+{
+	m_pCurrentScene->Render(hDC);
 }

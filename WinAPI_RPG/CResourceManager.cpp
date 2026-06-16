@@ -17,6 +17,18 @@ CResourceManager::~CResourceManager()
     m_mapTexture.clear();
 }
 
+void CResourceManager::Initialize()
+{
+}
+
+void CResourceManager::Update()
+{
+}
+
+void CResourceManager::Release()
+{
+}
+
 CTexture* CResourceManager::LoadTexture(const wstring& strKey, const wstring& strRelPath)
 {
     CTexture* pTexture = FindTexture(strKey);

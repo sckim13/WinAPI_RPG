@@ -2,7 +2,7 @@
 #include "framework.h"
 #include "WinAPI_RPG.h"
 
-#include "CCore.h"
+#include "CMainGame.h"
 
 #define MAX_LOADSTRING 100
 
@@ -50,7 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // Core Initialize
-    if (FAILED(CCore::GetInstance()->Initialize(g_hWnd, POINT{ 1360, 768 })))
+    if (FAILED(CMainGame::GetInstance()->Initialize(g_hWnd, POINT{ 1360, 768 })))
     {
         MessageBox(nullptr, L"Core Object Initialize Failed", L"ERROR", MB_OK);
 
@@ -80,8 +80,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            CCore::GetInstance()->Update();
-            CCore::GetInstance()->Render();
+            CMainGame::GetInstance()->Update();
+            CMainGame::GetInstance()->Render();
         }
     }
 
@@ -176,6 +176,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    /*
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
@@ -202,7 +203,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
             EndPaint(hWnd, &ps);
         }
-        break;
+        break;    
+    */
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
