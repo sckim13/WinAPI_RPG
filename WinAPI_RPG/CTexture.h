@@ -1,17 +1,18 @@
 #pragma once
 
-#include "CResourceBase.h"
+#include "CResource.h"
 
-class CTexture : public CResourceBase
+class CTexture : public CResource
 {
 public:
 	CTexture();
 	virtual ~CTexture();
 
 	virtual void Initialize() override;
+	virtual void PostInitialize() override;
 	virtual void Update() override;
+	virtual void LateUpdate() override;
 	virtual void Release() override;
-
 	virtual void Render(HDC hDC) override;
 
 	void Load(const wstring& strPath);

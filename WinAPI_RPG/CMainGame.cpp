@@ -20,6 +20,11 @@ CMainGame::~CMainGame()
 	DeleteObject(m_hBitmap);
 }
 
+void CMainGame::Initialize()
+{
+	// Do Not Use
+}
+
 HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 {
 	// handle initialize
@@ -55,6 +60,12 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	return S_OK;
 }
 
+
+void CMainGame::PostInitialize()
+{
+}
+
+
 void CMainGame::Update()
 {
 	// update other managers
@@ -70,15 +81,25 @@ void CMainGame::Update()
 	}
 }
 
+void CMainGame::LateUpdate()
+{
+	CSceneManager::GetInstance()->LateUpdate();
+}
+
 void CMainGame::Release()
 {
+}
+
+void CMainGame::Render(HDC hDC)
+{
+	// Do Not Use
 }
 
 void CMainGame::Render()
 {
 	Rectangle(m_hDCMem, -1, -1, m_WndResolution.x + 1, m_WndResolution.y + 1);
 
-	CSceneManager::GetInstance()->Render(m_hDC);
+	CSceneManager::GetInstance()->Render(m_hDCMem);
 
 	BitBlt(m_hDC, 0, 0, m_WndResolution.x, m_WndResolution.y,
 		m_hDCMem, 0, 0, SRCCOPY);
@@ -92,9 +113,4 @@ void CMainGame::Render()
 	//	(int)g_obj.GetPosition().x + (int)g_obj.GetScale().x / 2,
 	//	(int)g_obj.GetPosition().y + (int)g_obj.GetScale().y / 2
 	//);
-}
-
-void CMainGame::Initialize()
-{
-	// DEPRECATED
 }

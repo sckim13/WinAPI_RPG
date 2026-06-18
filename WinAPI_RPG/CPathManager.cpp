@@ -23,10 +23,22 @@ void CPathManager::Initialize()
 	wcscpy_s(m_szBasePath, AssetPath.c_str());
 }
 
+void CPathManager::PostInitialize()
+{
+}
+
 void CPathManager::Update()
 {
 }
 
+void CPathManager::LateUpdate()
+{
+}
+
 void CPathManager::Release()
+{
+}
+
+void CPathManager::Render(HDC hDC)
 {
 }

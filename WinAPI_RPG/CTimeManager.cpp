@@ -21,6 +21,10 @@ void CTimeManager::Initialize()
 	QueryPerformanceFrequency(&m_llFrequency);
 }
 
+void CTimeManager::PostInitialize()
+{
+}
+
 void CTimeManager::Update()
 {
 	QueryPerformanceCounter(&m_llCurrentCount);
@@ -39,11 +43,17 @@ void CTimeManager::Update()
 		swprintf_s(szBuffer, L"FPS : %d, DT : %f", m_iFPS, m_dDeltaTime);
 		SetWindowText(CMainGame::GetInstance()->GetHWnd(), szBuffer);
 	}
-
-
 	m_llPreviousCount = m_llCurrentCount;
 }
 
+void CTimeManager::LateUpdate()
+{
+}
+
 void CTimeManager::Release()
+{
+}
+
+void CTimeManager::Render(HDC hDC)
 {
 }

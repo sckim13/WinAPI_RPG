@@ -1,18 +1,19 @@
 #pragma once
-#include "CManagerBase.h"
+#include "CManager.h"
 
 class CScene;
 
-class CSceneManager : public CManagerBase
+class CSceneManager : public CManager
 {
 	SINGLETON(CSceneManager);
 
 public:
 	virtual void Initialize() override;
+	virtual void PostInitialize() override;
 	virtual void Update() override;
+	virtual void LateUpdate() override;
 	virtual void Release() override;
-
-	void Render(HDC hDC);
+	virtual void Render(HDC hDC) override;
 
 	inline CScene* GetScene() { return m_pCurrentScene; }
 

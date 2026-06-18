@@ -56,7 +56,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
         return FALSE;
     }
-
+    CMainGame::GetInstance()->PostInitialize();
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINAPIRPG));
 
@@ -81,6 +81,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             CMainGame::GetInstance()->Update();
+            CMainGame::GetInstance()->LateUpdate();
             CMainGame::GetInstance()->Render();
         }
     }
@@ -88,8 +89,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
-POINT g_RectPos{ 500, 300 };
-POINT g_RectScale{ 100, 100 };
 
 //
 //  FUNCTION: MyRegisterClass()
@@ -176,35 +175,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    /*
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-
-            HPEN hRedPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-            HBRUSH hBlueBrush = CreateSolidBrush(RGB(0, 255, 0));
-
-            HPEN hDefaultPen = (HPEN)SelectObject(hdc, hRedPen);
-            HBRUSH hDefaultBrush = (HBRUSH)SelectObject(hdc, hBlueBrush);
-
-            //Rectangle(hdc, 
-            //    g_RectPos.x - g_RectScale.x / 2,
-            //    g_RectPos.y - g_RectScale.y / 2,
-            //    g_RectPos.x + g_RectScale.x / 2,
-            //    g_RectPos.y + g_RectScale.y / 2);
-            
-            SelectObject(hdc, hDefaultPen);
-            SelectObject(hdc, hDefaultBrush);
-
-            DeleteObject(hRedPen);
-            DeleteObject(hBlueBrush);
-
-
-            EndPaint(hWnd, &ps);
-        }
-        break;    
-    */
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

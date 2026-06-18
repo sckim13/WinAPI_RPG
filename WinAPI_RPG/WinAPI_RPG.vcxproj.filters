@@ -22,30 +22,6 @@
     <Filter Include="Content\Map">
       <UniqueIdentifier>{5eaefa06-2b60-4cb4-a103-8a404a3a1e1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Interface">
-      <UniqueIdentifier>{62e349a4-ffd7-45a9-97cd-0c015c5c0a44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Scene">
-      <UniqueIdentifier>{0ebed478-14d5-4ab1-898a-c50e1846c15d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object">
-      <UniqueIdentifier>{3fc0ee42-2c39-451c-89df-d17d80c0335a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Character">
-      <UniqueIdentifier>{b80aa465-64fb-4a3b-bf36-cc1043dc8041}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Character\Player">
-      <UniqueIdentifier>{4cb7d1f1-77ca-4044-874c-bd9a81e2180d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Character\Monster">
-      <UniqueIdentifier>{71a966ee-2652-4ebd-8bdb-0baf4f8a111d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Component">
-      <UniqueIdentifier>{65b1c5f0-560b-4839-9f91-383c15d21124}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Component\Collider">
-      <UniqueIdentifier>{9e71b7f8-8dab-4e95-b56e-90358b3d9a1a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\02. Manager">
       <UniqueIdentifier>{ab1e0fea-0457-4b74-a45f-a1ed04f31e17}</UniqueIdentifier>
     </Filter>
@@ -70,21 +46,6 @@
     <Filter Include="Engine\02. Manager\GameManager">
       <UniqueIdentifier>{455feb0a-8731-4a45-8438-fd0e2cd3b8b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Component\Animator">
-      <UniqueIdentifier>{d5c541da-bf34-4c81-8688-9a194f493e6f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Resource">
-      <UniqueIdentifier>{14dffaa0-5285-48e2-b29c-4e466d9bc18f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Resource\Texture">
-      <UniqueIdentifier>{29ff0dc5-2264-4826-85d4-46426ea03987}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Resource\Sound">
-      <UniqueIdentifier>{1d1962bb-feab-4694-8767-b5cf22f7b242}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Component\Inventory">
-      <UniqueIdentifier>{0ff4b0e9-9c7d-4d9b-8fa3-60ba6503449b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\01. Util">
       <UniqueIdentifier>{972c2f71-f05f-4969-9098-f4df8e5fbe70}</UniqueIdentifier>
     </Filter>
@@ -94,14 +55,86 @@
     <Filter Include="Engine\01. Util\Type">
       <UniqueIdentifier>{0fbe7ae2-2e24-47be-b144-f91d6a67671a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Component\Equipment">
+    <Filter Include="Engine\02. Manager\UIManager">
+      <UniqueIdentifier>{1bc2dba1-8cf0-4d6d-b53c-1af41211baaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object">
+      <UniqueIdentifier>{3fc0ee42-2c39-451c-89df-d17d80c0335a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component">
+      <UniqueIdentifier>{65b1c5f0-560b-4839-9f91-383c15d21124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Collider">
+      <UniqueIdentifier>{9e71b7f8-8dab-4e95-b56e-90358b3d9a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Animator">
+      <UniqueIdentifier>{d5c541da-bf34-4c81-8688-9a194f493e6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Inventory">
+      <UniqueIdentifier>{0ff4b0e9-9c7d-4d9b-8fa3-60ba6503449b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Equipment">
       <UniqueIdentifier>{ba734a1a-52dc-4068-9846-30c399e59d11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Component\Item">
-      <UniqueIdentifier>{6b2f1412-cd52-4cf4-8055-ebfa7e34d56e}</UniqueIdentifier>
+    <Filter Include="Engine\04. Component\Transform">
+      <UniqueIdentifier>{07299025-db49-4027-9fc6-603992269d6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Character\NPC">
+    <Filter Include="Engine\04. Component\Resource">
+      <UniqueIdentifier>{14dffaa0-5285-48e2-b29c-4e466d9bc18f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Resource\Texture">
+      <UniqueIdentifier>{29ff0dc5-2264-4826-85d4-46426ea03987}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\Resource\Sound">
+      <UniqueIdentifier>{1d1962bb-feab-4694-8767-b5cf22f7b242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Character">
+      <UniqueIdentifier>{b80aa465-64fb-4a3b-bf36-cc1043dc8041}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Map">
+      <UniqueIdentifier>{f6f76c1d-799c-468f-a658-ab87bc7ece4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill">
+      <UniqueIdentifier>{8e660031-6c26-4b30-aeb0-5e9ea2e0995f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Character\Monster">
+      <UniqueIdentifier>{71a966ee-2652-4ebd-8bdb-0baf4f8a111d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Character\Player">
+      <UniqueIdentifier>{4cb7d1f1-77ca-4044-874c-bd9a81e2180d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Character\NPC">
       <UniqueIdentifier>{de5b1798-08ea-4aa1-bb26-62fe29a2b6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Map\Portal">
+      <UniqueIdentifier>{b89afca3-3728-42df-a6c1-0937c9b170ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\00. Base">
+      <UniqueIdentifier>{0be84a63-0afd-49d0-b21d-d3a7966bcefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene">
+      <UniqueIdentifier>{0ebed478-14d5-4ab1-898a-c50e1846c15d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. UI">
+      <UniqueIdentifier>{a0a4260f-883e-4832-9c6b-06850c4890cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. UI\InventoryUI">
+      <UniqueIdentifier>{c46b49f2-f39a-4891-80ae-adb71e8b5185}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Projectile">
+      <UniqueIdentifier>{19615626-fa90-49bf-9ba5-8b78deaf675c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Util\Factory">
+      <UniqueIdentifier>{d55a418f-39c1-4557-b0c8-cd92510382cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. UI\DamageUI">
+      <UniqueIdentifier>{4b663149-1dcc-4bc2-84fb-24d5c4c4e5cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\EventManager">
+      <UniqueIdentifier>{6e8cde4f-df7b-4562-bbd6-f38288001d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Util\Event">
+      <UniqueIdentifier>{2e8ddca9-8d63-4b8e-b3cf-8803b57b73f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -130,7 +163,7 @@
       <Filter>Engine\02. Manager\KeyManager</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
-      <Filter>Engine\Scene</Filter>
+      <Filter>Engine\05. Scene</Filter>
     </ClInclude>
     <ClInclude Include="enum.h">
       <Filter>Engine\01. Util</Filter>
@@ -141,23 +174,14 @@
     <ClInclude Include="CSaveManager.h">
       <Filter>Engine\02. Manager\SaveManager</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>Engine\Object\Character\Player</Filter>
-    </ClInclude>
     <ClInclude Include="memory.h">
       <Filter>Engine\01. Util</Filter>
     </ClInclude>
-    <ClInclude Include="CCharacter.h">
-      <Filter>Engine\Object\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>Engine\Object\Character\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CResourceBase.h">
-      <Filter>Engine\Object\Resource</Filter>
+    <ClInclude Include="CResource.h">
+      <Filter>Engine\04. Component\Resource</Filter>
     </ClInclude>
     <ClInclude Include="CTexture.h">
-      <Filter>Engine\Object\Resource\Texture</Filter>
+      <Filter>Engine\04. Component\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="constant.h">
       <Filter>Engine\01. Util</Filter>
@@ -166,13 +190,13 @@
       <Filter>Engine\02. Manager\PathManager</Filter>
     </ClInclude>
     <ClInclude Include="CSound.h">
-      <Filter>Engine\Object\Resource\Sound</Filter>
+      <Filter>Engine\04. Component\Resource\Sound</Filter>
     </ClInclude>
     <ClInclude Include="CResourceManager.h">
       <Filter>Engine\02. Manager\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="CCollider.h">
-      <Filter>Engine\Object\Component\Collider</Filter>
+      <Filter>Engine\04. Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Vec2.h">
       <Filter>Engine\01. Util\Type</Filter>
@@ -183,13 +207,49 @@
     <ClInclude Include="CMainGame.h">
       <Filter>Engine\02. Manager\GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="CManagerBase.h">
+    <ClInclude Include="CManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CObjectBase.h">
-      <Filter>Engine\Object</Filter>
+    <ClInclude Include="CObject.h">
+      <Filter>Engine\03. Object</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
+    <ClInclude Include="CComponent.h">
+      <Filter>Engine\04. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIManager.h">
+      <Filter>Engine\02. Manager\UIManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>Engine\06. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CInventoryUI.h">
+      <Filter>Engine\06. UI\InventoryUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>Engine\04. Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="CCharacter.h">
+      <Filter>Engine\03. Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Engine\03. Object\Character\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>Engine\03. Object\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CBase.h">
+      <Filter>Engine\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>Engine\01. Util\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventManager.h">
+      <Filter>Engine\02. Manager\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CEventHandle.h">
+      <Filter>Engine\01. Util\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="EventContext.h">
       <Filter>Engine\01. Util\Struct</Filter>
     </ClInclude>
   </ItemGroup>
@@ -200,14 +260,11 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTimeManager.cpp">
-      <Filter>Engine\02. Manager\TimeManager</Filter>
-    </ClCompile>
     <ClCompile Include="CKeyManager.cpp">
       <Filter>Engine\02. Manager\KeyManager</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
-      <Filter>Engine\Scene</Filter>
+      <Filter>Engine\05. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Engine\02. Manager\SceneManager</Filter>
@@ -215,32 +272,23 @@
     <ClCompile Include="CSaveManager.cpp">
       <Filter>Engine\02. Manager\SaveManager</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>Engine\Object\Character\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="CCharacter.cpp">
-      <Filter>Engine\Object\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>Engine\Object\Character\Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CResourceBase.cpp">
-      <Filter>Engine\Object\Resource</Filter>
+    <ClCompile Include="CResource.cpp">
+      <Filter>Engine\04. Component\Resource</Filter>
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
-      <Filter>Engine\Object\Resource\Texture</Filter>
+      <Filter>Engine\04. Component\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="CPathManager.cpp">
       <Filter>Engine\02. Manager\PathManager</Filter>
     </ClCompile>
     <ClCompile Include="CSound.cpp">
-      <Filter>Engine\Object\Resource\Sound</Filter>
+      <Filter>Engine\04. Component\Resource\Sound</Filter>
     </ClCompile>
     <ClCompile Include="CResourceManager.cpp">
       <Filter>Engine\02. Manager\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
-      <Filter>Engine\Object\Component\Collider</Filter>
+      <Filter>Engine\04. Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Mat3.cpp">
       <Filter>Engine\01. Util\Type</Filter>
@@ -251,11 +299,50 @@
     <ClCompile Include="CMainGame.cpp">
       <Filter>Engine\02. Manager\GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="CManagerBase.cpp">
+    <ClCompile Include="CManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CObjectBase.cpp">
-      <Filter>Engine\Object</Filter>
+    <ClCompile Include="CObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>Engine\04. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIManager.cpp">
+      <Filter>Engine\02. Manager\UIManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>Engine\06. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CInventoryUI.cpp">
+      <Filter>Engine\06. UI\InventoryUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>Engine\04. Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="CCharacter.cpp">
+      <Filter>Engine\03. Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Engine\03. Object\Character\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Engine\03. Object\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CBase.cpp">
+      <Filter>Engine\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="CAbstractFactory.cpp">
+      <Filter>Engine\01. Util\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventManager.cpp">
+      <Filter>Engine\02. Manager\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventHandle.cpp">
+      <Filter>Engine\01. Util\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>Engine\02. Manager\PathManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

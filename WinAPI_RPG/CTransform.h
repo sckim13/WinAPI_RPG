@@ -1,14 +1,12 @@
-﻿#pragma once
+#pragma once
 
-#include "Mat3.h"
-#include "Vec2.h"
+#include "CComponent.h"
 
-typedef struct tagTransform
+class CTransform : public CComponent
 {
 public:
-	tagTransform() : m_vPosition(Vec2{}), m_fRotation(0.f)
-	{
-	}
+	CTransform();
+	virtual ~CTransform();
 
 private:
 	// Mat3 m_mTransform;
@@ -22,5 +20,7 @@ public:
 	inline Vec2 GetScale() { return m_vScale; }
 	inline void SetPosition(Vec2 vPos) { m_vPosition = vPos; }
 	inline void SetRotation(float fRot) { m_fRotation = fRot; }
-	inline void SetScale(Vec2 vScale) { m_vScale= vScale; }
-} TRANSFORM;
+	inline void SetScale(Vec2 vScale) { m_vScale = vScale; }
+
+};
+

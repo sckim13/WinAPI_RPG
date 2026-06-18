@@ -1,14 +1,18 @@
 #pragma once
-#include "CManagerBase.h"
+#include "CManager.h"
 
-class CTimeManager : public CManagerBase
+class CTimeManager : public CManager
 {
 	SINGLETON(CTimeManager);
 
 public:
 	virtual void Initialize() override;
+	virtual void PostInitialize() override;
 	virtual void Update() override;
+	virtual void LateUpdate() override;
 	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
+
 
 	inline float GetDeltaTime() { return static_cast<float>(m_dDeltaTime); }
 	inline float GetTime() { return static_cast<float>((double)(m_llCurrentCount.QuadPart - m_llGlobalCount.QuadPart) / (double)m_llFrequency.QuadPart); }

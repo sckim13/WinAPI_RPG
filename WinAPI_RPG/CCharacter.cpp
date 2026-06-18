@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CCharacter.h"
 
-CCharacter::CCharacter()
+CCharacter::CCharacter() : m_ePoseDir(EPoseDirection::LEFT)
 {
+	Initialize();
 }
 
 CCharacter::~CCharacter()
@@ -13,7 +14,15 @@ void CCharacter::Initialize()
 {
 }
 
+void CCharacter::PostInitialize()
+{
+}
+
 void CCharacter::Update()
+{
+}
+
+void CCharacter::LateUpdate()
 {
 }
 

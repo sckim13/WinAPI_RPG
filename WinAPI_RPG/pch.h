@@ -1,15 +1,16 @@
 ﻿#pragma once
 
-using namespace std;
-
 // System Headers
 #include <cassert>
 #include <stdio.h>
 #include <vector>
+#include <list>
 #include <string>
 #include <iostream>
 #include <filesystem>
 #include <map>
+#include <functional>
+#include <Windows.h>
 
 
 // User Defined Headers
@@ -17,48 +18,17 @@ using namespace std;
 #include "Enum.h"
 #include "Memory.h"
 #include "Constant.h"
-#include "Transform.h"
 #include "Vec2.h"
 #include "Mat3.h"
+#include "CAbstractFactory.h"
+#include "EventContext.h"
 
 // GDI
 #pragma comment(lib, "Msimg32.lib")
 
 // GDI+
-//	source : https://stackoverflow.com/questions/45957830/gdipluspath-throws-ambiguous-byte-for-cstddef-and-rpcndr-h
-//  global compilation flag configuring windows sdk headers
-//  preventing inclusion of min and max macros clashing with <limits>
-#define NOMINMAX 1
-
-//  override byte to prevent clashes with <cstddef>
-#define byte win_byte_override
-
-#include <Windows.h> // gdi plus requires Windows.h
-// ...includes for other windows header that may use byte...
-
-//  Define min max macros required by GDI+ headers.
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#else
-#error max macro is already defined
-#endif
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#else
-#error min macro is already defined
-#endif
-
 #include <gdiplus.h>
-
-//  Undefine min max macros so they won't collide with <limits> header content.
-#undef min
-#undef max
-
-//  Undefine byte macros so it won't collide with <cstddef> header content.
-#undef byte
-
 #pragma comment (lib, "Gdiplus.lib")
-using namespace Gdiplus;
 
 
 // Memory Leakage Inspection
@@ -76,6 +46,8 @@ using namespace Gdiplus;
 #endif
 // End Memory Leakage Inspection
 
+using namespace Gdiplus;
+using namespace std;
 
 /*
 
@@ -92,3 +64,4 @@ using namespace Gdiplus;
 	virtual void Render();
 
 */
+

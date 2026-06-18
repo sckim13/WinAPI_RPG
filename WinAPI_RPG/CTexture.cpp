@@ -14,7 +14,15 @@ void CTexture::Initialize()
 {
 }
 
+void CTexture::PostInitialize()
+{
+}
+
 void CTexture::Update()
+{
+}
+
+void CTexture::LateUpdate()
 {
 }
 

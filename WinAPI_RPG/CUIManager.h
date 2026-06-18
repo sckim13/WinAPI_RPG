@@ -1,13 +1,12 @@
 #pragma once
 
-#include "CCharacter.h"
+#include "CManager.h"
 
-class CMonster : public CCharacter
+class CUIManager : public CManager
 {
-public:
-	CMonster();
-	virtual ~CMonster();
+	SINGLETON(CUIManager);
 
+public:
 	virtual void Initialize() override;
 	virtual void PostInitialize() override;
 	virtual void Update() override;
@@ -15,8 +14,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void OnCollisionEntered(tagCollisionContext Ctx);
-
 private:
+	// All UI Pointers
 };
 

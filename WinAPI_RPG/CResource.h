@@ -1,15 +1,19 @@
 #pragma once
-class CResourceBase
+
+#include "CComponent.h"
+
+class CResource : public CComponent
 {
 public:
-	CResourceBase();
-	virtual ~CResourceBase();
+	CResource();
+	virtual ~CResource() PURE;
 
-	virtual void Initialize() PURE;
-	virtual void Update() PURE;
-	virtual void Release() PURE;
-
-	virtual void Render(HDC hDC) PURE;
+	virtual void Initialize() override;
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
 
 	inline void SetKey(const wstring& strKey) { m_strKey = strKey; }
 	inline void SetRelativePath(const wstring& strRelPath) { m_strRelPath = strRelPath; }

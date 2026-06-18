@@ -10,14 +10,18 @@ CResourceManager::CResourceManager()
 
 CResourceManager::~CResourceManager()
 {
-    for (auto& pair : m_mapTexture)
-    {
-        Safe_Delete(pair.second);
-    }
-    m_mapTexture.clear();
+    //for (auto& pair : m_mapTexture)
+    //{
+    //    Safe_Delete(pair.second);
+    //}
+    //m_mapTexture.clear();
 }
 
 void CResourceManager::Initialize()
+{
+}
+
+void CResourceManager::PostInitialize()
 {
 }
 
@@ -25,7 +29,15 @@ void CResourceManager::Update()
 {
 }
 
+void CResourceManager::LateUpdate()
+{
+}
+
 void CResourceManager::Release()
+{
+}
+
+void CResourceManager::Render(HDC hDC)
 {
 }
 

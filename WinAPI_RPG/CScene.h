@@ -1,19 +1,20 @@
 #pragma once
 
-class CObjectBase;
+#include "CObject.h"
 
-class CScene
+class CScene : public CObject
 {
 
 public:
 	CScene(const wstring& wstr);
 	virtual ~CScene();
 
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Release();
-
-	virtual void Render(HDC hDC);
+	virtual void Initialize() override;
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
 
 	const wstring& GetName() { return m_strName; }
 
@@ -21,7 +22,13 @@ public:
 	void Exit();
 
 private:
-	vector<CObjectBase*> m_vecObject[(UINT)EObjectType::MAX];
+	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
 	const wstring m_strName;
+
+	bool IsColliding(CObject* lhs, CObject* rhs);
+
+	map<UINT64, bool> m_mapPrevCollisionInfo;
+
+	UINT64 GetPairID(CCollider* lhs, CCollider* rhs);
 };
 
