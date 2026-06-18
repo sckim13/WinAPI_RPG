@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "pch.h"
 #include "CObject.h"
@@ -9,7 +9,7 @@ class CEventHandle
 {
 public:
 	void AddBinding(CObject* pObject, function<void(T)> F);
-	void DeleteBinding(CObject* pObject, function<void(T)> F);
+	void DeleteBinding(CObject* pObject);
 
 	void Broadcast(T Context);
 
@@ -24,9 +24,8 @@ void CEventHandle<T>::AddBinding(CObject* pObject, function<void(T)> F)
 }
 
 template<typename T>
-void CEventHandle<T>::DeleteBinding(CObject* pObject, function<void(T)> F)
+void CEventHandle<T>::DeleteBinding(CObject* pObject)
 {
-	assert(m_mapEvent[pObject] == F);
 	m_mapEvent.erase(pObject);
 }
 

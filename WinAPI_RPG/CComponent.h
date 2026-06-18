@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CBase.h"
 
@@ -10,12 +10,12 @@ public:
 	CComponent();
 	virtual ~CComponent() PURE;
 
-	virtual void Initialize() override;
-	virtual void PostInitialize() override;
-	virtual void Update() override;
-	virtual void LateUpdate() override;
-	virtual void Release() override;
-	virtual void Render(HDC hDC) override;
+	virtual void Initialize() PURE;
+	virtual void PostInitialize() PURE;
+	virtual void Update() PURE;
+	virtual void LateUpdate() PURE;
+	virtual void Release() PURE;
+	virtual void Render(HDC hDC) PURE;
 
 private:
 	CObject* m_pOwner;

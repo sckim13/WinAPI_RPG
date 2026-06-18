@@ -136,6 +136,21 @@
     <Filter Include="Engine\01. Util\Event">
       <UniqueIdentifier>{2e8ddca9-8d63-4b8e-b3cf-8803b57b73f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Object\Item">
+      <UniqueIdentifier>{c5594afc-5ce8-471b-a5ee-ccac78a3a4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Item\Equip">
+      <UniqueIdentifier>{1bc4acac-a091-4e8c-a949-ed274deb996e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Item\Consume">
+      <UniqueIdentifier>{404b555e-e80c-47dc-8354-8f9ceb113b5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Item\Misc">
+      <UniqueIdentifier>{8a7e0b6c-ea35-486b-a105-c328904193e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Item\Setup">
+      <UniqueIdentifier>{d488f3ee-ae58-43da-b283-96947b519dff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -252,6 +267,18 @@
     <ClInclude Include="EventContext.h">
       <Filter>Engine\01. Util\Struct</Filter>
     </ClInclude>
+    <ClInclude Include="CInventory.h">
+      <Filter>Engine\04. Component\Inventory</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>Engine\03. Object\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CEquipment.h">
+      <Filter>Engine\04. Component\Equipment</Filter>
+    </ClInclude>
+    <ClInclude Include="CEquipItem.h">
+      <Filter>Engine\03. Object\Item\Equip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -342,7 +369,19 @@
       <Filter>Engine\01. Util\Event</Filter>
     </ClCompile>
     <ClCompile Include="CTimeManager.cpp">
-      <Filter>Engine\02. Manager\PathManager</Filter>
+      <Filter>Engine\02. Manager\TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CInventory.cpp">
+      <Filter>Engine\04. Component\Inventory</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>Engine\03. Object\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CEquipment.cpp">
+      <Filter>Engine\04. Component\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="CEquipItem.cpp">
+      <Filter>Engine\03. Object\Item\Equip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

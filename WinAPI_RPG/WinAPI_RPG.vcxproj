@@ -131,9 +131,13 @@
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CComponent.h" />
+    <ClInclude Include="CEquipItem.h" />
+    <ClInclude Include="CEquipment.h" />
     <ClInclude Include="CEventHandle.h" />
     <ClInclude Include="CEventManager.h" />
+    <ClInclude Include="CInventory.h" />
     <ClInclude Include="CInventoryUI.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CManager.h" />
@@ -171,9 +175,13 @@
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CEquipItem.cpp" />
+    <ClCompile Include="CEquipment.cpp" />
     <ClCompile Include="CEventHandle.cpp" />
     <ClCompile Include="CEventManager.cpp" />
+    <ClCompile Include="CInventory.cpp" />
     <ClCompile Include="CInventoryUI.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CManager.cpp" />

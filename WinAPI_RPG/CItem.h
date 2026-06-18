@@ -2,11 +2,11 @@
 
 #include "CObject.h"
 
-class CUI
+class CItem : public CObject
 {
 public:
-	CUI();
-	virtual ~CUI();
+	CItem();
+	virtual ~CItem();
 
 	virtual void Initialize() PURE;
 	virtual void PostInitialize() PURE;
@@ -16,6 +16,14 @@ public:
 	virtual void Render(HDC hDC) PURE;
 
 private:
-	bool m_bVisible;
+	EItemType m_eItemType;
+
+	int m_iBuyPrice;
+	int m_iSellPrice;
+	
+	bool m_bCashItem;
+
+public:
+	inline EItemType GetItemType() { return m_eItemType; }
 };
 

@@ -11,6 +11,8 @@
 #include <map>
 #include <functional>
 #include <Windows.h>
+#include <array>
+#include <queue>
 
 
 // User Defined Headers

@@ -1,16 +1,14 @@
 ﻿#pragma once
 
-#include "CCharacter.h"
+#include "CComponent.h"
 
-class CInventory;
-class CEquipment;
+class CItem;
 
-class CPlayer : public CCharacter
+class CEquipment : public CComponent
 {
-
 public:
-	CPlayer();
-	virtual ~CPlayer();
+	CEquipment();
+	virtual ~CEquipment();
 
 	virtual void Initialize() override;
 	virtual void PostInitialize() override;
@@ -19,10 +17,11 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-private:
-	EPlayerState m_ePlayerState;
+	void Equip(CItem* pItem);
+	void UnEquip(EEquipSlot eSlot);
 
-	CInventory* m_pInventory;
-	CEquipment* m_pEquipment;
+private:
+	CItem* m_EquipSlot[(int)EEquipSlot::MAX];
+
 };
 

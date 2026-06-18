@@ -44,6 +44,7 @@ void CMonster::LateUpdate()
 
 void CMonster::Release()
 {
+	GetCollider()->m_hOnCollisionEntered->DeleteBinding(this);
 }
 
 void CMonster::Render(HDC hDC)
