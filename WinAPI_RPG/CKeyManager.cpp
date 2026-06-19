@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 #include "CMainGame.h"
@@ -53,7 +53,7 @@ vector<int> g_vecVK =
 	'8',
 	'9',
 	VK_OEM_MINUS,   // -
-	VK_OEM_PLUS,    // =  +  (Shift ¾È ´©¸¥ »óÅÂ¿¡¼­µµ ÀÌ Å°)
+	VK_OEM_PLUS,    // =  +  (Shift ì•ˆ ëˆ„ë¥¸ ìƒíƒœì—ì„œë„ ì´ í‚¤)
 
 	// Function Key Layer
 	VK_F1,
@@ -97,6 +97,11 @@ vector<int> g_vecVK =
 	VK_DELETE,
 	VK_END,
 	VK_NEXT,        // Page Down
+
+	// Mouse
+	VK_LBUTTON,
+	VK_RBUTTON,
+	VK_MBUTTON,
 
 	// MAX
 };

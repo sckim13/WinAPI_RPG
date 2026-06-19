@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CManager.h"
 
 enum class EKeyState
@@ -104,6 +104,11 @@ enum class EKey
 	DELETEKEY,
 	END,
 	PAGEDOWN,
+
+	// Mouse
+	L_CLICK,
+	R_CLICK,
+	M_CLICK,
 
 	MAX,
 };

@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "CObject.h"
+#include "CBase.h"
 
-class CUI
+class CUI : public CBase
 {
 public:
 	CUI();
@@ -17,5 +17,10 @@ public:
 
 private:
 	bool m_bVisible;
+
+public:
+	bool IsVisible() { return m_bVisible; }
+	void SetVisibility(bool bVisible) { m_bVisible = bVisible; }
+	void ToggleVisibility() { m_bVisible = !m_bVisible; }
 };
 

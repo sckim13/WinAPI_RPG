@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include "CManager.h"
+
+class CUI;
 
 class CUIManager : public CManager
 {
@@ -14,7 +16,13 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	CUI* GetUIFromCoordinates(POINT& pt);
+	CUI* GetUI(wstring wstrName);
+
 private:
 	// All UI Pointers
+	map<wstring, CUI*> m_mapUI;
+	
+	
 };
 

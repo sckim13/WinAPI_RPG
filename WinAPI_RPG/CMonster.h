@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include "CCharacter.h"
+
+struct TCollisionCtx;
 
 class CMonster : public CCharacter
 {
@@ -15,7 +17,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void OnCollisionEntered(tagCollisionContext Ctx);
+	void OnCollisionEntered(TCollisionCtx Ctx);
 
 private:
 };

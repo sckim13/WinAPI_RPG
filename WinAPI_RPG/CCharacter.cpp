@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CCharacter.h"
 
 CCharacter::CCharacter() : m_ePoseDir(EPoseDirection::LEFT)

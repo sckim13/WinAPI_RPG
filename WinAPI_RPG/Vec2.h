@@ -27,6 +27,8 @@ public:
 	template<typename T>
 	friend Vec2 operator*(const T& lhs, const Vec2& rhs);
 
+	inline float Size() { return sqrt(x * x + y * y); }
+
 public:
 	float x;
 	float y;

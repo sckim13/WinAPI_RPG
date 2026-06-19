@@ -1,11 +1,13 @@
-#pragma once
+﻿#pragma once
 
-template<typename T>
+template<typename TBase, typename TDerived>
 class CAbstractFactory
 {
-	static T* Create()
+public:
+	static TBase* Create()
 	{
-		T* p = new T;
+		TBase* p = new TDerived;
+		p->Initialize();
 		return p;
 	}
 };

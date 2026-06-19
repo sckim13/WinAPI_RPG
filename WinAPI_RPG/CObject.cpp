@@ -4,7 +4,7 @@
 #include "CTexture.h"
 #include "CCollider.h"
 
-CObject::CObject() : m_pTransform(nullptr), m_pTexture(nullptr), m_pCollider(nullptr)
+CObject::CObject() : m_pTexture(nullptr), m_pCollider(nullptr)
 {
 }
 
@@ -31,7 +31,6 @@ void CObject::LateUpdate()
 
 void CObject::Release()
 {
-	Safe_Delete<CTransform*>(m_pTransform);
 	Safe_Delete<CTexture*>(m_pTexture);
 	Safe_Delete<CCollider*>(m_pCollider);
 }

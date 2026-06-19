@@ -3,6 +3,7 @@
 #include "CComponent.h"
 
 class CTransform;
+struct TCollisionCtx;
 
 template<typename T>
 class CEventHandle;
@@ -26,7 +27,9 @@ public:
 
 	static INT32 g_ID;
 
-	CEventHandle<tagCollisionContext>* m_hOnCollisionEntered;
+	CEventHandle<TCollisionCtx>* m_hOnCollisionBegin;
+	CEventHandle<TCollisionCtx>* m_hOnCollisionEnd;
+
 
 private:
 
@@ -44,10 +47,14 @@ private:
 
 	INT32 m_ID;
 
+	bool m_bEnabled;
+
 
 public:
 	inline CTransform* GetTransform() { return m_pTransform; }
 	inline RECT* GetRect() { return &m_rcCollision; }
 	inline INT32 GetID() { return m_ID; }
+	void SetEnabled(bool bEnabled) { m_bEnabled = bEnabled; }
+	bool IsEnabled() { return m_bEnabled; }
 };
 

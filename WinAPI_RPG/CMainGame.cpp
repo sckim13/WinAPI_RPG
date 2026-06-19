@@ -1,10 +1,11 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMainGame.h"
 
 #include "CTimeManager.h"
 #include "CKeyManager.h"
 #include "CSceneManager.h"
 #include "CPathManager.h"
+#include "CUIManager.h"
 
 CMainGame::CMainGame()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
@@ -48,6 +49,7 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	CKeyManager::GetInstance()->Initialize();
 	CSceneManager::GetInstance()->Initialize();
 	CPathManager::GetInstance()->Initialize();
+	CUIManager::GetInstance()->Initialize();
 
 	// get device context
 	m_hDC = GetDC(m_hWnd);
@@ -100,6 +102,7 @@ void CMainGame::Render()
 	Rectangle(m_hDCMem, -1, -1, m_WndResolution.x + 1, m_WndResolution.y + 1);
 
 	CSceneManager::GetInstance()->Render(m_hDCMem);
+	CUIManager::GetInstance()->Render(m_hDCMem);
 
 	BitBlt(m_hDC, 0, 0, m_WndResolution.x, m_WndResolution.y,
 		m_hDCMem, 0, 0, SRCCOPY);

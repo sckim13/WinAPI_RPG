@@ -2,6 +2,8 @@
 #include "CEquipment.h"
 #include "CItem.h"
 #include "CEquipItem.h"
+#include "CInventory.h"
+#include "CPlayer.h"
 
 CEquipment::CEquipment()
 {
@@ -50,7 +52,9 @@ void CEquipment::Equip(CItem* pItem)
 
 void CEquipment::UnEquip(EEquipSlot eSlot)
 {
-	m_EquipSlot[(int)eSlot] = nullptr;
+	CItem* pItem = m_EquipSlot[(int)eSlot];
 
-	/* TODO : push unequipped item to the inventory */
+	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwner());
+	assert(pPlayer);
+	pPlayer->GetInventory()->PushItem(pItem);
 }

@@ -2,6 +2,9 @@
 
 #include "CUI.h"
 
+class CInventory;
+struct TInventoryCtx;
+
 class CInventoryUI : public CUI
 {
 public:
@@ -15,6 +18,11 @@ public:
 	void Release() override;
 	void Render(HDC hDC) override;
 
+	void OnInventoryUpdated(TInventoryCtx Ctx);
+	void SetInventory(CInventory* pInventory) { m_pInventory = pInventory; }
+
 private:
+	CTexture* m_pTexture;
+	CInventory* m_pInventory;
 };
 

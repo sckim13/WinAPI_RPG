@@ -23,7 +23,8 @@
 #include "Vec2.h"
 #include "Mat3.h"
 #include "CAbstractFactory.h"
-#include "EventContext.h"
+#include "MathUtil.h"
+
 
 // GDI
 #pragma comment(lib, "Msimg32.lib")
@@ -51,19 +52,6 @@
 using namespace Gdiplus;
 using namespace std;
 
-/*
-
-	virtual void Initialize() override;
-	virtual void Update() override;
-	virtual void Release() override;
-
-	virtual void Render() override;
-
-	virtual void Initialize();
-	virtual void Update();
-	virtual void Release();
-
-	virtual void Render();
-
-*/
-
+// User defined header which has namespace issues
+#include "CEventHandle.h"
+#include "EventContext.h"

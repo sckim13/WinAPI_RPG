@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CManager.h"
 
@@ -14,8 +14,8 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void AddEvent();
-	void RemoveEvent();
+	// void AddEvent();
+	// void RemoveEvent();
 
 private:
 	/* event queue container */

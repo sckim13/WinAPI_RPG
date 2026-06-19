@@ -76,9 +76,6 @@
     <Filter Include="Engine\04. Component\Equipment">
       <UniqueIdentifier>{ba734a1a-52dc-4068-9846-30c399e59d11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\04. Component\Transform">
-      <UniqueIdentifier>{07299025-db49-4027-9fc6-603992269d6c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\04. Component\Resource">
       <UniqueIdentifier>{14dffaa0-5285-48e2-b29c-4e466d9bc18f}</UniqueIdentifier>
     </Filter>
@@ -150,6 +147,21 @@
     </Filter>
     <Filter Include="Engine\03. Object\Item\Setup">
       <UniqueIdentifier>{d488f3ee-ae58-43da-b283-96947b519dff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Controller">
+      <UniqueIdentifier>{6c465f50-b76a-4423-924c-01f493ae4831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Cursor">
+      <UniqueIdentifier>{87f21a36-8756-4619-b95e-b0e55db79d5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\CollisionManager">
+      <UniqueIdentifier>{68f5ef6a-da14-4649-9d76-c0b2599851a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Util\Math">
+      <UniqueIdentifier>{053b4de4-0afa-4357-9193-59f769a27bf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\01. Util\Transform">
+      <UniqueIdentifier>{07299025-db49-4027-9fc6-603992269d6c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -241,7 +253,7 @@
       <Filter>Engine\06. UI\InventoryUI</Filter>
     </ClInclude>
     <ClInclude Include="CTransform.h">
-      <Filter>Engine\04. Component\Transform</Filter>
+      <Filter>Engine\01. Util\Transform</Filter>
     </ClInclude>
     <ClInclude Include="CCharacter.h">
       <Filter>Engine\03. Object\Character</Filter>
@@ -278,6 +290,21 @@
     </ClInclude>
     <ClInclude Include="CEquipItem.h">
       <Filter>Engine\03. Object\Item\Equip</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkill.h">
+      <Filter>Engine\03. Object\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CController.h">
+      <Filter>Engine\03. Object\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="CCursor.h">
+      <Filter>Engine\03. Object\Cursor</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>Engine\02. Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>Engine\01. Util\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -345,7 +372,7 @@
       <Filter>Engine\06. UI\InventoryUI</Filter>
     </ClCompile>
     <ClCompile Include="CTransform.cpp">
-      <Filter>Engine\04. Component\Transform</Filter>
+      <Filter>Engine\01. Util\Transform</Filter>
     </ClCompile>
     <ClCompile Include="CCharacter.cpp">
       <Filter>Engine\03. Object\Character</Filter>
@@ -382,6 +409,18 @@
     </ClCompile>
     <ClCompile Include="CEquipItem.cpp">
       <Filter>Engine\03. Object\Item\Equip</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkill.cpp">
+      <Filter>Engine\03. Object\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CController.cpp">
+      <Filter>Engine\03. Object\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="CCursor.cpp">
+      <Filter>Engine\03. Object\Cursor</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>Engine\02. Manager\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

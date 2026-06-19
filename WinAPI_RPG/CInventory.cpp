@@ -2,6 +2,8 @@
 #include "CInventory.h"
 #include "CItem.h"
 #include "CEquipItem.h"
+#include "CEventHandle.h"
+#include "EventContext.h"
 
 
 CInventory::CInventory()
@@ -14,6 +16,15 @@ CInventory::~CInventory()
 
 void CInventory::Initialize()
 {
+	for (auto iterOut = m_pItemContainer.begin(); iterOut != m_pItemContainer.end(); ++iterOut)
+	{
+		for (auto iterIn = (*iterOut).begin(); iterIn != (*iterOut).end(); ++iterIn)
+		{
+			*iterIn = nullptr;
+		}
+	}
+
+	m_hOnInventoryUpdated = new CEventHandle<TInventoryCtx>;
 }
 
 void CInventory::PostInitialize()
@@ -45,6 +56,7 @@ void CInventory::PushItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == nullptr)
 		{
 			m_pItemContainer[(int)eItemType][i] = pItem;
+			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
 			return;
 		}
 	}
@@ -59,6 +71,7 @@ void CInventory::PopItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == pItem)
 		{
 			m_pItemContainer[(int)eItemType][i] = nullptr;
+			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
 			return;
 		}
 	}
@@ -86,6 +99,8 @@ void CInventory::Pack(EInventoryTab eTab)
 			}
 		}
 	}
+
+	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
 }
 
 void CInventory::Sort(EInventoryTab eTab)
@@ -96,6 +111,8 @@ void CInventory::Sort(EInventoryTab eTab)
 			return Compare(eTab, lhs, rhs);
 		}
 	);
+
+	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
 }
 
 bool CInventory::Compare(EInventoryTab eTab, CItem* lhs, CItem* rhs)

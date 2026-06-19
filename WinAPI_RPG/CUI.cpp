@@ -1,7 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CUI.h"
 
-CUI::CUI()
+CUI::CUI() : m_bVisible(false)
 {
 }
 

@@ -1,39 +1,42 @@
 ﻿#pragma once
 
-#include "pch.h"
-#include "CObject.h"
+using namespace std;
+#include <functional>
+#include <map>
+
+class CBase;
 
 // T is the event context to deliver
 template<typename T>
 class CEventHandle
 {
 public:
-	void AddBinding(CObject* pObject, function<void(T)> F);
-	void DeleteBinding(CObject* pObject);
+	void AddBinding(CBase* pBase, function<void(T)> F);
+	void DeleteBinding(CBase* pBase);
 
-	void Broadcast(T Context);
+	void Broadcast(T Ctx);
 
 private:
-	map<CObject*, function<void(T)>> m_mapEvent;
+	map<CBase*, function<void(T)>> m_mapEvent;
 };
 
 template<typename T>
-void CEventHandle<T>::AddBinding(CObject* pObject, function<void(T)> F)
+void CEventHandle<T>::AddBinding(CBase* pBase, function<void(T)> F)
 {
-	m_mapEvent.insert({ pObject, F });
+	m_mapEvent.insert({ pBase, F });
 }
 
 template<typename T>
-void CEventHandle<T>::DeleteBinding(CObject* pObject)
+void CEventHandle<T>::DeleteBinding(CBase* pBase)
 {
-	m_mapEvent.erase(pObject);
+	m_mapEvent.erase(pBase);
 }
 
 template<typename T>
-void CEventHandle<T>::Broadcast(T Context)
+void CEventHandle<T>::Broadcast(T Ctx)
 {
 	for (auto& pair : m_mapEvent)
 	{
-		pair.second(Context);
+		pair.second(Ctx);
 	}
 }

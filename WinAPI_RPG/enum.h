@@ -5,7 +5,9 @@ enum class EObjectType
 	DEFAULT,
 	PLAYER,
 	MONSTER,
+	NPC,
 	ITEM,
+	SKILL,
 
 	MAX,
 };
@@ -112,4 +114,10 @@ enum class EEquipSlot
 
 	MAX,
 
+};
+
+enum class ESkillType
+{
+	PASSIVE,
+	ACTIVE,
 };

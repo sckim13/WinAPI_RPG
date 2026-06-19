@@ -1,6 +1,7 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "CPlayer.h"
 
 CSceneManager::CSceneManager() : m_pCurrentScene(nullptr)
 {
@@ -13,9 +14,10 @@ CSceneManager::~CSceneManager()
 
 void CSceneManager::Initialize()
 {
+	m_pPlayer = new CPlayer;
 	// later heap allocation on array instead of direct heap allocation
 	m_pCurrentScene = new CScene(L"TempMap");
-	m_pCurrentScene->Initialize();
+	m_pCurrentScene->Initialize(m_pPlayer);
 }
 
 void CSceneManager::PostInitialize()

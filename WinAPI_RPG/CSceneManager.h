@@ -1,6 +1,7 @@
-#pragma once
+﻿#pragma once
 #include "CManager.h"
 
+class CPlayer;
 class CScene;
 
 class CSceneManager : public CManager
@@ -15,10 +16,14 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	inline CScene* GetScene() { return m_pCurrentScene; }
 
 private:
+	CPlayer* m_pPlayer;
 	CScene* m_arrScene[(UINT)ESceneType::MAX];
 	CScene* m_pCurrentScene;
+
+public:
+	inline CPlayer* GetPlayer() { return m_pPlayer; }
+	inline CScene* GetScene() { return m_pCurrentScene; }
 };
 

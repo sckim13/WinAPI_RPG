@@ -130,7 +130,10 @@
     <ClInclude Include="CBase.h" />
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCollider.h" />
+    <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
+    <ClInclude Include="CController.h" />
+    <ClInclude Include="CCursor.h" />
     <ClInclude Include="CEquipItem.h" />
     <ClInclude Include="CEquipment.h" />
     <ClInclude Include="CEventHandle.h" />
@@ -151,6 +154,7 @@
     <ClInclude Include="CSaveManager.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
+    <ClInclude Include="CSkill.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeManager.h" />
@@ -162,6 +166,7 @@
     <ClInclude Include="EventContext.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Mat3.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -174,7 +179,10 @@
     <ClCompile Include="CBase.cpp" />
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CCollider.cpp" />
+    <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CController.cpp" />
+    <ClCompile Include="CCursor.cpp" />
     <ClCompile Include="CEquipItem.cpp" />
     <ClCompile Include="CEquipment.cpp" />
     <ClCompile Include="CEventHandle.cpp" />
@@ -194,6 +202,7 @@
     <ClCompile Include="CSaveManager.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
+    <ClCompile Include="CSkill.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />

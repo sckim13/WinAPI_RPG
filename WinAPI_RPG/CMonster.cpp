@@ -6,6 +6,7 @@
 #include "CTexture.h"
 #include "CPlayer.h"
 #include "CEventHandle.h"
+#include "EventContext.h"
 
 CMonster::CMonster()
 {
@@ -17,16 +18,16 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
+	m_eObjectType = EObjectType::MONSTER;
+
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Monster", L"Texture\\Monster.bmp");
 	m_pTexture->SetOwner(this);
 	m_pCollider = new CCollider;
 	m_pCollider->Initialize();
 	m_pCollider->SetOwner(this);
-	m_pTransform = new CTransform;
-	m_pTransform->SetOwner(this);
 
 	/* bind event to collider */
-	GetCollider()->m_hOnCollisionEntered->AddBinding(this, [this](tagCollisionContext Ctx) { OnCollisionEntered(Ctx); });
+	GetCollider()->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEntered(Ctx); });
 }
 
 void CMonster::PostInitialize()
@@ -35,6 +36,9 @@ void CMonster::PostInitialize()
 
 void CMonster::Update()
 {
+	Vec2 vPos = GetTransform()->GetPosition();
+
+	GetTransform()->SetPosition(Vec2{ vPos.x + 0.1f , vPos.y });
 }
 
 void CMonster::LateUpdate()
@@ -44,7 +48,7 @@ void CMonster::LateUpdate()
 
 void CMonster::Release()
 {
-	GetCollider()->m_hOnCollisionEntered->DeleteBinding(this);
+	GetCollider()->m_hOnCollisionBegin->DeleteBinding(this);
 }
 
 void CMonster::Render(HDC hDC)
@@ -68,7 +72,7 @@ void CMonster::Render(HDC hDC)
 	GetCollider()->Render(hDC);
 }
 
-void CMonster::OnCollisionEntered(tagCollisionContext Ctx)
+void CMonster::OnCollisionEntered(TCollisionCtx Ctx)
 {
 	CObject* pObject = Ctx.pCounterPart->GetOwner();
 

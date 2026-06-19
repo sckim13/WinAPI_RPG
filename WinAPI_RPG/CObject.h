@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "CBase.h"
+#include "CTransform.h"
 
-class CTransform;
 class CTexture;
 class CCollider;
 class CComponent;
@@ -13,21 +13,21 @@ public:
 	CObject();
 	virtual ~CObject() PURE;
 
-	virtual void Initialize() override;
-	virtual void PostInitialize() override;
-	virtual void Update() override;
-	virtual void LateUpdate() override;
-	virtual void Release() override;
-	virtual void Render(HDC hDC) override;
+	virtual void Initialize() PURE;
+	virtual void PostInitialize() PURE;
+	virtual void Update() PURE;
+	virtual void LateUpdate() PURE;
+	virtual void Release() PURE;
+	virtual void Render(HDC hDC) PURE;
 
 protected:
-	CTransform* m_pTransform;
 	CTexture* m_pTexture;
 	CCollider* m_pCollider;
+	EObjectType m_eObjectType;
 
 public:
-	inline CTransform* GetTransform() { return m_pTransform; }
 	inline CTexture* GetTexture() { return m_pTexture; }
 	inline CCollider* GetCollider() { return m_pCollider; }
+	inline EObjectType GetObjectType() { return m_eObjectType; }
 };
 
