@@ -15,6 +15,8 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	virtual void Render(HDC hDC, int iX, int iY, EPoseDirection bDir = EPoseDirection::LEFT);
+
 	void Load(const wstring& strPath);
 
 	inline UINT GetWidth() { return m_bitInfo.bmWidth; }

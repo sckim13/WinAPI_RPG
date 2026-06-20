@@ -20,8 +20,11 @@ public:
 	void Equip(CItem* pItem);
 	void UnEquip(EEquipSlot eSlot);
 
-private:
-	CItem* m_EquipSlot[(int)EEquipSlot::MAX];
+	CEventHandle<TEquipmentCtx>* m_hOnEquipmentUpdated;
 
+private:
+	array<CItem*, (int)EEquipSlot::MAX> m_arrEquipSlot;
+
+	array<const CItem*, (int)EEquipSlot::MAX> CaptureSlot();
 };
 

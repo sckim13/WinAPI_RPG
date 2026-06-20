@@ -59,6 +59,9 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	m_hDCMem = CreateCompatibleDC(m_hDC);
 	SelectObject(m_hDCMem, m_hBitmap);
 
+	// Set cursor off
+	ShowCursor(false);
+
 	return S_OK;
 }
 
@@ -70,22 +73,23 @@ void CMainGame::PostInitialize()
 
 void CMainGame::Update()
 {
-	// update other managers
-	// get deltatime
-	CTimeManager::GetInstance()->Update();
-	CKeyManager::GetInstance()->Update();
-	CSceneManager::GetInstance()->Update();
-
 	if(CKeyManager::GetInstance()->GetKeyState(EKey::ESCAPE) == EKeyState::PRESSED)
 	{
 		DestroyWindow(m_hWnd);
 		return;
 	}
+	
+	// update other managers
+	CTimeManager::GetInstance()->Update();
+	CKeyManager::GetInstance()->Update();
+	CSceneManager::GetInstance()->Update();
+	CUIManager::GetInstance()->Update();
 }
 
 void CMainGame::LateUpdate()
 {
 	CSceneManager::GetInstance()->LateUpdate();
+	CUIManager::GetInstance()->LateUpdate();
 }
 
 void CMainGame::Release()

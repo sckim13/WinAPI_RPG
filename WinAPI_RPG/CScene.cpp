@@ -63,10 +63,10 @@ void CScene::Initialize(CPlayer* pPlayer)
 	pPlayer->GetTransform()->SetPosition(Vec2{ 400, 300 });
 	pPlayer->GetTransform()->SetScale(Vec2{ 100, 100 });
 
-	pMonsterA->GetTransform()->SetPosition(Vec2{ 100, 100 });
+	pMonsterA->GetTransform()->SetPosition(Vec2{ 500, 300 });
 	pMonsterA->GetTransform()->SetScale(Vec2{ 70, 70 });
 
-	pItemA->GetTransform()->SetPosition(Vec2{ 200, 100 });
+	pItemA->GetTransform()->SetPosition(Vec2{ 300, 300 });
 	pItemA->GetTransform()->SetScale(Vec2{ 10, 10 });
 }
 
@@ -114,7 +114,7 @@ void CScene::CheckCollisionGroup(EObjectType lGroup, EObjectType rGroup)
 			{
 				if ((iter == m_mapPrevCollisionInfo.end()) || (iter->second == false))
 				{
-					cout << "Collision Start" << endl;
+					wcout << "[Collision Manager] Collision Start : " << plObject->GetName() << " & " << prObject->GetName() << endl;
 					plObject->GetCollider()->OnCollisionBegin(prObject->GetCollider());
 					prObject->GetCollider()->OnCollisionBegin(plObject->GetCollider());
 				}
@@ -129,7 +129,7 @@ void CScene::CheckCollisionGroup(EObjectType lGroup, EObjectType rGroup)
 			{
 				if ((iter != m_mapPrevCollisionInfo.end()) && (iter->second == true))
 				{
-					cout << "Collision End" << endl;
+					wcout << "[Collision Manager] Collision End : " << plObject->GetName() << " & " << prObject->GetName() << endl;
 					plObject->GetCollider()->OnCollisionEnd(prObject->GetCollider());
 					prObject->GetCollider()->OnCollisionEnd(plObject->GetCollider());
 				}

@@ -2,8 +2,7 @@
 
 #include "CUI.h"
 
-class CInventory;
-struct TInventoryCtx;
+class CTexture;
 
 class CInventoryUI : public CUI
 {
@@ -19,10 +18,13 @@ public:
 	void Render(HDC hDC) override;
 
 	void OnInventoryUpdated(TInventoryCtx Ctx);
-	void SetInventory(CInventory* pInventory) { m_pInventory = pInventory; }
 
 private:
-	CTexture* m_pTexture;
-	CInventory* m_pInventory;
+	CTexture* m_pMainTexture;
+	CCollider* m_pFirstItemCollider; // for testing
+	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_arrItem;
+	EInventoryTab m_eCurrentTab;
+
+	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
 };
 

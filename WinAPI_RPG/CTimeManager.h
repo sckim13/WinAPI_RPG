@@ -26,6 +26,7 @@ private:
 	double m_dDeltaTime;
 	double m_dAccumulatedTime;
 	UINT m_iCountPerSecond;
-	UINT m_iFPS;
+	UINT m_iTargetFPS;
+	UINT m_iActualFPS;
 };
 

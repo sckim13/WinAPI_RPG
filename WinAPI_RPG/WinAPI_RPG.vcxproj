@@ -136,6 +136,7 @@
     <ClInclude Include="CCursor.h" />
     <ClInclude Include="CEquipItem.h" />
     <ClInclude Include="CEquipment.h" />
+    <ClInclude Include="CEquipmentUI.h" />
     <ClInclude Include="CEventHandle.h" />
     <ClInclude Include="CEventManager.h" />
     <ClInclude Include="CInventory.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Third-party\magic_enum.hpp" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WinAPI_RPG.h" />
   </ItemGroup>
@@ -185,6 +187,7 @@
     <ClCompile Include="CCursor.cpp" />
     <ClCompile Include="CEquipItem.cpp" />
     <ClCompile Include="CEquipment.cpp" />
+    <ClCompile Include="CEquipmentUI.cpp" />
     <ClCompile Include="CEventHandle.cpp" />
     <ClCompile Include="CEventManager.cpp" />
     <ClCompile Include="CInventory.cpp" />

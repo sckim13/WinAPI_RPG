@@ -106,8 +106,17 @@ vector<int> g_vecVK =
 	// MAX
 };
 
+map<EKey, EEventType> g_mapInputEvent =
+{
+	{EKey::I, EEventType::UI_INVENTORY},
+	{EKey::E, EEventType::UI_EQUIPMENT},
+	{EKey::Z, EEventType::PICKITEM},
+	{EKey::SPACE, EEventType::NPC},
+};
+
 CKeyManager::CKeyManager()
 {
+	Release();
 }
 
 CKeyManager::~CKeyManager()
@@ -116,9 +125,24 @@ CKeyManager::~CKeyManager()
 
 void CKeyManager::Initialize()
 {
+	m_hOnKeyEventTriggered = new CEventHandle<TKeyEventCtx>;
+
 	for (int i = 0; i < (int)EKey::MAX; ++i)
 	{
 		m_vecKey.push_back(tKeyInfo{});
+	}
+
+	for (int i = 0; i < (int)EKey::MAX; ++i)
+	{
+		auto iter = g_mapInputEvent.find((EKey)i);
+		if (iter != g_mapInputEvent.end())
+		{
+			m_mapInputEvent.insert(*iter);
+		}
+		else
+		{
+			m_mapInputEvent.insert({ (EKey)i, EEventType::NONE });
+		}
 	}
 }
 
@@ -127,7 +151,8 @@ void CKeyManager::PostInitialize()
 }
 
 void CKeyManager::Update()
-{	
+{
+	/* Key State updating */
 	HWND hWnd = GetFocus();
 
 	if (hWnd)
@@ -145,11 +170,12 @@ void CKeyManager::Update()
 					float fPressedInterval = CTimeManager::GetInstance()->GetTime() - m_vecKey[i].fLastPressedTime;
 					if (fPressedInterval < fDoubleClickThreshold)
 					{
-						cout << "Double Pressed!" << endl;
+						cout << "[Key Manager] Key \"" << magic_enum::enum_name((EKey)i) << "\" Double Pressed" << endl;
 						m_vecKey[i].eKeyState = EKeyState::DOUBLE_PRESSED;
 					}
 					else
 					{
+						cout << "[Key Manager] Key \"" << magic_enum::enum_name((EKey)i) << "\" Pressed" << endl;
 						m_vecKey[i].eKeyState = EKeyState::PRESSED;
 					}
 				}
@@ -161,6 +187,7 @@ void CKeyManager::Update()
 			{
 				if (m_vecKey[i].bPressedOnLastUpdate)
 				{
+						cout << "[Key Manager] Key \"" << magic_enum::enum_name((EKey)i) << "\" Released" << endl;
 					m_vecKey[i].eKeyState = EKeyState::RELEASED;
 				}
 				else
@@ -188,6 +215,27 @@ void CKeyManager::Update()
 			}
 		}
 	}
+
+	/* Event Broadcasting */
+	for (int i = 0; i < (int)EKey::MAX; ++i)
+	{
+		if (m_vecKey[i].eKeyState == EKeyState::NONE || m_mapInputEvent[(EKey)i] == EEventType::NONE)
+		{
+			continue;
+		}
+		else if(m_mapInputEvent[(EKey)i] > EEventType::UI_NONE && m_mapInputEvent[(EKey)i] < EEventType::UI_MAX)
+		{
+			if (m_vecKey[i].eKeyState != EKeyState::PRESSED && m_vecKey[i].eKeyState != EKeyState::DOUBLE_PRESSED) continue;
+			cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << " is triggered" << endl;
+			m_hOnKeyEventTriggered->Broadcast(TKeyEventCtx{ m_mapInputEvent[(EKey)i], m_vecKey[i].eKeyState });
+		}
+		else
+		{
+			cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << " is triggered" << endl;
+			m_hOnKeyEventTriggered->Broadcast(TKeyEventCtx{ m_mapInputEvent[(EKey)i], m_vecKey[i].eKeyState});
+		}
+	}
+
 }
 
 void CKeyManager::LateUpdate()
@@ -196,6 +244,7 @@ void CKeyManager::LateUpdate()
 
 void CKeyManager::Release()
 {
+	Safe_Delete<CEventHandle<TKeyEventCtx>*>(m_hOnKeyEventTriggered);
 }
 
 void CKeyManager::Render(HDC hDC)

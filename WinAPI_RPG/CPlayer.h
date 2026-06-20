@@ -33,6 +33,8 @@ private:
 
 	vector<CObject*> m_vecObjectsOnCollision[(int)EObjectType::MAX];
 
+	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
+
 public:
 	inline CInventory* GetInventory() { return m_pInventory; }
 	inline CEquipment* GetEquipment() { return m_pEquipment; }

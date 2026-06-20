@@ -19,8 +19,6 @@ public:
 protected:
 	EItemType m_eItemType;
 private:
-	// bool m_bOnField;
-
 	int m_iBuyPrice;
 	int m_iSellPrice;
 	
@@ -33,6 +31,6 @@ public:
 	// inline bool IsOnField() { return m_bOnField; }
 
 	inline void SetOwner(CObject* pObj) { m_pOwner = pObj; }
-	inline CObject* GetOwner() { return m_pOwner; }
+	inline CObject* GetOwner() { return m_pOwner; } 
 };
 

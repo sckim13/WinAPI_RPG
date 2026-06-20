@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "CBase.h"
-#include "CTransform.h"
 
 class CTexture;
 class CCollider;
@@ -13,7 +12,7 @@ public:
 	CObject();
 	virtual ~CObject() PURE;
 
-	virtual void Initialize() PURE;
+	virtual void Initialize() override;
 	virtual void PostInitialize() PURE;
 	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;
@@ -24,10 +23,19 @@ protected:
 	CTexture* m_pTexture;
 	CCollider* m_pCollider;
 	EObjectType m_eObjectType;
+	wstring m_wstrName;
+
+	static int g_ObjectID;
+
+	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);
 
 public:
-	inline CTexture* GetTexture() { return m_pTexture; }
-	inline CCollider* GetCollider() { return m_pCollider; }
-	inline EObjectType GetObjectType() { return m_eObjectType; }
+	inline CTexture* GetTexture() const { return m_pTexture; }
+	inline CCollider* GetCollider() const { return m_pCollider; }
+	inline EObjectType GetObjectType() const { return m_eObjectType; }
+	inline const wstring GetName() const { return m_wstrName; }
+	inline const int GetID() const { return g_ObjectID; }
+
+	inline void SetName(wstring& wstrName) { m_wstrName = wstrName; }
 };
 

@@ -8,15 +8,19 @@ public:
 	CUI();
 	virtual ~CUI();
 
-	virtual void Initialize() PURE;
+	virtual void Initialize() override;
 	virtual void PostInitialize() PURE;
 	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;
 	virtual void Release() PURE;
 	virtual void Render(HDC hDC) PURE;
 
+protected:
+	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);
+
 private:
 	bool m_bVisible;
+
 
 public:
 	bool IsVisible() { return m_bVisible; }

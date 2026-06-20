@@ -2,11 +2,9 @@
 #include "CInventory.h"
 #include "CItem.h"
 #include "CEquipItem.h"
-#include "CEventHandle.h"
-#include "EventContext.h"
 
 
-CInventory::CInventory()
+CInventory::CInventory() : m_eCurrentTab(EInventoryTab::EQUIP), m_hOnInventoryUpdated(nullptr), m_pItemContainer{}
 {
 }
 
@@ -56,7 +54,7 @@ void CInventory::PushItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == nullptr)
 		{
 			m_pItemContainer[(int)eItemType][i] = pItem;
-			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
+			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 			return;
 		}
 	}
@@ -71,7 +69,7 @@ void CInventory::PopItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == pItem)
 		{
 			m_pItemContainer[(int)eItemType][i] = nullptr;
-			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
+			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 			return;
 		}
 	}
@@ -100,7 +98,7 @@ void CInventory::Pack(EInventoryTab eTab)
 		}
 	}
 
-	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
+	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 }
 
 void CInventory::Sort(EInventoryTab eTab)
@@ -112,7 +110,7 @@ void CInventory::Sort(EInventoryTab eTab)
 		}
 	);
 
-	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ &m_pItemContainer, m_eCurrentTab });
+	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 }
 
 bool CInventory::Compare(EInventoryTab eTab, CItem* lhs, CItem* rhs)
@@ -132,4 +130,15 @@ bool CInventory::Compare(EInventoryTab eTab, CItem* lhs, CItem* rhs)
 		assert(0);
 		return false;
 	}
+}
+
+array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> CInventory::CaptureInventory()
+{
+	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> arrCapture;
+	for (int i = 0; i < (int)EInventoryTab::MAX; ++i)
+	{
+		copy(m_pItemContainer[i].begin(), m_pItemContainer[i].end(), arrCapture[i].begin());
+	}
+	
+	return arrCapture;
 }

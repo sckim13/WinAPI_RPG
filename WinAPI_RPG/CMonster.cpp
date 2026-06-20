@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CEventHandle.h"
 #include "EventContext.h"
+#include "CTimeManager.h"
 
 CMonster::CMonster()
 {
@@ -18,7 +19,11 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
+	__super::Initialize();
+
 	m_eObjectType = EObjectType::MONSTER;
+	wstring wstrName = L"Monster_" + to_wstring(GetID());
+	SetName(wstrName);
 
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Monster", L"Texture\\Monster.bmp");
 	m_pTexture->SetOwner(this);
@@ -36,9 +41,10 @@ void CMonster::PostInitialize()
 
 void CMonster::Update()
 {
-	Vec2 vPos = GetTransform()->GetPosition();
+	Vec2 vPos = GetPosition();
+	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
 
-	GetTransform()->SetPosition(Vec2{ vPos.x + 0.1f , vPos.y });
+	SetPosition(Vec2{ vPos.x, vPos.y });
 }
 
 void CMonster::LateUpdate()
@@ -53,21 +59,7 @@ void CMonster::Release()
 
 void CMonster::Render(HDC hDC)
 {
-	int iWidth = (int)GetTexture()->GetWidth();
-	int iHeight = (int)GetTexture()->GetHeight();
-
-	Vec2 vPos = GetTransform()->GetPosition();
-
-
-	TransparentBlt(
-		hDC,
-		(int)(vPos.x - (float)(iWidth / 2)),
-		(int)(vPos.y - (float)(iHeight / 2)),
-		iWidth, iHeight,
-		GetTexture()->GetDC(),
-		0, 0, iWidth, iHeight,
-		RGB(255, 255, 255)
-	);
+	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
 
 	GetCollider()->Render(hDC);
 }

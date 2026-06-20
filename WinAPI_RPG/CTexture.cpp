@@ -34,6 +34,17 @@ void CTexture::Render(HDC hDC)
 {
 }
 
+void CTexture::Render(HDC hDC, int iX, int iY, EPoseDirection bDir)
+{
+	StretchBlt(
+		hDC,
+		iX, iY,
+		(bDir == EPoseDirection::LEFT ? 1 : -1) * GetWidth(), GetHeight(),
+		m_hDC,
+		0, 0, GetWidth(), GetHeight(),
+		SRCCOPY);
+}
+
 void CTexture::Load(const wstring& strPath)
 {
 	m_hBit = (HBITMAP)LoadImage(nullptr, strPath.c_str(), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);

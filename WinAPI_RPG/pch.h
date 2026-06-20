@@ -23,7 +23,6 @@
 #include "Vec2.h"
 #include "Mat3.h"
 #include "CAbstractFactory.h"
-#include "MathUtil.h"
 
 
 // GDI

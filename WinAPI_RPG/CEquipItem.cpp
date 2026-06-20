@@ -37,6 +37,11 @@ void CEquipItem::Update()
 
 void CEquipItem::LateUpdate()
 {
+	if (GetOwner())
+	{
+		SetPosition(GetOwner()->GetPosition());
+	}
+
 	GetCollider()->LateUpdate();
 }
 
@@ -46,22 +51,9 @@ void CEquipItem::Release()
 
 void CEquipItem::Render(HDC hDC)
 {
-	if (GetOwner())
-	{
-		int iWidth = (int)GetTexture()->GetWidth();
-		int iHeight = (int)GetTexture()->GetHeight();
+	if (GetOwner()) return;
 
-		Vec2 vPos = GetPosition();
-
-		StretchBlt(
-			hDC,
-			(int)(vPos.x - (float)(iWidth / 2)),
-			(int)(vPos.y - (float)(iHeight / 2)),
-			iWidth, iHeight,
-			GetTexture()->GetDC(),
-			0, 0, iWidth, iHeight,
-			SRCCOPY);
-	}
+	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
 
 	GetCollider()->Render(hDC);
 }

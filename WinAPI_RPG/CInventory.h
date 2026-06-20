@@ -3,7 +3,6 @@
 #include "CComponent.h"
 
 class CItem;
-struct TInventoryCtx;
 
 template<typename T>
 class CEventHandle;
@@ -31,8 +30,12 @@ public:
 	CEventHandle<TInventoryCtx>* m_hOnInventoryUpdated;
 private:
 	array<array<CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_pItemContainer;
-
 	EInventoryTab m_eCurrentTab;
+
+	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> CaptureInventory();
+
+public:
+	
 
 };
 

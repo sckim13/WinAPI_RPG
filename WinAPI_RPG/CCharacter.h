@@ -12,7 +12,7 @@ public:
 	CCharacter();
 	virtual ~CCharacter() PURE;
 
-	virtual void Initialize() PURE;
+	virtual void Initialize() override;
 	virtual void PostInitialize() PURE;
 	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;

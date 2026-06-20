@@ -48,6 +48,7 @@ void CCollider::Release()
 {
 	Safe_Delete<CTransform*>(m_pTransform);
 	Safe_Delete<CEventHandle<TCollisionCtx>*>(m_hOnCollisionBegin);
+	Safe_Delete<CEventHandle<TCollisionCtx>*>(m_hOnCollisionEnd);
 }
 
 void CCollider::Render(HDC hDC)

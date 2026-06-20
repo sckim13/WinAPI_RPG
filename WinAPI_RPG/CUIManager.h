@@ -3,6 +3,7 @@
 #include "CManager.h"
 
 class CUI;
+class CCursor;
 
 class CUIManager : public CManager
 {
@@ -23,6 +24,7 @@ private:
 	// All UI Pointers
 	map<wstring, CUI*> m_mapUI;
 	
+	CCursor* m_pCursor;
 	
 };
 

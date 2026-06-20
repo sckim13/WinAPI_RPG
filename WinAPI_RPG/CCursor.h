@@ -8,11 +8,16 @@ public:
 	CCursor();
 	virtual ~CCursor();
 
-	void Initialize() override;
-	void PostInitialize() override;
-	void Update() override;
-	void LateUpdate() override;
-	void Release() override;
-	void Render(HDC hDC) override;
+	virtual void Initialize() override;
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
+
+private:
+	POINT m_ptCursorPos;
+
+public:
 };
 

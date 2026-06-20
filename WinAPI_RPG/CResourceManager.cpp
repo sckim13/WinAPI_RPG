@@ -10,15 +10,12 @@ CResourceManager::CResourceManager()
 
 CResourceManager::~CResourceManager()
 {
-    //for (auto& pair : m_mapTexture)
-    //{
-    //    Safe_Delete(pair.second);
-    //}
-    //m_mapTexture.clear();
+    Release();
 }
 
 void CResourceManager::Initialize()
 {
+    /* TODO : Load All Texture on the Asset Here */
 }
 
 void CResourceManager::PostInitialize()
@@ -35,6 +32,11 @@ void CResourceManager::LateUpdate()
 
 void CResourceManager::Release()
 {
+    //for (auto& pair : m_mapTexture)
+    //{
+    //    Safe_Delete(pair.second);
+    //}
+    //m_mapTexture.clear();
 }
 
 void CResourceManager::Render(HDC hDC)
@@ -52,6 +54,7 @@ CTexture* CResourceManager::LoadTexture(const wstring& strKey, const wstring& st
     wstring strAssetPath = CPathManager::GetInstance()->GetBasePath();
     strAssetPath += strRelPath;
 
+    /* TODO : assert when there is no Texture on the texture map */
     pTexture = new CTexture;
     pTexture->SetKey(strKey);
     pTexture->SetRelativePath(strRelPath);

@@ -14,6 +14,7 @@
 #include "CItem.h"
 #include "CUIManager.h"
 #include "CInventoryUI.h"
+#include "MathUtil.h"
 
 CPlayer::CPlayer()
 {
@@ -26,7 +27,12 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {	
+	__super::Initialize();
+
 	m_eObjectType = EObjectType::PLAYER;
+	wstring wstrName = L"Player_" + to_wstring(GetID());
+	SetName(wstrName);
+
 
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
 	m_pTexture->SetOwner(this);
@@ -43,6 +49,7 @@ void CPlayer::Initialize()
 	m_pInventory = new CInventory;
 	m_pInventory->Initialize();
 	m_pEquipment = new CEquipment;
+	m_pEquipment->Initialize();
 }
 
 void CPlayer::PostInitialize()
@@ -53,36 +60,33 @@ void CPlayer::Update()
 {
 	SortCollisionList();
 
-	float fDeltaTime = CTimeManager::GetInstance()->GetDeltaTime();
+	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
 
 	if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::HOLD
 		&& CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::HOLD)
 	{
-
 	}
 	else if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::HOLD)
 	{
 		m_ePoseDir = EPoseDirection::LEFT;
 		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDeltaTime * Vec2{ -200.f, 0.f });
+		SetPosition(GetPosition() + fDT * Vec2{ -200.f, 0.f });
 	}
 	else if (CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::HOLD)
 	{
 		m_ePoseDir = EPoseDirection::RIGHT;
 		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDeltaTime * Vec2{ 200.f, 0.f });
+		SetPosition(GetPosition() + fDT * Vec2{ 200.f, 0.f });
 	}
-
-
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::UP) == EKeyState::HOLD)
+	else if (CKeyManager::GetInstance()->GetKeyState(EKey::UP) == EKeyState::HOLD)
 	{
 		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDeltaTime * Vec2{ 0.f, -200.f });
+		SetPosition(GetPosition() + fDT * Vec2{ 0.f, -200.f });
 	}
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::DOWN) == EKeyState::HOLD)
+	else if (CKeyManager::GetInstance()->GetKeyState(EKey::DOWN) == EKeyState::HOLD)
 	{
 		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDeltaTime * Vec2{ 0.f, 200.f });
+		SetPosition(GetPosition() + fDT * Vec2{ 0.f, 200.f });
 	}
 	else
 	{
@@ -96,28 +100,6 @@ void CPlayer::Update()
 		cout << "Attack" << endl;
 	}
 
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::I) == EKeyState::HOLD)
-	{
-		cout << "ToggleInventory" << endl;
-		CUIManager::GetInstance()->GetUI(L"Inventory")->ToggleVisibility();
-	}
-
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::Z) == EKeyState::HOLD)
-	{
-		/* if collider intersects the item, get the item to inventory */
-		if (!m_vecObjectsOnCollision[(int)EObjectType::ITEM].empty())
-		{
-			CItem* pItem = dynamic_cast<CItem*>(m_vecObjectsOnCollision[(int)EObjectType::ITEM].front());
-			pItem->SetOwner(this);
-			m_pInventory->PushItem(pItem);
-			cout << "GrabItem" << endl;
-		}
-		else
-		{
-			cout << "No Item" << endl;
-		}
-	}
-
 	if (CKeyManager::GetInstance()->GetKeyState(EKey::L_CLICK) == EKeyState::DOUBLE_PRESSED)
 	{
 		POINT ptMouse;
@@ -127,11 +109,6 @@ void CPlayer::Update()
 		//m_pInventory->PopItem(pDummyItem);
 		//m_pEquipment->Equip(pDummyItem);
 	}
-
-	POINT pt{};
-	GetCursorPos(&pt);
-
-	int a;
 }
 
 void CPlayer::LateUpdate()
@@ -163,34 +140,7 @@ void CPlayer::Render(HDC hDC)
 	);
 	*/
 
-	int iWidth = (int)GetTexture()->GetWidth();
-	int iHeight = (int)GetTexture()->GetHeight();
-
-	Vec2 vPos = GetTransform()->GetPosition();
-
-	if (m_ePoseDir == EPoseDirection::LEFT)
-	{
-		StretchBlt(
-			hDC,
-			(int)(vPos.x - (float)(iWidth / 2)),
-			(int)(vPos.y - (float)(iHeight / 2)),
-			iWidth, iHeight,
-			GetTexture()->GetDC(),
-			0, 0, iWidth, iHeight,
-			SRCCOPY);
-	}
-	else
-	{
-		StretchBlt(
-			hDC,
-			(int)(vPos.x + (float)(iWidth / 2)),
-			(int)(vPos.y - (float)(iHeight / 2)),
-			-iWidth, iHeight,
-			GetTexture()->GetDC(),
-			0, 0, iWidth, iHeight,
-			SRCCOPY);
-	}
-
+	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y, m_ePoseDir);
 
 	//TransparentBlt(
 	//	hDC,
@@ -232,5 +182,27 @@ void CPlayer::SortCollisionList()
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
 		sort(m_vecObjectsOnCollision[i].begin(), m_vecObjectsOnCollision[i].end(), F);
+	}
+}
+
+void CPlayer::OnKeyEventTriggered(TKeyEventCtx Ctx)
+{
+	auto [eKeyEvent, eKeyState] = Ctx;
+
+	if (eKeyEvent == EEventType::PICKITEM)
+	{
+		if (!m_vecObjectsOnCollision[(int)EObjectType::ITEM].empty())
+		{
+			CItem* pItem = dynamic_cast<CItem*>(m_vecObjectsOnCollision[(int)EObjectType::ITEM].front());
+			pItem->SetOwner(this);
+			pItem->SetPosition(GetPosition());
+			pItem->GetCollider()->SetEnabled(false);
+			m_pInventory->PushItem(pItem);
+			wcout << "[Player] Grab item : " << pItem->GetName() << endl;
+		}
+		else
+		{
+			wcout << "[Player] No item to pick" << endl;
+		}
 	}
 }

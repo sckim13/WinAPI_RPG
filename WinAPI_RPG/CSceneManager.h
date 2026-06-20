@@ -3,6 +3,7 @@
 
 class CPlayer;
 class CScene;
+class CCursor;
 
 class CSceneManager : public CManager
 {
@@ -18,6 +19,7 @@ public:
 
 
 private:
+	CCursor* m_pCursor;
 	CPlayer* m_pPlayer;
 	CScene* m_arrScene[(UINT)ESceneType::MAX];
 	CScene* m_pCurrentScene;

@@ -12,6 +12,7 @@ CCharacter::~CCharacter()
 
 void CCharacter::Initialize()
 {
+	__super::Initialize();
 }
 
 void CCharacter::PostInitialize()

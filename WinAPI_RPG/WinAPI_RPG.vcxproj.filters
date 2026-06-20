@@ -163,6 +163,12 @@
     <Filter Include="Engine\01. Util\Transform">
       <UniqueIdentifier>{07299025-db49-4027-9fc6-603992269d6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Third-party">
+      <UniqueIdentifier>{00e46a30-011f-44af-ae32-15224e820e92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\06. UI\EquipmentUI">
+      <UniqueIdentifier>{61b5f9e6-230b-49e4-b0e8-a61720c367d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -306,6 +312,12 @@
     <ClInclude Include="MathUtil.h">
       <Filter>Engine\01. Util\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Third-party\magic_enum.hpp">
+      <Filter>Third-party</Filter>
+    </ClInclude>
+    <ClInclude Include="CEquipmentUI.h">
+      <Filter>Engine\06. UI\EquipmentUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -421,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="CCollisionManager.cpp">
       <Filter>Engine\02. Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CEquipmentUI.cpp">
+      <Filter>Engine\06. UI\EquipmentUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
