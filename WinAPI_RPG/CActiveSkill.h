@@ -1,15 +1,13 @@
-﻿#pragma once
+#pragma once
 
-#include "CCharacter.h"
-#include "ICombat.h"
+#include "CSkill.h"
+#include "ICollide.h"
 
-struct TCollisionCtx;
-
-class CMonster : public CCharacter, public ICombat
+class CActiveSkill : public CSkill, public ICollide
 {
 public:
-	CMonster();
-	virtual ~CMonster();
+	CActiveSkill();
+	virtual ~CActiveSkill();
 
 	virtual void Initialize() override;
 	virtual void PostInitialize() override;
@@ -21,15 +19,5 @@ public:
 	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
 	virtual void OnCollision(TCollisionCtx Ctx) override;
 	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
-
-	virtual void OnHit() override;
-	virtual void OnDead() override;
-
-private:
-	int m_iLevel;
-	int m_iMaxHP;
-	int m_iHP;
-	
-
 };
 

@@ -7,6 +7,7 @@
 #include "CTransform.h"
 #include "CCollider.h"
 #include "CEquipItem.h"
+#include "CCollisionManager.h"
 
 CScene::CScene(const wstring& wstr) : m_strName(wstr)
 {
@@ -90,51 +91,15 @@ void CScene::LateUpdate()
 	/* check collision */
 	/* in toy case, compare Player and Monster */
 	
-	CheckCollisionGroup(EObjectType::MONSTER, EObjectType::PLAYER);
-	CheckCollisionGroup(EObjectType::ITEM, EObjectType::PLAYER);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::MONSTER], m_vecObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::ITEM], m_vecObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::SKILL], m_vecObject[(int)EObjectType::MONSTER]);
 
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
 		for (auto& pObject : m_vecObject[i])
 		{
 			pObject->LateUpdate();
-		}
-	}
-}
-
-void CScene::CheckCollisionGroup(EObjectType lGroup, EObjectType rGroup)
-{
-	for (auto& plObject : m_vecObject[(int)lGroup])
-	{
-		for (auto& prObject : m_vecObject[(int)rGroup])
-		{
-			UINT64 ID = GetPairID(plObject->GetCollider(), prObject->GetCollider());
-			auto iter = m_mapPrevCollisionInfo.find(ID);
-			if (IsColliding(plObject, prObject))
-			{
-				if ((iter == m_mapPrevCollisionInfo.end()) || (iter->second == false))
-				{
-					wcout << "[Collision Manager] Collision Start : " << plObject->GetName() << " & " << prObject->GetName() << endl;
-					plObject->GetCollider()->OnCollisionBegin(prObject->GetCollider());
-					prObject->GetCollider()->OnCollisionBegin(plObject->GetCollider());
-				}
-				else
-				{
-					plObject->GetCollider()->OnCollision(prObject->GetCollider());
-					prObject->GetCollider()->OnCollision(plObject->GetCollider());
-				}
-				m_mapPrevCollisionInfo[ID] = true;
-			}
-			else
-			{
-				if ((iter != m_mapPrevCollisionInfo.end()) && (iter->second == true))
-				{
-					wcout << "[Collision Manager] Collision End : " << plObject->GetName() << " & " << prObject->GetName() << endl;
-					plObject->GetCollider()->OnCollisionEnd(prObject->GetCollider());
-					prObject->GetCollider()->OnCollisionEnd(plObject->GetCollider());
-				}
-				m_mapPrevCollisionInfo[ID] = false;
-			}
 		}
 	}
 }
@@ -175,22 +140,4 @@ void CScene::Exit()
 	//		Safe_Delete(pObject);
 	//	}
 	//}
-}
-
-bool CScene::IsColliding(CObject* lhs, CObject* rhs)
-{
-	if (!lhs->GetCollider()->IsEnabled() || !rhs->GetCollider()->IsEnabled()) return false;
-	RECT* rclhs = lhs->GetCollider()->GetRect();
-	RECT* rcrhs = rhs->GetCollider()->GetRect();
-
-	RECT rcRes;
-	return IntersectRect(&rcRes, rclhs, rcrhs);
-}
-
-UINT64 CScene::GetPairID(CCollider* lhs, CCollider* rhs)
-{
-	UINT32 l = lhs->GetID();
-	UINT32 r = rhs->GetID();
-	if (l > r) swap(l, r);
-	return ((UINT64)l << 32) | (UINT64)r;
 }

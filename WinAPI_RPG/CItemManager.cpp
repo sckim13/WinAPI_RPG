@@ -50,7 +50,14 @@ void CItemManager::RequestEquipItem(EInventoryTab eTab, int iIdx)
 
 void CItemManager::RequestUnEquipItem(EEquipSlot eSlot)
 {
-	GetPlayer()->GetEquipment()->UnEquip(eSlot);
+	if (GetPlayer()->GetEquipment()->GetItemBySlot(eSlot))
+	{
+		GetPlayer()->GetEquipment()->UnEquip(eSlot);
+	}
+	else
+	{
+		cout << "No Item Equipped in slot " << magic_enum::enum_name(eSlot) << endl;
+	}
 }
 
 void CItemManager::RequestPushItem(CItem* pItem)

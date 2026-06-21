@@ -120,8 +120,14 @@ enum class EEquipSlot
 
 enum class ESkillType
 {
-	PASSIVE,
-	ACTIVE,
+	PASSIVE_NONE,
+	PASSIVE_MAX,
+
+	ACTIVE_NONE,
+	HITSCAN,
+	PROJECTILE,
+	SUMMON,
+	ACTIVE_MAX,
 };
 
 enum class EEventType
@@ -141,6 +147,10 @@ enum class EEventType
 	MOUSE_R_CLICK,
 	MOUSE_M_CLICK,
 	MOUSE_MAX,
+
+	SKILL_NONE,
+	SKILL_DEFAULT,
+	SKILL_MAX,
 
 	NPC,
 

@@ -10,24 +10,22 @@ public:
 	CSkill();
 	virtual ~CSkill();
 
-	void Initialize() override;
-	void PostInitialize() override;
-	void Update() override;
-	void LateUpdate() override;
-	void Release() override;
-	void Render(HDC hDC) override;
+	virtual void Initialize() override;
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
+
+	virtual void Execute() PURE;
 
 private:
-	CTexture* m_pTexture;
-	CCollider* m_pCollider;
-
 	/* Skill Info */
 
 	ESkillType m_eSkillType;
 
 	int m_iLevel;
 	int m_iMaxLevel;
-	
-	bool m_bOnOff;
+
 };
 

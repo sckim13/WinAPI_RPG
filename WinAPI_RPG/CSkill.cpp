@@ -12,6 +12,9 @@ CSkill::~CSkill()
 
 void CSkill::Initialize()
 {
+	__super::Initialize();
+
+	m_eObjectType = EObjectType::SKILL;
 }
 
 void CSkill::PostInitialize()

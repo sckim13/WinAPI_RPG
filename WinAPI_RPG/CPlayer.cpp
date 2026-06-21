@@ -16,6 +16,8 @@
 #include "CInventoryUI.h"
 #include "MathUtil.h"
 #include "CItemManager.h"
+#include "CMonster.h"
+#include "CHitScanSkill.h"
 
 CPlayer::CPlayer()
 {
@@ -44,7 +46,9 @@ void CPlayer::Initialize()
 	m_pCollider->SetOwner(this);
 
 	/* later refactoring skill management */
-	m_vecSkills.push_back(new CSkill);
+	CSkill* pSkill = new CHitScanSkill;
+	pSkill->Initialize();
+	m_vecSkills.push_back(pSkill);
 
 	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
 	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
@@ -94,13 +98,6 @@ void CPlayer::Update()
 	else
 	{
 		m_ePlayerState = EPlayerState::IDLE;
-	}
-
-
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::CTRL) == EKeyState::HOLD)
-	{
-		m_ePlayerState = EPlayerState::ATTACK;
-		cout << "Attack" << endl;
 	}
 }
 
@@ -153,6 +150,14 @@ void CPlayer::OnCollisionBegin(TCollisionCtx Ctx)
 {
 	CObject* pObject = Ctx.pCounterPart->GetOwner();
 	m_vecObjectsOnCollision[(int)pObject->GetObjectType()].push_back(pObject);
+
+	if (dynamic_cast<CMonster*>(pObject))
+	{
+	}
+}
+
+void CPlayer::OnCollision(TCollisionCtx Ctx)
+{
 }
 
 void CPlayer::OnCollisionEnd(TCollisionCtx Ctx)
@@ -199,4 +204,20 @@ void CPlayer::OnKeyEventTriggered(TKeyEventCtx Ctx)
 			wcout << "[Player] No item to pick" << endl;
 		}
 	}
+	
+	if (eKeyEvent == EEventType::SKILL_DEFAULT)
+	{
+		cout << "[Player] Basic Attack" << endl;
+		m_vecSkills[0]->Execute();
+	}
+}
+
+void CPlayer::OnHit()
+{
+	cout << "[Player] Hit" << endl;
+}
+
+void CPlayer::OnDead()
+{
+	cout << "[Player] Die" << endl;
 }

@@ -109,10 +109,14 @@ vector<int> g_vecVK =
 
 map<EKey, EEventType> g_mapInputEvent =
 {
+	// keyboard events
 	{EKey::I, EEventType::UI_INVENTORY},
 	{EKey::E, EEventType::UI_EQUIPMENT},
 	{EKey::Z, EEventType::PICKITEM},
 	{EKey::SPACE, EEventType::NPC},
+	{EKey::CTRL, EEventType::SKILL_DEFAULT},
+
+	// mouse events
 	{EKey::L_CLICK, EEventType::MOUSE_L_CLICK},
 	{EKey::R_CLICK, EEventType::MOUSE_R_CLICK},
 	{EKey::M_CLICK, EEventType::MOUSE_M_CLICK},

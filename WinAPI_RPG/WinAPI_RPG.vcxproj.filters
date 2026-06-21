@@ -118,9 +118,6 @@
     <Filter Include="Engine\06. UI\InventoryUI">
       <UniqueIdentifier>{c46b49f2-f39a-4891-80ae-adb71e8b5185}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Object\Skill\Projectile">
-      <UniqueIdentifier>{19615626-fa90-49bf-9ba5-8b78deaf675c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\01. Util\Factory">
       <UniqueIdentifier>{d55a418f-39c1-4557-b0c8-cd92510382cf}</UniqueIdentifier>
     </Filter>
@@ -168,6 +165,30 @@
     </Filter>
     <Filter Include="Engine\02. Manager\ItemManager">
       <UniqueIdentifier>{99b4ca96-c351-4f40-825e-7983ca916c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Passive">
+      <UniqueIdentifier>{c7f2367d-9e12-4ec1-8b02-f533a38c5a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Active">
+      <UniqueIdentifier>{8665ee9f-6633-40e3-a6e2-056924775b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Active\Projectile">
+      <UniqueIdentifier>{19615626-fa90-49bf-9ba5-8b78deaf675c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Active\HitScan">
+      <UniqueIdentifier>{eb96d0ec-ebbf-4bef-a480-11e4a0290121}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Interface">
+      <UniqueIdentifier>{8fbf469c-6bab-4ae4-b465-49402b0a668c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Interface\Combat">
+      <UniqueIdentifier>{efae2c6c-f154-44d0-8bc9-35568288aeb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\07. Interface\Collide">
+      <UniqueIdentifier>{07cb9688-2226-4999-896d-dbdf053c712f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\CombatManager">
+      <UniqueIdentifier>{a83ea570-034c-4d4c-b159-4d2f930af49b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +342,24 @@
     <ClInclude Include="CItemManager.h">
       <Filter>Engine\02. Manager\ItemManager</Filter>
     </ClInclude>
+    <ClInclude Include="CActiveSkill.h">
+      <Filter>Engine\03. Object\Skill\Active</Filter>
+    </ClInclude>
+    <ClInclude Include="CPassiveSkill.h">
+      <Filter>Engine\03. Object\Skill\Passive</Filter>
+    </ClInclude>
+    <ClInclude Include="ICombat.h">
+      <Filter>Engine\07. Interface\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollide.h">
+      <Filter>Engine\07. Interface\Collide</Filter>
+    </ClInclude>
+    <ClInclude Include="CHitScanSkill.h">
+      <Filter>Engine\03. Object\Skill\Active\HitScan</Filter>
+    </ClInclude>
+    <ClInclude Include="CCombatManager.h">
+      <Filter>Engine\02. Manager\CombatManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -442,6 +481,24 @@
     </ClCompile>
     <ClCompile Include="CItemManager.cpp">
       <Filter>Engine\02. Manager\ItemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CActiveSkill.cpp">
+      <Filter>Engine\03. Object\Skill\Active</Filter>
+    </ClCompile>
+    <ClCompile Include="CPassiveSkill.cpp">
+      <Filter>Engine\03. Object\Skill\Passive</Filter>
+    </ClCompile>
+    <ClCompile Include="ICombat.cpp">
+      <Filter>Engine\07. Interface\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="ICollide.cpp">
+      <Filter>Engine\07. Interface\Collide</Filter>
+    </ClCompile>
+    <ClCompile Include="CHitScanSkill.cpp">
+      <Filter>Engine\03. Object\Skill\Active\HitScan</Filter>
+    </ClCompile>
+    <ClCompile Include="CCombatManager.cpp">
+      <Filter>Engine\02. Manager\CombatManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

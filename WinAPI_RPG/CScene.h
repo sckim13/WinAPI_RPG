@@ -16,7 +16,6 @@ public:
 	virtual void PostInitialize() override;
 	virtual void Update() override;
 	virtual void LateUpdate() override;
-	void CheckCollisionGroup(EObjectType lGroup, EObjectType rGroup);
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
@@ -28,11 +27,5 @@ public:
 private:
 	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
 	const wstring m_strName;
-
-	bool IsColliding(CObject* lhs, CObject* rhs);
-
-	map<UINT64, bool> m_mapPrevCollisionInfo;
-
-	UINT64 GetPairID(CCollider* lhs, CCollider* rhs);
 };
 

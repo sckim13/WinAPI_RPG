@@ -8,6 +8,7 @@ using namespace std;
 
 class CCollider;
 class CItem;
+class CObject;
 
 struct TCollisionCtx
 {
@@ -36,4 +37,11 @@ struct TMouseEventCtx
 	EKey eKey;
 	EKeyState eKeyState;
 	Vec2 vCursorPos;
+};
+
+struct TCombatCtx
+{
+	CObject* pSource;
+	CObject* pTarget;
+	int iDamage;
 };

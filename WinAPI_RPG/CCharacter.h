@@ -1,12 +1,14 @@
 ﻿#pragma once
+
 #include "CObject.h"
+#include "ICollide.h"
 
 class CTexture;
 class CCollider;
 class CTransform;
 class CController;
 
-class CCharacter : public CObject
+class CCharacter : public CObject, public ICollide
 {
 public:
 	CCharacter();
@@ -19,6 +21,10 @@ public:
 	virtual void Release() PURE;
 	virtual void Render(HDC hDC) PURE;
 
+	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
+	virtual void OnCollision(TCollisionCtx Ctx) override;
+	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
+
 protected:
 	EPoseDirection m_ePoseDir;
 
@@ -28,5 +34,6 @@ private:
 public:
 	inline void SetController(CController* pCtrl) { m_pController = pCtrl; }
 	inline CController* GetController() { return m_pController; }
+
 };
 

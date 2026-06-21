@@ -56,7 +56,7 @@ void CEquipmentUI::Render(HDC hDC)
 	{
 		if (const CItem* pItem = m_arrEquipSlot[i])
 		{
-			pItem->GetTexture()->Render(hDC, (int)GetPosition().x + 100, (int)GetPosition().y + 100);
+			pItem->GetTexture()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
 		}
 	}
 

@@ -1,12 +1,13 @@
 ﻿#pragma once
 
 #include "CCharacter.h"
+#include "ICombat.h"
 
 class CInventory;
 class CEquipment;
 class CSkill;
 
-class CPlayer : public CCharacter
+class CPlayer : public CCharacter, public ICombat
 {
 
 public:
@@ -20,8 +21,10 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void OnCollisionBegin(TCollisionCtx Ctx);
-	void OnCollisionEnd(TCollisionCtx Ctx);
+	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
+	virtual void OnCollision(TCollisionCtx Ctx) override;
+	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
+
 	void SortCollisionList();
 
 private:
@@ -38,5 +41,9 @@ private:
 public:
 	inline CInventory* GetInventory() { return m_pInventory; }
 	inline CEquipment* GetEquipment() { return m_pEquipment; }
+
+	// Inherited via ICombat
+	void OnHit() override;
+	void OnDead() override;
 };
 

@@ -32,7 +32,7 @@ void CMonster::Initialize()
 	m_pCollider->SetOwner(this);
 
 	/* bind event to collider */
-	GetCollider()->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEntered(Ctx); });
+	GetCollider()->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
 }
 
 void CMonster::PostInitialize()
@@ -64,13 +64,32 @@ void CMonster::Render(HDC hDC)
 	GetCollider()->Render(hDC);
 }
 
-void CMonster::OnCollisionEntered(TCollisionCtx Ctx)
+void CMonster::OnCollisionBegin(TCollisionCtx Ctx)
 {
 	CObject* pObject = Ctx.pCounterPart->GetOwner();
 
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pObject);
-	if (!pPlayer) return;
+	if (pPlayer)
+	{
+		pPlayer->OnHit();
+	}
+}
 
-	cout << "Hit by Player" << endl;
+void CMonster::OnCollision(TCollisionCtx Ctx)
+{
+}
+
+void CMonster::OnCollisionEnd(TCollisionCtx Ctx)
+{
+}
+
+void CMonster::OnHit()
+{
+	cout << "[Monster] Hit by Player" << endl;
+}
+
+void CMonster::OnDead()
+{
+	cout << "[Monster] Dead" << endl;
 }
 

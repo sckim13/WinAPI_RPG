@@ -26,5 +26,8 @@ private:
 	array<CItem*, (int)EEquipSlot::MAX> m_arrEquipSlot;
 
 	array<const CItem*, (int)EEquipSlot::MAX> CaptureSlot();
+
+public:
+	CItem* GetItemBySlot(EEquipSlot eSlot) { return m_arrEquipSlot[(int)eSlot]; }
 };
 
