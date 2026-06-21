@@ -6,6 +6,7 @@
 #include "CSceneManager.h"
 #include "CPathManager.h"
 #include "CUIManager.h"
+#include "CItemManager.h"
 
 CMainGame::CMainGame()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
@@ -50,6 +51,7 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	CSceneManager::GetInstance()->Initialize();
 	CPathManager::GetInstance()->Initialize();
 	CUIManager::GetInstance()->Initialize();
+	CItemManager::GetInstance()->Initialize();
 
 	// get device context
 	m_hDC = GetDC(m_hWnd);

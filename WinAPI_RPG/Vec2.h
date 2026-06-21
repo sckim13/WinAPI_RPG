@@ -4,18 +4,30 @@ class Vec2
 {
 public:
 	Vec2() : x(0.f), y(0.f) {}
-	Vec2(float _x, float _y) : x(_x), y(_y) {}
-	Vec2(int _x, int _y) : x((float)_x), y((float)_y) {}
-	Vec2(long _x, long _y) : x((float)_x), y((float)_y) {}
 
-	Vec2 operator+(const Vec2& other)
+	template<typename T>
+	Vec2(T _x, T _y) : x((float)_x), y((float)_y) {}
+
+	Vec2 operator+(const Vec2& other) const
 	{
 		return Vec2{ x + other.x, y + other.y };
 	}
 
-	Vec2 operator-(const Vec2& other)
+	Vec2 operator-(const Vec2& other) const
 	{
 		return Vec2{ x - other.x, y - other.y };
+	}
+
+	Vec2& operator+=(const Vec2& other)
+	{
+		x += other.x; y += other.y;
+		return *this;
+	}
+
+	Vec2& operator-=(const Vec2& other)
+	{
+		x -= other.x; y -= other.y;
+		return *this;
 	}
 
 	template<typename T>
@@ -24,10 +36,7 @@ public:
 		return Vec2{ x * other, y * other };
 	}
 
-	template<typename T>
-	friend Vec2 operator*(const T& lhs, const Vec2& rhs);
-
-	inline float Size() { return sqrt(x * x + y * y); }
+	inline float Size() const { return sqrt(x * x + y * y); }
 
 public:
 	float x;
@@ -36,7 +45,13 @@ public:
 };
 
 template<typename T>
-Vec2 operator*(const T& lhs, const Vec2& rhs)
+inline Vec2 operator*(const T& lhs, const Vec2& rhs)
 {
 	return Vec2{ lhs * rhs.x, lhs * rhs.y };
+}
+
+inline std::ostream& operator<<(std::ostream& os, const Vec2& rhs)
+{
+	os << "(" << rhs.x << ", " << rhs.y << ")";
+	return os;
 }

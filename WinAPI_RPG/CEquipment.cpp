@@ -4,6 +4,7 @@
 #include "CEquipItem.h"
 #include "CInventory.h"
 #include "CPlayer.h"
+#include "CItemManager.h"
 
 CEquipment::CEquipment() : m_arrEquipSlot{}
 {
@@ -57,9 +58,9 @@ void CEquipment::UnEquip(EEquipSlot eSlot)
 {
 	CItem* pItem = m_arrEquipSlot[(int)eSlot];
 
-	CPlayer* pPlayer = dynamic_cast<CPlayer*>(GetOwner());
-	assert(pPlayer);
-	pPlayer->GetInventory()->PushItem(pItem);
+	CItemManager::GetInstance()->RequestPushItem(pItem);
+
+	m_arrEquipSlot[(int)eSlot] = nullptr;
 
 	m_hOnEquipmentUpdated->Broadcast(TEquipmentCtx{ CaptureSlot() });
 }

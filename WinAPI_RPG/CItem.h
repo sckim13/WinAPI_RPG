@@ -27,7 +27,7 @@ private:
 	CObject* m_pOwner;
 
 public:
-	inline EItemType GetItemType() { return m_eItemType; }
+	inline EItemType GetItemType() const { return m_eItemType; }
 	// inline bool IsOnField() { return m_bOnField; }
 
 	inline void SetOwner(CObject* pObj) { m_pOwner = pObj; }

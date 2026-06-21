@@ -21,6 +21,7 @@ public:
 
 	inline UINT GetWidth() { return m_bitInfo.bmWidth; }
 	inline UINT GetHeight() { return m_bitInfo.bmHeight; }
+	inline Vec2 GetSize() { return Vec2{ m_bitInfo.bmWidth , m_bitInfo.bmHeight }; }
 
 	inline HDC GetDC() { return m_hDC; }
 

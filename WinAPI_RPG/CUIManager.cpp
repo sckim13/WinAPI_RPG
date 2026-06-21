@@ -3,6 +3,7 @@
 #include "CInventoryUI.h"
 #include "CEquipmentUI.h"
 #include "CCursor.h"
+#include "CUI.h"
 
 CUIManager::CUIManager() : m_pCursor(nullptr)
 {
@@ -20,10 +21,14 @@ void CUIManager::Initialize()
     CUI* pInventoryUI = CAbstractFactory<CUI, CInventoryUI>::Create();
     pInventoryUI->SetPosition(Vec2{ 0.f, 0.f });
     m_mapUI.insert({ L"Inventory", pInventoryUI });
+    m_listUI.push_front(pInventoryUI);
+    m_umapUI.insert({ pInventoryUI, m_listUI.begin() });
 
     CUI* pEquipmentUI = CAbstractFactory<CUI, CEquipmentUI>::Create();
     pEquipmentUI->SetPosition(Vec2{ 0.f, 0.f });
     m_mapUI.insert({ L"Equipment", pEquipmentUI });
+    m_listUI.push_front(pEquipmentUI);
+    m_umapUI.insert({ pEquipmentUI, m_listUI.begin() });
 }
 
 void CUIManager::PostInitialize()
@@ -42,30 +47,52 @@ void CUIManager::LateUpdate()
 
 void CUIManager::Release()
 {
+    for (auto pUI : m_listUI)
+    {
+        Safe_Delete<CUI*>(pUI);
+    }
     Safe_Delete<CCursor*>(m_pCursor);
 }
 
 void CUIManager::Render(HDC hDC)
 {
-    for (auto pair : m_mapUI)
+    for (auto iter = m_listUI.rbegin(); iter != m_listUI.rend(); ++iter)
     {
-        pair.second->Render(hDC);
+        (*iter)->Render(hDC);
     }
     m_pCursor->Render(hDC);
-}
-
-CUI* CUIManager::GetUIFromCoordinates(POINT& pt)
-{
-    // TODO : Get point
-    // Find the most upper UI at that point
-    // convert to local point of UI
-    // 우선은 점의 좌표를 기준으로 UI 사각형들이 점 안에 들어오는지 판별(pq에 push?) 그리고 가장 우선순위 UI를 반환.
-    // UI의 좌상단 좌표를 받고, 현재 pt에서 ui pt를 뺴서 로컬 좌표 계산
-    // 
-    return m_mapUI[L"Inventory"];
 }
 
 CUI* CUIManager::GetUI(wstring wstrName)
 {
     return m_mapUI[wstrName];
+}
+
+
+void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
+{
+    Vec2 vCursorPos = m_pCursor->GetPosition();
+
+    for (auto iter = m_listUI.begin(); iter != m_listUI.end(); ++iter)
+    {
+        CUI* pUI = (*iter);
+
+        if (pUI->IsValidInput(vCursorPos))
+        {
+            pUI->OnMouseEventTriggered(TMouseEventCtx{eKey, eKeyState, vCursorPos - pUI->GetPosition()});
+            /* Caution!! : Below function causes dangling iter */
+            UpdateUIOrder(pUI);
+            /* Caution!! : Above function causes dangling iter */
+            return;
+        }
+    }
+    cout << "[UI Manager] No UI is on the cursor" << endl;
+}
+
+void CUIManager::UpdateUIOrder(CUI* pUI)
+{
+    auto iter = m_umapUI[pUI];
+    m_listUI.erase(iter);
+    m_listUI.push_front(pUI);
+    m_umapUI[pUI] = m_listUI.begin();
 }

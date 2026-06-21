@@ -2,6 +2,7 @@
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 #include "CMainGame.h"
+#include "CUIManager.h"
 
 vector<int> g_vecVK =
 {
@@ -112,6 +113,9 @@ map<EKey, EEventType> g_mapInputEvent =
 	{EKey::E, EEventType::UI_EQUIPMENT},
 	{EKey::Z, EEventType::PICKITEM},
 	{EKey::SPACE, EEventType::NPC},
+	{EKey::L_CLICK, EEventType::MOUSE_L_CLICK},
+	{EKey::R_CLICK, EEventType::MOUSE_R_CLICK},
+	{EKey::M_CLICK, EEventType::MOUSE_M_CLICK},
 };
 
 CKeyManager::CKeyManager()
@@ -222,6 +226,10 @@ void CKeyManager::Update()
 		if (m_vecKey[i].eKeyState == EKeyState::NONE || m_mapInputEvent[(EKey)i] == EEventType::NONE)
 		{
 			continue;
+		}
+		else if (m_mapInputEvent[(EKey)i] > EEventType::MOUSE_NONE && m_mapInputEvent[(EKey)i] < EEventType::MOUSE_MAX)
+		{
+			CUIManager::GetInstance()->OnMouseEventTriggered((EKey)i, m_vecKey[i].eKeyState);
 		}
 		else if(m_mapInputEvent[(EKey)i] > EEventType::UI_NONE && m_mapInputEvent[(EKey)i] < EEventType::UI_MAX)
 		{

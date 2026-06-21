@@ -19,12 +19,18 @@ public:
 
 	void OnInventoryUpdated(TInventoryCtx Ctx);
 
+	virtual bool IsValidInput(Vec2 vCursorPos) override;
+
 private:
 	CTexture* m_pMainTexture;
-	CCollider* m_pFirstItemCollider; // for testing
+	Vec2 m_pDummyItemRect = Vec2 {100.f, 100.f};
 	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_arrItem;
 	EInventoryTab m_eCurrentTab;
 
 	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
+	virtual void OnMouseEventTriggered(TMouseEventCtx Ctx) override;
+
+	// Inherited via CUI
+	bool IsCursorOnUI(Vec2 vCursorPos) override;
 };
 

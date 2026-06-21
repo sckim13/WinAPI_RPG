@@ -17,13 +17,19 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	CUI* GetUIFromCoordinates(POINT& pt);
 	CUI* GetUI(wstring wstrName);
+
+	void OnMouseEventTriggered(EKey eKey, EKeyState eKeyState);
+
+	void UpdateUIOrder(CUI* pUI);
 
 private:
 	// All UI Pointers
 	map<wstring, CUI*> m_mapUI;
-	
+
+	list<CUI*> m_listUI;
+	unordered_map<CUI*, list<CUI*>::iterator> m_umapUI;
+
 	CCursor* m_pCursor;
 	
 };

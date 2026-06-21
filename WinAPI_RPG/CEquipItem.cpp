@@ -18,7 +18,7 @@ void CEquipItem::Initialize()
 	__super::Initialize();
 
 	m_eItemType = EItemType::EQUIP;
-	m_eEquipSlot = EEquipSlot::SHOES;
+	m_eEquipSlot = EEquipSlot::HEAD;
 
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Item", L"Texture\\Item.bmp");
 	m_pTexture->SetOwner(this);

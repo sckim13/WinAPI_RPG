@@ -136,6 +136,12 @@ enum class EEventType
 	UI_SKILL,
 	UI_MAX,
 
+	MOUSE_NONE,
+	MOUSE_L_CLICK,
+	MOUSE_R_CLICK,
+	MOUSE_M_CLICK,
+	MOUSE_MAX,
+
 	NPC,
 
 	PICKITEM,
@@ -252,4 +258,17 @@ enum class EKey
 	M_CLICK,
 
 	MAX,
+};
+
+enum class EUIType
+{
+	NONE,
+	INVENTORY,
+	EQUIPMENT,
+};
+
+enum class EUIStatus
+{
+	IDLE,
+	MOVE,
 };

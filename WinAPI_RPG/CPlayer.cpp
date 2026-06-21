@@ -15,6 +15,7 @@
 #include "CUIManager.h"
 #include "CInventoryUI.h"
 #include "MathUtil.h"
+#include "CItemManager.h"
 
 CPlayer::CPlayer()
 {
@@ -32,6 +33,8 @@ void CPlayer::Initialize()
 	m_eObjectType = EObjectType::PLAYER;
 	wstring wstrName = L"Player_" + to_wstring(GetID());
 	SetName(wstrName);
+
+	CItemManager::GetInstance()->SetPlayer(this);
 
 
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
@@ -99,16 +102,6 @@ void CPlayer::Update()
 		m_ePlayerState = EPlayerState::ATTACK;
 		cout << "Attack" << endl;
 	}
-
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::L_CLICK) == EKeyState::DOUBLE_PRESSED)
-	{
-		POINT ptMouse;
-		GetCursorPos(&ptMouse);
-		ScreenToClient(CMainGame::GetInstance()->GetHWnd(), &ptMouse);
-		CUI* pUI = CUIManager::GetInstance()->GetUIFromCoordinates(ptMouse);
-		//m_pInventory->PopItem(pDummyItem);
-		//m_pEquipment->Equip(pDummyItem);
-	}
 }
 
 void CPlayer::LateUpdate()
@@ -118,6 +111,7 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Release()
 {
+	CItemManager::GetInstance()->SetPlayer(nullptr);
 }
 
 void CPlayer::Render(HDC hDC)

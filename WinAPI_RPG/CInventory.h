@@ -35,7 +35,7 @@ private:
 	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> CaptureInventory();
 
 public:
-	
+	inline CItem* GetItemByIndex(EInventoryTab eTab, int iIndex) { return m_pItemContainer[(int)eTab][iIndex]; }
 
 };
 
