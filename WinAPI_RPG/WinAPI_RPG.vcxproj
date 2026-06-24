@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClInclude Include="CAbstractFactory.h" />
     <ClInclude Include="CActiveSkill.h" />
+    <ClInclude Include="CAnimator.h" />
     <ClInclude Include="CBase.h" />
     <ClInclude Include="CCharacter.h" />
     <ClInclude Include="CCollider.h" />
@@ -188,6 +189,7 @@
   <ItemGroup>
     <ClCompile Include="CAbstractFactory.cpp" />
     <ClCompile Include="CActiveSkill.cpp" />
+    <ClCompile Include="CAnimator.cpp" />
     <ClCompile Include="CBase.cpp" />
     <ClCompile Include="CCharacter.cpp" />
     <ClCompile Include="CCollider.cpp" />

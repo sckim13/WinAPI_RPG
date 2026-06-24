@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CTexture.h"
 #include "CMainGame.h"
 
@@ -41,7 +41,8 @@ void CTexture::Render(HDC hDC, int iX, int iY, EPoseDirection bDir)
 		iX, iY,
 		(bDir == EPoseDirection::LEFT ? 1 : -1) * GetWidth(), GetHeight(),
 		m_hDC,
-		0, 0, GetWidth(), GetHeight(),
+		0, 0,
+		GetWidth(), GetHeight(),
 		SRCCOPY);
 }
 

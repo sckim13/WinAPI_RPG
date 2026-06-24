@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "CObject.h"
+#include "CComponent.h"
 
 class CCharacter;
 
-class CController : public CObject
+class CController : public CComponent
 {
 public:
 	CController();

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "CSkill.h"
 #include "ICollide.h"
@@ -19,5 +19,7 @@ public:
 	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
 	virtual void OnCollision(TCollisionCtx Ctx) override;
 	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
+
+
 };
 
