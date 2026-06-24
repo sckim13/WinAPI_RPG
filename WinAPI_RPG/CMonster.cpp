@@ -5,7 +5,6 @@
 #include "CResourceManager.h"
 #include "CTexture.h"
 #include "CPlayer.h"
-#include "CEventHandle.h"
 #include "EventContext.h"
 #include "CTimeManager.h"
 

@@ -20,7 +20,7 @@ public:
 	void Equip(CItem* pItem);
 	void UnEquip(EEquipSlot eSlot);
 
-	CEventHandle<TEquipmentCtx>* m_hOnEquipmentUpdated;
+	CEventDelegate<TEquipmentCtx>* m_hOnEquipmentUpdated;
 
 private:
 	array<CItem*, (int)EEquipSlot::MAX> m_arrEquipSlot;

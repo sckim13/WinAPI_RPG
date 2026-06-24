@@ -2,7 +2,7 @@
 #include "CManager.h"
 
 template<typename T>
-class CEventHandle;
+class CEventDelegate;
 
 struct tKeyInfo
 {
@@ -25,7 +25,7 @@ public:
 
 	inline EKeyState GetKeyState(EKey eKey) { return m_vecKey[(int)eKey].eKeyState; }
 
-	CEventHandle<TKeyEventCtx>* m_hOnKeyEventTriggered;
+	CEventDelegate<TKeyEventCtx>* m_hOnKeyEventTriggered;
 private:
 	vector<tKeyInfo> m_vecKey;
 	float fDoubleClickThreshold = 0.2f;

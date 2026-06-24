@@ -1,10 +1,10 @@
-﻿#pragma once
+#pragma once
 
 #include "CManager.h"
 
-class CEventManager : public CManager
+class CTimerManager : public CManager
 {
-	SINGLETON(CEventManager);
+	SINGLETON(CTimerManager);
 
 public:
 	virtual void Initialize() override;
@@ -14,9 +14,9 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	// void AddEvent();
-	// void RemoveEvent();
+
 
 private:
+
 };
 

@@ -124,9 +124,6 @@
     <Filter Include="Engine\02. Manager\EventManager">
       <UniqueIdentifier>{6e8cde4f-df7b-4562-bbd6-f38288001d6f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\01. Util\Event">
-      <UniqueIdentifier>{2e8ddca9-8d63-4b8e-b3cf-8803b57b73f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\03. Object\Item">
       <UniqueIdentifier>{c5594afc-5ce8-471b-a5ee-ccac78a3a4a4}</UniqueIdentifier>
     </Filter>
@@ -189,6 +186,15 @@
     </Filter>
     <Filter Include="Engine\02. Manager\CombatManager">
       <UniqueIdentifier>{a83ea570-034c-4d4c-b159-4d2f930af49b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\TimerManager">
+      <UniqueIdentifier>{e2d5baac-1ba7-478a-92c5-358dc8d3edea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\TimerManager\TimerHandle">
+      <UniqueIdentifier>{55d12022-76af-4d79-917c-81463066f02d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\EventManager\Event">
+      <UniqueIdentifier>{2e8ddca9-8d63-4b8e-b3cf-8803b57b73f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -300,11 +306,8 @@
     <ClInclude Include="CEventManager.h">
       <Filter>Engine\02. Manager\EventManager</Filter>
     </ClInclude>
-    <ClInclude Include="CEventHandle.h">
-      <Filter>Engine\01. Util\Event</Filter>
-    </ClInclude>
-    <ClInclude Include="EventContext.h">
-      <Filter>Engine\01. Util\Struct</Filter>
+    <ClInclude Include="CEventDelegate.h">
+      <Filter>Engine\02. Manager\EventManager\Event</Filter>
     </ClInclude>
     <ClInclude Include="CInventory.h">
       <Filter>Engine\04. Component\Inventory</Filter>
@@ -359,6 +362,15 @@
     </ClInclude>
     <ClInclude Include="CCombatManager.h">
       <Filter>Engine\02. Manager\CombatManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimerManager.h">
+      <Filter>Engine\02. Manager\TimerManager</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerHandle.h">
+      <Filter>Engine\02. Manager\TimerManager\TimerHandle</Filter>
+    </ClInclude>
+    <ClInclude Include="EventContext.h">
+      <Filter>Engine\02. Manager\EventManager\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,8 +458,8 @@
     <ClCompile Include="CEventManager.cpp">
       <Filter>Engine\02. Manager\EventManager</Filter>
     </ClCompile>
-    <ClCompile Include="CEventHandle.cpp">
-      <Filter>Engine\01. Util\Event</Filter>
+    <ClCompile Include="CEventDelegate.cpp">
+      <Filter>Engine\02. Manager\EventManager\Event</Filter>
     </ClCompile>
     <ClCompile Include="CTimeManager.cpp">
       <Filter>Engine\02. Manager\TimeManager</Filter>
@@ -499,6 +511,12 @@
     </ClCompile>
     <ClCompile Include="CCombatManager.cpp">
       <Filter>Engine\02. Manager\CombatManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimerManager.cpp">
+      <Filter>Engine\02. Manager\TimerManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerHandle.cpp">
+      <Filter>Engine\02. Manager\TimerManager\TimerHandle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

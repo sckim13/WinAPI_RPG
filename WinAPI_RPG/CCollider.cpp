@@ -2,7 +2,6 @@
 #include "CCollider.h"
 #include "CTransform.h"
 #include "CObject.h"
-#include "CEventHandle.h"
 #include "EventContext.h"
 
 INT32 CCollider::g_ID = 0;
@@ -19,8 +18,8 @@ CCollider::~CCollider()
 void CCollider::Initialize()
 {
 	m_pTransform = new CTransform;
-	m_hOnCollisionBegin = new CEventHandle<TCollisionCtx>;
-	m_hOnCollisionEnd = new CEventHandle<TCollisionCtx>;
+	m_hOnCollisionBegin = new CEventDelegate<TCollisionCtx>;
+	m_hOnCollisionEnd = new CEventDelegate<TCollisionCtx>;
 }
 
 void CCollider::PostInitialize()
@@ -47,8 +46,8 @@ void CCollider::LateUpdate()
 void CCollider::Release()
 {
 	Safe_Delete<CTransform*>(m_pTransform);
-	Safe_Delete<CEventHandle<TCollisionCtx>*>(m_hOnCollisionBegin);
-	Safe_Delete<CEventHandle<TCollisionCtx>*>(m_hOnCollisionEnd);
+	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionBegin);
+	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionEnd);
 }
 
 void CCollider::Render(HDC hDC)

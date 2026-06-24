@@ -14,7 +14,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	CEventHandle<TCombatCtx> m_hOnCombatTriggered;
+	CEventDelegate<TCombatCtx> m_hOnCombatTriggered;
 
 };
 

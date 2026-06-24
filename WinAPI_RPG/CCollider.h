@@ -6,7 +6,7 @@ class CTransform;
 struct TCollisionCtx;
 
 template<typename T>
-class CEventHandle;
+class CEventDelegate;
 
 class CCollider : public CComponent
 {
@@ -27,8 +27,8 @@ public:
 
 	static INT32 g_ID;
 
-	CEventHandle<TCollisionCtx>* m_hOnCollisionBegin;
-	CEventHandle<TCollisionCtx>* m_hOnCollisionEnd;
+	CEventDelegate<TCollisionCtx>* m_hOnCollisionBegin;
+	CEventDelegate<TCollisionCtx>* m_hOnCollisionEnd;
 
 
 private:

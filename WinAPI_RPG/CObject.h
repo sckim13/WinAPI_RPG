@@ -25,7 +25,6 @@ protected:
 	EObjectType m_eObjectType;
 	wstring m_wstrName;
 
-	static int g_ObjectID;
 
 	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);
 
@@ -34,7 +33,6 @@ public:
 	inline CCollider* GetCollider() const { return m_pCollider; }
 	inline EObjectType GetObjectType() const { return m_eObjectType; }
 	inline const wstring GetName() const { return m_wstrName; }
-	inline const int GetID() const { return g_ObjectID; }
 
 	inline void SetName(wstring& wstrName) { m_wstrName = wstrName; }
 };

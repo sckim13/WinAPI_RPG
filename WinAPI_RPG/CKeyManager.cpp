@@ -133,7 +133,7 @@ CKeyManager::~CKeyManager()
 
 void CKeyManager::Initialize()
 {
-	m_hOnKeyEventTriggered = new CEventHandle<TKeyEventCtx>;
+	m_hOnKeyEventTriggered = new CEventDelegate<TKeyEventCtx>;
 
 	for (int i = 0; i < (int)EKey::MAX; ++i)
 	{
@@ -256,7 +256,7 @@ void CKeyManager::LateUpdate()
 
 void CKeyManager::Release()
 {
-	Safe_Delete<CEventHandle<TKeyEventCtx>*>(m_hOnKeyEventTriggered);
+	Safe_Delete<CEventDelegate<TKeyEventCtx>*>(m_hOnKeyEventTriggered);
 }
 
 void CKeyManager::Render(HDC hDC)

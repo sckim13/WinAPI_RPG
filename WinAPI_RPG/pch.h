@@ -52,5 +52,6 @@ using namespace Gdiplus;
 using namespace std;
 
 // User defined header which has namespace issues
-#include "CEventHandle.h"
+#include "CEventDelegate.h"
 #include "EventContext.h"
+#include "TimerHandle.h"

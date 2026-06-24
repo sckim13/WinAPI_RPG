@@ -22,7 +22,7 @@ void CInventory::Initialize()
 		}
 	}
 
-	m_hOnInventoryUpdated = new CEventHandle<TInventoryCtx>;
+	m_hOnInventoryUpdated = new CEventDelegate<TInventoryCtx>;
 }
 
 void CInventory::PostInitialize()

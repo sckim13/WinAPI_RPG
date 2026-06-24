@@ -16,7 +16,7 @@ CEquipment::~CEquipment()
 
 void CEquipment::Initialize()
 {
-	m_hOnEquipmentUpdated = new CEventHandle<TEquipmentCtx>;
+	m_hOnEquipmentUpdated = new CEventDelegate<TEquipmentCtx>;
 }
 
 void CEquipment::PostInitialize()

@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 #include "CInventoryUI.h"
 #include "CInventory.h"
-#include "CEventHandle.h"
 #include "EventContext.h"
 #include "CResourceManager.h"
 #include "CTexture.h"
