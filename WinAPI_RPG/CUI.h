@@ -18,9 +18,8 @@ public:
 	virtual bool IsCursorOnUI(Vec2 vCursorPos);
 	virtual bool IsValidInput(Vec2 vCursorPos);
 
-	virtual void OnMouseEventTriggered(TMouseEventCtx Ctx);
-
 	void MoveUI(EKeyState eKeyState, const Vec2& vCursorPos);
+	virtual void OnMouseEventTriggered(TMouseEventCtx Ctx);
 
 protected:
 	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);

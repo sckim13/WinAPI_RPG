@@ -372,6 +372,9 @@
     <ClInclude Include="EventContext.h">
       <Filter>Engine\02. Manager\EventManager\Event</Filter>
     </ClInclude>
+    <ClInclude Include="CAnimator.h">
+      <Filter>Engine\04. Component\Animator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -517,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="TimerHandle.cpp">
       <Filter>Engine\02. Manager\TimerManager\TimerHandle</Filter>
+    </ClCompile>
+    <ClCompile Include="CAnimator.cpp">
+      <Filter>Engine\04. Component\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

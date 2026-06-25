@@ -3,6 +3,8 @@
 #include "CSkill.h"
 #include "ICollide.h"
 
+class CAnimator;
+
 class CActiveSkill : public CSkill, public ICollide
 {
 public:
@@ -20,6 +22,7 @@ public:
 	virtual void OnCollision(TCollisionCtx Ctx) override;
 	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
 
-
+protected:
+	CAnimator* m_pAnimator;
 };
 

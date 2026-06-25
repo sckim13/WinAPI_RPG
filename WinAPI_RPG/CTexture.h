@@ -16,6 +16,7 @@ public:
 	virtual void Render(HDC hDC) override;
 
 	virtual void Render(HDC hDC, int iX, int iY, EPoseDirection bDir = EPoseDirection::LEFT);
+	virtual void Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, EPoseDirection bDir = EPoseDirection::LEFT);
 
 	void Load(const wstring& strPath);
 

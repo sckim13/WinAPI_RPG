@@ -46,6 +46,24 @@ void CTexture::Render(HDC hDC, int iX, int iY, EPoseDirection bDir)
 		SRCCOPY);
 }
 
+void CTexture::Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, EPoseDirection bDir)
+{
+	BLENDFUNCTION bf;
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.SourceConstantAlpha = 255;
+	bf.AlphaFormat = AC_SRC_ALPHA;
+
+	AlphaBlend(hDC,
+		iDstX, iDstY,
+		iCX, iCY,
+		m_hDC, 
+		iSrcX, iSrcY,
+		iCX, iCY,
+		bf
+	);
+}
+
 void CTexture::Load(const wstring& strPath)
 {
 	m_hBit = (HBITMAP)LoadImage(nullptr, strPath.c_str(), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);

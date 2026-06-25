@@ -2,6 +2,8 @@
 #include "CHitScanSkill.h"
 #include "CMonster.h"
 #include "CCollider.h"
+#include "CResourceManager.h"
+#include "CAnimator.h"
 
 CHitScanSkill::CHitScanSkill()
 {
@@ -20,6 +22,11 @@ void CHitScanSkill::Initialize()
 
 	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
 	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
+
+	CResourceManager::GetInstance()->LoadTexture(L"ActiveSkill", L"Texture\\ActiveSkill.bmp");
+	m_pAnimator = new CAnimator;
+	m_pAnimator->BindTexture(L"ActiveSkill");
+	m_pAnimator->SetOwner(this);
 }
 
 void CHitScanSkill::PostInitialize()
@@ -28,10 +35,12 @@ void CHitScanSkill::PostInitialize()
 
 void CHitScanSkill::Update()
 {
+	m_pAnimator->Update();
 }
 
 void CHitScanSkill::LateUpdate()
 {
+	SetPosition(GetPosition());
 }
 
 void CHitScanSkill::Release()
@@ -40,6 +49,7 @@ void CHitScanSkill::Release()
 
 void CHitScanSkill::Render(HDC hDC)
 {
+	m_pAnimator->Render(hDC);
 }
 
 void CHitScanSkill::Execute()
@@ -47,6 +57,7 @@ void CHitScanSkill::Execute()
 	cout << "[HitScanSkill] Execute" << endl;
 
 	/* animator play animation */
+	m_pAnimator->Play();
 	/* set collision enabled 1Frame */
 	m_pCollider->SetEnabled(true);
 	/* */

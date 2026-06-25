@@ -14,7 +14,7 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
-
+public:
 	CTexture* LoadTexture(const wstring& strKey, const wstring& strRelPath);
 
 private:

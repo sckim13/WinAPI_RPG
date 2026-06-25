@@ -2,8 +2,10 @@
 #include "CActiveSkill.h"
 #include "CCollider.h"
 #include "CMonster.h"
+#include "CResourceManager.h"
+#include "CTexture.h"
 
-CActiveSkill::CActiveSkill()
+CActiveSkill::CActiveSkill() : m_pAnimator(nullptr)
 {
 }
 
@@ -15,7 +17,7 @@ void CActiveSkill::Initialize()
 {
 	__super::Initialize();
 
-	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
+	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"ActiveSkill", L"Texture\\ActiveSkill.bmp");
 	m_pTexture->SetOwner(this);
 }
 
@@ -44,7 +46,7 @@ void CActiveSkill::OnCollisionBegin(TCollisionCtx Ctx)
 	auto [pCollider] = Ctx;
 
 	CObject* pObject = pCollider->GetOwner();
-	if ()
+	if (1)
 	{
 
 	}

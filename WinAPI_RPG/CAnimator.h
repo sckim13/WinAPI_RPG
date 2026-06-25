@@ -17,15 +17,23 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	void BindTexture(const wstring& wstrName);
 	void Play();
 
 private:
 	CTexture* m_pSprite;
 	
-	int m_iHeight;
-	int m_iWidth;
-	int m_iFrameSize;
-	vector<int> m_iFrameDelay;
-	bool m_bLoop;
+	const int FRAME_W = 580;
+	const int FRAME_H = 348;
+	const int FRAME_COUNT = 11;
+	const int FRAME_DELAY = 90; // ms
+
+	bool m_bIsPlaying;
+	int m_iCurrentIndex;
+	// nt m_iHeight;
+	// int m_iWidth;
+	// int m_iFrameSize;
+	// float m_iFrameDelay;
+	// bool m_bLoop;
 };
 
