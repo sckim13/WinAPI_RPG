@@ -18,11 +18,16 @@ void CObject::Initialize()
 {
 	CKeyManager::GetInstance()->m_hOnKeyEventTriggered->AddBinding(
 		this,
-		[this](TKeyEventCtx Ctx) { OnKeyEventTriggered(Ctx); });
+		[this](TKeyEventCtx Ctx) { OnKeyEventTriggered(Ctx); }
+	);
 }
 
 void CObject::PostInitialize()
 {
+	for (CComponent* pComponent : m_vecComponent)
+	{
+		pComponent->Initialize();
+	}
 }
 
 void CObject::Update()
@@ -31,16 +36,24 @@ void CObject::Update()
 
 void CObject::LateUpdate()
 {
+	for (CComponent* pComponent : m_vecComponent)
+	{
+		pComponent->Update();
+	}
 }
 
 void CObject::Release()
 {
-	Safe_Delete<CTexture*>(m_pTexture);
-	Safe_Delete<CCollider*>(m_pCollider);
+	for (CComponent* pComponent : m_vecComponent)
+	{
+		Safe_Delete<CComponent*>(pComponent);
+	}
+	m_vecComponent.clear();
 }
 
-void CObject::Render(HDC hDC)
+void CObject::AddComponent(CComponent* pComponent)
 {
+	m_vecComponent.push_back(pComponent);
 }
 
 void CObject::OnKeyEventTriggered(TKeyEventCtx Ctx)

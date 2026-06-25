@@ -12,6 +12,7 @@ CEquipment::CEquipment() : m_arrEquipSlot{}
 
 CEquipment::~CEquipment()
 {
+	Release();
 }
 
 void CEquipment::Initialize()
@@ -33,6 +34,7 @@ void CEquipment::LateUpdate()
 
 void CEquipment::Release()
 {
+	Safe_Delete<CEventDelegate<TEquipmentCtx>*>(m_hOnEquipmentUpdated);
 }
 
 void CEquipment::Render(HDC hDC)

@@ -196,6 +196,9 @@
     <Filter Include="Engine\02. Manager\EventManager\Event">
       <UniqueIdentifier>{2e8ddca9-8d63-4b8e-b3cf-8803b57b73f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Component\SkillComponent">
+      <UniqueIdentifier>{d9dced06-a5e3-4d72-984e-6a4430e62de9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -375,6 +378,9 @@
     <ClInclude Include="CAnimator.h">
       <Filter>Engine\04. Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="CSkillComponent.h">
+      <Filter>Engine\04. Component\SkillComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -523,6 +529,9 @@
     </ClCompile>
     <ClCompile Include="CAnimator.cpp">
       <Filter>Engine\04. Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkillComponent.cpp">
+      <Filter>Engine\04. Component\SkillComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

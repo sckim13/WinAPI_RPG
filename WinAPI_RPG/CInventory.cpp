@@ -10,9 +10,17 @@ CInventory::CInventory() : m_eCurrentTab(EInventoryTab::EQUIP), m_hOnInventoryUp
 
 CInventory::~CInventory()
 {
+	Release();
 }
 
 void CInventory::Initialize()
+{
+	ClearItemContainer();
+
+	m_hOnInventoryUpdated = new CEventDelegate<TInventoryCtx>;
+}
+
+void CInventory::ClearItemContainer()
 {
 	for (auto iterOut = m_pItemContainer.begin(); iterOut != m_pItemContainer.end(); ++iterOut)
 	{
@@ -21,8 +29,6 @@ void CInventory::Initialize()
 			*iterIn = nullptr;
 		}
 	}
-
-	m_hOnInventoryUpdated = new CEventDelegate<TInventoryCtx>;
 }
 
 void CInventory::PostInitialize()
@@ -39,6 +45,7 @@ void CInventory::LateUpdate()
 
 void CInventory::Release()
 {
+	Safe_Delete<CEventDelegate<TInventoryCtx>*>(m_hOnInventoryUpdated);
 }
 
 void CInventory::Render(HDC hDC)

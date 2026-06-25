@@ -8,7 +8,7 @@ class CSkill : public CObject
 {
 public:
 	CSkill();
-	virtual ~CSkill();
+	virtual ~CSkill() PURE;
 
 	virtual void Initialize() override;
 	virtual void PostInitialize() override;
@@ -16,8 +16,6 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
-
-	virtual void Execute() PURE;
 
 private:
 	/* Skill Info */

@@ -19,25 +19,9 @@ void CUI::Initialize()
 		[this](TKeyEventCtx Ctx) { OnKeyEventTriggered(Ctx); });
 }
 
-void CUI::PostInitialize()
-{
-}
-
-void CUI::Update()
-{
-}
-
-void CUI::LateUpdate()
-{
-}
-
-void CUI::Release()
-{
-}
-
 void CUI::Render(HDC hDC)
 {
-
+    /* Test Drag Area */
     HBRUSH hNullBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
     HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, hNullBrush);
 
@@ -57,7 +41,7 @@ void CUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
 
 void CUI::OnFocused()
 {
-	CUIManager::GetInstance()->UpdateUIOrder(this);
+    CUIManager::GetInstance()->UpdateUIOrder(this);
 }
 
 bool CUI::IsCursorOnUI(Vec2 vCursorPos)
@@ -88,6 +72,7 @@ void CUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
     /* vCursorPos is local */
     auto [eKey, eKeyState, vCursorPos] = Ctx;
 
+    cout << "bp6" << endl;
 
     if (eKey == EKey::L_CLICK)
     {

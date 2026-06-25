@@ -49,11 +49,11 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	// Manager initialize
 	CTimeManager::GetInstance()->Initialize();
 	CKeyManager::GetInstance()->Initialize();
-	CSceneManager::GetInstance()->Initialize();
 	CPathManager::GetInstance()->Initialize();
-	CUIManager::GetInstance()->Initialize();
+	CSceneManager::GetInstance()->Initialize();
 	CItemManager::GetInstance()->Initialize();
 	CCollisionManager::GetInstance()->Initialize();
+	CUIManager::GetInstance()->Initialize();
 
 	// get device context
 	m_hDC = GetDC(m_hWnd);
@@ -72,6 +72,13 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 
 void CMainGame::PostInitialize()
 {
+	CTimeManager::GetInstance()->PostInitialize();
+	CKeyManager::GetInstance()->PostInitialize();
+	CPathManager::GetInstance()->PostInitialize();
+	CSceneManager::GetInstance()->PostInitialize();
+	CItemManager::GetInstance()->PostInitialize();
+	CCollisionManager::GetInstance()->PostInitialize();
+	CUIManager::GetInstance()->PostInitialize();
 }
 
 
@@ -86,16 +93,19 @@ void CMainGame::Update()
 	// update other managers
 	CTimeManager::GetInstance()->Update();
 	CKeyManager::GetInstance()->Update();
+
 	CSceneManager::GetInstance()->Update();
-	CUIManager::GetInstance()->Update();
 	CCollisionManager::GetInstance()->Update();
+	
+	CUIManager::GetInstance()->Update();
 }
 
 void CMainGame::LateUpdate()
 {
 	CSceneManager::GetInstance()->LateUpdate();
-	CUIManager::GetInstance()->LateUpdate();
 	CCollisionManager::GetInstance()->LateUpdate();
+	
+	CUIManager::GetInstance()->LateUpdate();
 }
 
 void CMainGame::Release()

@@ -13,7 +13,7 @@ public:
 	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;
 	virtual void Release() PURE;
-	virtual void Render(HDC hDC);
+	virtual void Render(HDC hDC) override;
 
 	virtual bool IsCursorOnUI(Vec2 vCursorPos);
 	virtual bool IsValidInput(Vec2 vCursorPos);

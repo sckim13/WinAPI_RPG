@@ -13,12 +13,13 @@ public:
 	CInventory();
 	virtual ~CInventory();
 
-	void Initialize() override;
-	void PostInitialize() override;
-	void Update() override;
-	void LateUpdate() override;
-	void Release() override;
-	void Render(HDC hDC) override;
+	virtual void Initialize() override;
+	void ClearItemContainer();
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
+	virtual void Render(HDC hDC) override;
 
 	void PushItem(CItem* pItem);
 	void PopItem(CItem* pItem);

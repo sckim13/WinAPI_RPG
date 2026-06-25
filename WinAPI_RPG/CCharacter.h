@@ -29,11 +29,11 @@ protected:
 	EPoseDirection m_ePoseDir;
 
 private:
-	CController* m_pController;
+	// CController* m_pController;
 
 public:
-	inline void SetController(CController* pCtrl) { m_pController = pCtrl; }
-	inline CController* GetController() { return m_pController; }
+	// inline void SetController(CController* pCtrl) { m_pController = pCtrl; }
+	// inline CController* GetController() { return m_pController; }
 
 };
 

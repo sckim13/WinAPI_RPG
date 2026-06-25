@@ -26,11 +26,11 @@ void CInventoryUI::Initialize()
 	SetUIType(EUIType::INVENTORY);
 
 	m_pMainTexture = CResourceManager::GetInstance()->LoadTexture(L"Inventory", L"Texture\\Inventory.bmp");
-	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_hOnInventoryUpdated->AddBinding(this, [this](TInventoryCtx Ctx) { OnInventoryUpdated(Ctx); });
 }
 
 void CInventoryUI::PostInitialize()
 {
+	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_hOnInventoryUpdated->AddBinding(this, [this](TInventoryCtx Ctx) { OnInventoryUpdated(Ctx); });
 }
 
 void CInventoryUI::Update()
@@ -77,11 +77,9 @@ void CInventoryUI::OnInventoryUpdated(TInventoryCtx Ctx)
 
 bool CInventoryUI::IsValidInput(Vec2 vCursorPos)
 {
-	bool bUI = __super::IsValidInput(vCursorPos);
+	if(!__super::IsValidInput(vCursorPos)) return false;
 
-	bool bIsOnDummyRect = MathUtil::IsPointInRect(vCursorPos, m_pDummyItemRect, m_pDummyItemRect + Vec2{ 100.f, 100.f });
-
-	return bUI || (bIsOnDummyRect);
+	return true;
 }
 
 void CInventoryUI::OnKeyEventTriggered(TKeyEventCtx Ctx)

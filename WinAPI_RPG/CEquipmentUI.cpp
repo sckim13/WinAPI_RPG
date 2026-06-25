@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CEquipmentUI.h"
 #include "CSceneManager.h"
 #include "CPlayer.h"
@@ -24,14 +24,13 @@ void CEquipmentUI::Initialize()
 	SetUIType(EUIType::EQUIPMENT);
 
 	m_pMainTexture = CResourceManager::GetInstance()->LoadTexture(L"Equipment", L"Texture\\Equipment.bmp");
-
-	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_hOnEquipmentUpdated->AddBinding(
-		this, [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
-	);
 }
 
 void CEquipmentUI::PostInitialize()
 {
+	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_hOnEquipmentUpdated->AddBinding(
+		this, [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
+	);
 }
 
 void CEquipmentUI::Update()
@@ -99,8 +98,9 @@ void CEquipmentUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
 {
 	__super::OnMouseEventTriggered(Ctx);
 
-	auto [eKey, eKeyState, vCursorPos] = Ctx;
 
+	auto [eKey, eKeyState, vCursorPos] = Ctx;
+	cout << magic_enum::enum_name(eKey) << ", " << magic_enum::enum_name(eKeyState) << ", (" << vCursorPos.x << ", " << vCursorPos.y << ")" << endl;
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
 		&& MathUtil::IsPointInRect(vCursorPos, m_pDummyItemRect, m_pDummyItemRect + Vec2{ 100.f, 100.f }))

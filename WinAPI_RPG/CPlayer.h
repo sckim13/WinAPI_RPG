@@ -5,7 +5,7 @@
 
 class CInventory;
 class CEquipment;
-class CSkill;
+class CSkillComponent;
 
 class CPlayer : public CCharacter, public ICombat
 {
@@ -21,6 +21,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	/* ICollide */
 	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
 	virtual void OnCollision(TCollisionCtx Ctx) override;
 	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
@@ -32,18 +33,18 @@ private:
 
 	CInventory* m_pInventory;
 	CEquipment* m_pEquipment;
-	vector<CSkill*> m_vecSkills;
+	CSkillComponent* m_pSkillComponent;
 
 	vector<CObject*> m_vecObjectsOnCollision[(int)EObjectType::MAX];
 
+	/* CObject */
 	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
 
 public:
 	inline CInventory* GetInventory() { return m_pInventory; }
 	inline CEquipment* GetEquipment() { return m_pEquipment; }
 
-	// Inherited via ICombat
-	void OnHit() override;
-	void OnDead() override;
+	virtual void OnHit() override;
+	virtual void OnDead() override;
 };
 

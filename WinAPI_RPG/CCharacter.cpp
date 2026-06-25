@@ -3,11 +3,11 @@
 
 CCharacter::CCharacter() : m_ePoseDir(EPoseDirection::LEFT)
 {
-	Initialize();
 }
 
 CCharacter::~CCharacter()
 {
+	Release();
 }
 
 void CCharacter::Initialize()
@@ -17,14 +17,17 @@ void CCharacter::Initialize()
 
 void CCharacter::PostInitialize()
 {
+	__super::PostInitialize();
 }
 
 void CCharacter::Update()
 {
+	__super::Update();
 }
 
 void CCharacter::LateUpdate()
 {
+	__super::LateUpdate();
 }
 
 void CCharacter::Release()

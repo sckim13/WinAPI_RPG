@@ -25,21 +25,23 @@ void CMonster::Initialize()
 	SetName(wstrName);
 
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Monster", L"Texture\\Monster.bmp");
-	m_pTexture->SetOwner(this);
-	m_pCollider = new CCollider;
-	m_pCollider->Initialize();
-	m_pCollider->SetOwner(this);
+	m_pTexture->AttachTo(this);
 
-	/* bind event to collider */
-	GetCollider()->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
+	m_pCollider = new CCollider;
+	m_pCollider->AttachTo(this);
 }
 
 void CMonster::PostInitialize()
 {
+	__super::PostInitialize();
+
+	GetCollider()->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
 }
 
 void CMonster::Update()
 {
+	__super::Update();
+
 	Vec2 vPos = GetPosition();
 	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
 
@@ -48,7 +50,7 @@ void CMonster::Update()
 
 void CMonster::LateUpdate()
 {
-	GetCollider()->LateUpdate();
+	__super::LateUpdate();
 }
 
 void CMonster::Release()

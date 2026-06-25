@@ -48,13 +48,13 @@ void CCollisionManager::CheckCollisionGroup(vector<CObject*>& lGroup, vector<COb
 				if ((iter == m_mapPrevCollisionInfo.end()) || (iter->second == false))
 				{
 					wcout << "[Collision Manager] Collision Start : " << plObject->GetName() << " & " << prObject->GetName() << endl;
-					plObject->GetCollider()->OnCollisionBegin(prObject->GetCollider());
-					prObject->GetCollider()->OnCollisionBegin(plObject->GetCollider());
+					plObject->GetCollider()->OnCollisionBegin(TCollisionCtx{ prObject->GetCollider() });
+					prObject->GetCollider()->OnCollisionBegin(TCollisionCtx{ plObject->GetCollider() });
 				}
 				else
 				{
-					plObject->GetCollider()->OnCollision(prObject->GetCollider());
-					prObject->GetCollider()->OnCollision(plObject->GetCollider());
+					plObject->GetCollider()->OnCollision(TCollisionCtx{ prObject->GetCollider() });
+					prObject->GetCollider()->OnCollision(TCollisionCtx{ plObject->GetCollider() });
 				}
 				m_mapPrevCollisionInfo[ID] = true;
 			}
@@ -63,8 +63,8 @@ void CCollisionManager::CheckCollisionGroup(vector<CObject*>& lGroup, vector<COb
 				if ((iter != m_mapPrevCollisionInfo.end()) && (iter->second == true))
 				{
 					wcout << "[Collision Manager] Collision End : " << plObject->GetName() << " & " << prObject->GetName() << endl;
-					plObject->GetCollider()->OnCollisionEnd(prObject->GetCollider());
-					prObject->GetCollider()->OnCollisionEnd(plObject->GetCollider());
+					plObject->GetCollider()->OnCollisionEnd(TCollisionCtx{ prObject->GetCollider() });
+					prObject->GetCollider()->OnCollisionEnd(TCollisionCtx{ plObject->GetCollider() });
 				}
 				m_mapPrevCollisionInfo[ID] = false;
 			}

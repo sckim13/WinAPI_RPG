@@ -13,18 +13,20 @@ public:
 	virtual ~CObject() PURE;
 
 	virtual void Initialize() override;
-	virtual void PostInitialize() PURE;
-	virtual void Update() PURE;
-	virtual void LateUpdate() PURE;
-	virtual void Release() PURE;
+	virtual void PostInitialize() override;
+	virtual void Update() override;
+	virtual void LateUpdate() override;
+	virtual void Release() override;
 	virtual void Render(HDC hDC) PURE;
+
+	void AddComponent(CComponent* pComponent);
 
 protected:
 	CTexture* m_pTexture;
 	CCollider* m_pCollider;
 	EObjectType m_eObjectType;
 	wstring m_wstrName;
-
+	vector<CComponent*> m_vecComponent;
 
 	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);
 

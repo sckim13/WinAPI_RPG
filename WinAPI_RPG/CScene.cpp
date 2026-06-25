@@ -73,6 +73,13 @@ void CScene::Initialize(CPlayer* pPlayer)
 
 void CScene::PostInitialize()
 {
+	for (int i = 0; i < (int)EObjectType::MAX; ++i)
+	{
+		for (auto& pObject : m_vecObject[i])
+		{
+			pObject->PostInitialize();
+		}
+	}
 }
 
 void CScene::Update()

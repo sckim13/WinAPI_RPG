@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CItemManager.h"
 #include "CPlayer.h"
 #include "CInventory.h"
@@ -42,7 +42,7 @@ void CItemManager::RequestEquipItem(EInventoryTab eTab, int iIdx)
 	CItem* pItem = GetPlayer()->GetInventory()->GetItemByIndex(eTab, iIdx);
 	CEquipItem* pEquipItem = dynamic_cast<CEquipItem*>(pItem);
 	
-	assert(pEquipItem);
+	// assert(pEquipItem);
 
 	GetPlayer()->GetInventory()->PopItem(pItem);
 	GetPlayer()->GetEquipment()->Equip(pItem);

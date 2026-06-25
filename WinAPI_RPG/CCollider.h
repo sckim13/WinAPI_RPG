@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "CComponent.h"
+#include "ICollide.h"
 
 class CTransform;
 struct TCollisionCtx;
@@ -8,7 +9,7 @@ struct TCollisionCtx;
 template<typename T>
 class CEventDelegate;
 
-class CCollider : public CComponent
+class CCollider : public CComponent, public ICollide
 {
 public:
 	CCollider();
@@ -21,11 +22,10 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void OnCollisionBegin(CCollider * pCounterPart);
-	void OnCollision(CCollider* pCounterPart);
-	void OnCollisionEnd(CCollider* pCounterPart);
-
-	static INT32 g_ID;
+	/* ICollide */
+	virtual void OnCollisionBegin(TCollisionCtx pCounterPart) override;
+	virtual void OnCollision(TCollisionCtx pCounterPart) override;
+	virtual void OnCollisionEnd(TCollisionCtx pCounterPart) override;
 
 	CEventDelegate<TCollisionCtx>* m_hOnCollisionBegin;
 	CEventDelegate<TCollisionCtx>* m_hOnCollisionEnd;
@@ -33,7 +33,7 @@ public:
 
 private:
 
-	CTransform* m_pTransform;
+	CTransform m_Transform;
 
 	int m_iCollisionCount;
 
@@ -45,15 +45,12 @@ private:
 
 	vector<CCollider*> m_vecColliding;
 
-	INT32 m_ID;
-
 	bool m_bEnabled;
 
 
 public:
-	inline CTransform* GetTransform() { return m_pTransform; }
+	inline CTransform* GetTransform() { return &m_Transform; }
 	inline RECT* GetRect() { return &m_rcCollision; }
-	inline INT32 GetID() { return m_ID; }
 	void SetEnabled(bool bEnabled) { m_bEnabled = bEnabled; }
 	bool IsEnabled() { return m_bEnabled; }
 };

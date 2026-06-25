@@ -17,6 +17,8 @@ public:
 	virtual void Release() PURE;
 	virtual void Render(HDC hDC) PURE;
 
+	void AttachTo(CObject* pObject);
+
 private:
 	CObject* m_pOwner;
 

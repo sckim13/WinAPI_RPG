@@ -33,15 +33,27 @@ void CUIManager::Initialize()
 
 void CUIManager::PostInitialize()
 {
+    for (auto pair : m_mapUI)
+    {
+        pair.second->PostInitialize();
+    }
 }
 
 void CUIManager::Update()
 {
+    for (auto pair : m_mapUI)
+    {
+        pair.second->Update();
+    }
     m_pCursor->Update();
 }
 
 void CUIManager::LateUpdate()
 {
+    for (auto pair : m_mapUI)
+    {
+        pair.second->LateUpdate();
+    }
     m_pCursor->LateUpdate();
 }
 
@@ -73,7 +85,7 @@ void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
 {
     Vec2 vCursorPos = m_pCursor->GetPosition();
 
-    for (auto iter = m_listUI.begin(); iter != m_listUI.end(); ++iter)
+    for (auto iter = m_listUI.begin(); iter != m_listUI.end(); )
     {
         CUI* pUI = (*iter);
 
@@ -84,6 +96,10 @@ void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
             UpdateUIOrder(pUI);
             /* Caution!! : Above function causes dangling iter */
             return;
+        }
+        else
+        {
+            ++iter;
         }
     }
     cout << "[UI Manager] No UI is on the cursor" << endl;

@@ -1,7 +1,8 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CComponent.h"
+#include "CObject.h"
 
-CComponent::CComponent()
+CComponent::CComponent() : m_pOwner(nullptr)
 {
 }
 
@@ -9,26 +10,8 @@ CComponent::~CComponent()
 {
 }
 
-void CComponent::Initialize()
+void CComponent::AttachTo(CObject* pObject)
 {
-}
-
-void CComponent::PostInitialize()
-{
-}
-
-void CComponent::Update()
-{
-}
-
-void CComponent::LateUpdate()
-{
-}
-
-void CComponent::Release()
-{
-}
-
-void CComponent::Render(HDC hDC)
-{
+	SetOwner(pObject);
+	pObject->AddComponent(this);
 }

@@ -4,9 +4,7 @@
 #include "CObject.h"
 #include "EventContext.h"
 
-INT32 CCollider::g_ID = 0;
-
-CCollider::CCollider() : m_pTransform(nullptr), m_iCollisionCount(0), m_rcCollision{}, m_ID(++g_ID), m_hOnCollisionBegin(nullptr)
+CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_hOnCollisionBegin(nullptr)
 {
 }
 
@@ -17,7 +15,6 @@ CCollider::~CCollider()
 
 void CCollider::Initialize()
 {
-	m_pTransform = new CTransform;
 	m_hOnCollisionBegin = new CEventDelegate<TCollisionCtx>;
 	m_hOnCollisionEnd = new CEventDelegate<TCollisionCtx>;
 }
@@ -28,24 +25,21 @@ void CCollider::PostInitialize()
 
 void CCollider::Update()
 {
-	// SetPosition(m_pOwner->GetPosition());
-}
-
-void CCollider::LateUpdate()
-{
-	/* follow the owner position */
-	CObject* pOwner = GetOwner();
-	assert(pOwner);
+	assert(GetOwner());
 	
-	Vec2 vPos = pOwner->GetTransform()->GetPosition();
+	/* follow the owner position */
+	Vec2 vPos = GetOwner()->GetTransform()->GetPosition();
 	GetTransform()->SetPosition(vPos);
 	
 	UpdateRect();
 }
 
+void CCollider::LateUpdate()
+{
+}
+
 void CCollider::Release()
 {
-	Safe_Delete<CTransform*>(m_pTransform);
 	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionBegin);
 	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionEnd);
 }
@@ -77,21 +71,23 @@ void CCollider::Render(HDC hDC)
 	#endif
 }
 
-void CCollider::OnCollisionBegin(CCollider* pCounterPart)
+void CCollider::OnCollisionBegin(TCollisionCtx Ctx)
 {
+	auto [pCounterPart] = Ctx;
 	++m_iCollisionCount;
 	m_vecColliding.push_back(pCounterPart);
 
 	m_hOnCollisionBegin->Broadcast(TCollisionCtx{pCounterPart});
 }
 
-void CCollider::OnCollision(CCollider* pCounterPart)
+void CCollider::OnCollision(TCollisionCtx Ctx)
 {
-	CObject* pObject = GetOwner();
+	auto [pCounterPart] = Ctx;
 }
 
-void CCollider::OnCollisionEnd(CCollider* pCounterPart)
+void CCollider::OnCollisionEnd(TCollisionCtx Ctx)
 {
+	auto [pCounterPart] = Ctx;
 	auto iter = find(m_vecColliding.begin(), m_vecColliding.end(), pCounterPart);
 	assert(iter != m_vecColliding.end());
 

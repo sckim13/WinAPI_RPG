@@ -10,7 +10,7 @@ CSceneManager::CSceneManager() : m_pCurrentScene(nullptr)
 
 CSceneManager::~CSceneManager()
 {
-	Safe_Delete(m_pCurrentScene);
+	Release();
 }
 
 void CSceneManager::Initialize()
@@ -24,6 +24,7 @@ void CSceneManager::Initialize()
 
 void CSceneManager::PostInitialize()
 {
+	m_pCurrentScene->PostInitialize();
 }
 
 void CSceneManager::Update()
@@ -38,6 +39,7 @@ void CSceneManager::LateUpdate()
 
 void CSceneManager::Release()
 {
+	Safe_Delete<CScene*>(m_pCurrentScene);
 }
 
 void CSceneManager::Render(HDC hDC)

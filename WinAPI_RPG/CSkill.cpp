@@ -4,6 +4,7 @@
 
 CSkill::CSkill()
 {
+	m_eObjectType = EObjectType::SKILL;
 }
 
 CSkill::~CSkill()
@@ -14,19 +15,21 @@ void CSkill::Initialize()
 {
 	__super::Initialize();
 
-	m_eObjectType = EObjectType::SKILL;
 }
 
 void CSkill::PostInitialize()
 {
+	__super::PostInitialize();
 }
 
 void CSkill::Update()
 {
+	__super::Update();
 }
 
 void CSkill::LateUpdate()
 {
+	__super::LateUpdate();
 }
 
 void CSkill::Release()

@@ -18,9 +18,12 @@
 #include "CItemManager.h"
 #include "CMonster.h"
 #include "CHitScanSkill.h"
+#include "CSkillComponent.h"
+#include "CActiveSkill.h"
 
 CPlayer::CPlayer()
 {
+	m_eObjectType = EObjectType::PLAYER;
 }
 
 CPlayer::~CPlayer()
@@ -32,39 +35,41 @@ void CPlayer::Initialize()
 {	
 	__super::Initialize();
 
-	m_eObjectType = EObjectType::PLAYER;
 	wstring wstrName = L"Player_" + to_wstring(GetID());
 	SetName(wstrName);
 
 	CItemManager::GetInstance()->SetPlayer(this);
 
-
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
-	m_pTexture->SetOwner(this);
+	m_pTexture->AttachTo(this);
+	
 	m_pCollider = new CCollider;
-	m_pCollider->Initialize();
-	m_pCollider->SetOwner(this);
+	m_pCollider->AttachTo(this);
 
-	/* later refactoring skill management */
-	CSkill* pSkill = new CHitScanSkill;
-	pSkill->Initialize();
-	m_vecSkills.push_back(pSkill);
-
-	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
-	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
+	m_pSkillComponent = new CSkillComponent;
+	m_pSkillComponent->AttachTo(this);
+	/* test */
+	m_pSkillComponent->AddSkill(L"HitScanSkill", new CHitScanSkill);
 
 	m_pInventory = new CInventory;
-	m_pInventory->Initialize();
+	m_pInventory->AttachTo(this);
+	
 	m_pEquipment = new CEquipment;
-	m_pEquipment->Initialize();
+	m_pEquipment->AttachTo(this);
 }
 
 void CPlayer::PostInitialize()
 {
+	__super::PostInitialize();
+
+	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
+	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
 }
 
 void CPlayer::Update()
 {
+	__super::Update();
+
 	SortCollisionList();
 
 	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
@@ -103,7 +108,7 @@ void CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	GetCollider()->LateUpdate();
+	__super::LateUpdate();
 }
 
 void CPlayer::Release()
@@ -208,7 +213,12 @@ void CPlayer::OnKeyEventTriggered(TKeyEventCtx Ctx)
 	if (eKeyEvent == EEventType::SKILL_DEFAULT)
 	{
 		cout << "[Player] Basic Attack" << endl;
-		m_vecSkills[0]->Execute();
+		CHitScanSkill* pSkill = dynamic_cast<CHitScanSkill*>(m_pSkillComponent->GetSkillByName(L"ActiveSkill"));
+		if (pSkill)
+		{
+			pSkill->Execute();
+		}
+		
 	}
 }
 
