@@ -28,7 +28,7 @@ public:
 	void Sort(EInventoryTab eTab);
 	bool Compare(EInventoryTab eTab, CItem* lhs, CItem* rhs);
 
-	CEventDelegate<TInventoryCtx>* m_hOnInventoryUpdated;
+	CEventDelegate<TInventoryCtx>* m_OnInventoryUpdated;
 private:
 	array<array<CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_pItemContainer;
 	EInventoryTab m_eCurrentTab;

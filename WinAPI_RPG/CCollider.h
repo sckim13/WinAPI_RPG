@@ -2,8 +2,8 @@
 
 #include "CComponent.h"
 #include "ICollide.h"
+#include "CTransform.h"
 
-class CTransform;
 struct TCollisionCtx;
 
 template<typename T>
@@ -23,12 +23,12 @@ public:
 	virtual void Render(HDC hDC) override;
 
 	/* ICollide */
-	virtual void OnCollisionBegin(TCollisionCtx pCounterPart) override;
-	virtual void OnCollision(TCollisionCtx pCounterPart) override;
-	virtual void OnCollisionEnd(TCollisionCtx pCounterPart) override;
+	virtual void OnCollisionBegin(const TCollisionCtx& Ctx) override;
+	virtual void OnCollision(const TCollisionCtx& Ctx) override;
+	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
 
-	CEventDelegate<TCollisionCtx>* m_hOnCollisionBegin;
-	CEventDelegate<TCollisionCtx>* m_hOnCollisionEnd;
+	CEventDelegate<TCollisionCtx>* m_OnCollisionBegin;
+	CEventDelegate<TCollisionCtx>* m_OnCollisionEnd;
 
 
 private:

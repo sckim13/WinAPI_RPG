@@ -4,7 +4,7 @@
 #include "CObject.h"
 #include "EventContext.h"
 
-CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_hOnCollisionBegin(nullptr)
+CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_OnCollisionBegin(nullptr)
 {
 }
 
@@ -15,8 +15,8 @@ CCollider::~CCollider()
 
 void CCollider::Initialize()
 {
-	m_hOnCollisionBegin = new CEventDelegate<TCollisionCtx>;
-	m_hOnCollisionEnd = new CEventDelegate<TCollisionCtx>;
+	m_OnCollisionBegin = new CEventDelegate<TCollisionCtx>;
+	m_OnCollisionEnd = new CEventDelegate<TCollisionCtx>;
 }
 
 void CCollider::PostInitialize()
@@ -40,8 +40,8 @@ void CCollider::LateUpdate()
 
 void CCollider::Release()
 {
-	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionBegin);
-	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_hOnCollisionEnd);
+	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_OnCollisionBegin);
+	Safe_Delete<CEventDelegate<TCollisionCtx>*>(m_OnCollisionEnd);
 }
 
 void CCollider::Render(HDC hDC)
@@ -71,21 +71,21 @@ void CCollider::Render(HDC hDC)
 	#endif
 }
 
-void CCollider::OnCollisionBegin(TCollisionCtx Ctx)
+void CCollider::OnCollisionBegin(const TCollisionCtx& Ctx)
 {
 	auto [pCounterPart] = Ctx;
 	++m_iCollisionCount;
 	m_vecColliding.push_back(pCounterPart);
 
-	m_hOnCollisionBegin->Broadcast(TCollisionCtx{pCounterPart});
+	m_OnCollisionBegin->Broadcast(TCollisionCtx{pCounterPart});
 }
 
-void CCollider::OnCollision(TCollisionCtx Ctx)
+void CCollider::OnCollision(const TCollisionCtx& Ctx)
 {
 	auto [pCounterPart] = Ctx;
 }
 
-void CCollider::OnCollisionEnd(TCollisionCtx Ctx)
+void CCollider::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 	auto [pCounterPart] = Ctx;
 	auto iter = find(m_vecColliding.begin(), m_vecColliding.end(), pCounterPart);
@@ -94,7 +94,7 @@ void CCollider::OnCollisionEnd(TCollisionCtx Ctx)
 	m_vecColliding.erase(iter);
 	--m_iCollisionCount;
 
-	m_hOnCollisionEnd->Broadcast(TCollisionCtx{ pCounterPart });
+	m_OnCollisionEnd->Broadcast(TCollisionCtx{ pCounterPart });
 }
 
 void CCollider::UpdateRect()

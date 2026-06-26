@@ -165,6 +165,7 @@
     <ClInclude Include="CSkillComponent.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTextureComponent.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CTimerManager.h" />
     <ClInclude Include="CTransform.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="CSkillComponent.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CTextureComponent.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CTimerManager.cpp" />
     <ClCompile Include="CTransform.cpp" />

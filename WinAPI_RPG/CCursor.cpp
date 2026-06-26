@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "CCursor.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 #include "CResourceManager.h"
 #include "CMainGame.h"
 
@@ -16,8 +16,9 @@ void CCursor::Initialize()
 {
 	__super::Initialize();
 
-	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Cursor", L"Texture\\Cursor.bmp");
-
+	m_pTextureComponent = new CTextureComponent;
+	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->BindTexture(L"Cursor");
 }
 
 void CCursor::PostInitialize()
@@ -41,5 +42,5 @@ void CCursor::Release()
 
 void CCursor::Render(HDC hDC)
 {
-	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
+	GetTextureComponent()->Render(hDC);
 }

@@ -3,7 +3,7 @@
 #include "CInventory.h"
 #include "EventContext.h"
 #include "CResourceManager.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 #include "CSceneManager.h"
 #include "CPlayer.h"
 #include "CItem.h"
@@ -25,12 +25,17 @@ void CInventoryUI::Initialize()
 
 	SetUIType(EUIType::INVENTORY);
 
-	m_pMainTexture = CResourceManager::GetInstance()->LoadTexture(L"Inventory", L"Texture\\Inventory.bmp");
+	m_pMainTexture = new CTextureComponent;
+	m_pMainTexture->AttachTo(this);
+	m_pMainTexture->BindTexture(L"Inventory");
 }
 
 void CInventoryUI::PostInitialize()
 {
-	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_hOnInventoryUpdated->AddBinding(this, [this](TInventoryCtx Ctx) { OnInventoryUpdated(Ctx); });
+	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_OnInventoryUpdated->AddBinding(
+		GetID(), 
+		[this](const TInventoryCtx& Ctx) { OnInventoryUpdated(Ctx); }
+	);
 }
 
 void CInventoryUI::Update()
@@ -49,13 +54,13 @@ void CInventoryUI::Render(HDC hDC)
 {
 	if (!IsVisible()) return;
 
-	m_pMainTexture->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
+	m_pMainTexture->Render(hDC);
 
 	for (int i = 0; i < MAX_INVENTORY_SIZE; ++i)
 	{
 		if (const CItem* pItem = m_arrItem[(int)m_eCurrentTab][i])
 		{
-			pItem->GetTexture()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
+			pItem->GetTextureComponent()->Render(hDC, (int)m_pDummyItemRect.x, (int)(m_pDummyItemRect.y));
 		}
 	}
 
@@ -63,7 +68,7 @@ void CInventoryUI::Render(HDC hDC)
 	__super::Render(hDC);
 }
 
-void CInventoryUI::OnInventoryUpdated(TInventoryCtx Ctx)
+void CInventoryUI::OnInventoryUpdated(const TInventoryCtx& Ctx)
 {
 	wcout << "[Inventory UI] Update Inventory UI" << endl;
 
@@ -82,9 +87,11 @@ bool CInventoryUI::IsValidInput(Vec2 vCursorPos)
 	return true;
 }
 
-void CInventoryUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
+void CInventoryUI::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
 	auto [eKeyEvent, eKeyState] = Ctx;
+
+	if (eKeyState != EKeyState::PRESSED) return;
 
 	if (eKeyEvent == EEventType::UI_INVENTORY)
 	{
@@ -93,7 +100,7 @@ void CInventoryUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
 	}
 }
 
-void CInventoryUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
+void CInventoryUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
 	__super::OnMouseEventTriggered(Ctx);
 
@@ -110,5 +117,5 @@ void CInventoryUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
 
 bool CInventoryUI::IsCursorOnUI(Vec2 vCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetSize());
+	return MathUtil::IsPointInRect(vCursorPos - GetPosition(), Vec2{0, 0}, m_pMainTexture->GetTextureSize());
 }

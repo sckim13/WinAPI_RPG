@@ -4,32 +4,30 @@ using namespace std;
 #include <functional>
 #include <map>
 
-class CBase;
-
 // T is the event context to deliver
 template<typename T>
 class CEventDelegate
 {
 public:
-	void AddBinding(CBase* pBase, function<void(T)> F);
-	void DeleteBinding(CBase* pBase);
+	void AddBinding(INT64 ID, function<void(const T&)> F);
+	void DeleteBinding(INT64 ID);
 
 	void Broadcast(T Ctx);
 
 private:
-	map<CBase*, function<void(T)>> m_mapEvent;
+	map<INT64, function<void(T)>> m_mapEvent;
 };
 
 template<typename T>
-void CEventDelegate<T>::AddBinding(CBase* pBase, function<void(T)> F)
+void CEventDelegate<T>::AddBinding(INT64 ID, function<void(const T&)> F)
 {
-	m_mapEvent.insert({ pBase, F });
+	m_mapEvent.insert({ ID, F });
 }
 
 template<typename T>
-void CEventDelegate<T>::DeleteBinding(CBase* pBase)
+void CEventDelegate<T>::DeleteBinding(INT64 ID)
 {
-	m_mapEvent.erase(pBase);
+	m_mapEvent.erase(ID);
 }
 
 template<typename T>

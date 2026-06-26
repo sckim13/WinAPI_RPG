@@ -17,8 +17,8 @@ public:
 
 	virtual void Execute() override;
 
-	virtual void OnCollisionBegin(TCollisionCtx Ctx) override;
-	virtual void OnCollision(TCollisionCtx Ctx) override;
-	virtual void OnCollisionEnd(TCollisionCtx Ctx) override;
+	virtual void OnCollisionBegin(const TCollisionCtx& Ctx) override;
+	virtual void OnCollision(const TCollisionCtx& Ctx) override;
+	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
 };
 

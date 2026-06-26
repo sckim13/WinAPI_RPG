@@ -17,6 +17,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	void AddObject(CObject* pObject, EObjectType eType);
 
 private:
 	CCursor* m_pCursor;

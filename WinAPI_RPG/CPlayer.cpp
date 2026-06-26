@@ -3,7 +3,7 @@
 #include "CKeyManager.h"
 #include "CMainGame.h"
 #include "CTimeManager.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
 #include "CCollider.h"
@@ -20,6 +20,7 @@
 #include "CHitScanSkill.h"
 #include "CSkillComponent.h"
 #include "CActiveSkill.h"
+#include "CSceneManager.h"
 
 CPlayer::CPlayer()
 {
@@ -40,16 +41,15 @@ void CPlayer::Initialize()
 
 	CItemManager::GetInstance()->SetPlayer(this);
 
-	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Player", L"Texture\\Player.bmp");
-	m_pTexture->AttachTo(this);
-	
+	m_pTextureComponent = new CTextureComponent;
+	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->BindTexture(L"Player");
+
 	m_pCollider = new CCollider;
 	m_pCollider->AttachTo(this);
 
 	m_pSkillComponent = new CSkillComponent;
 	m_pSkillComponent->AttachTo(this);
-	/* test */
-	m_pSkillComponent->AddSkill(L"HitScanSkill", new CHitScanSkill);
 
 	m_pInventory = new CInventory;
 	m_pInventory->AttachTo(this);
@@ -62,8 +62,8 @@ void CPlayer::PostInitialize()
 {
 	__super::PostInitialize();
 
-	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
-	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
+	m_pCollider->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
+	m_pCollider->m_OnCollisionEnd->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionEnd(Ctx); });
 }
 
 void CPlayer::Update()
@@ -80,13 +80,13 @@ void CPlayer::Update()
 	}
 	else if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::HOLD)
 	{
-		m_ePoseDir = EPoseDirection::LEFT;
+		m_bFlipped = false;
 		m_ePlayerState = EPlayerState::WALK;
 		SetPosition(GetPosition() + fDT * Vec2{ -200.f, 0.f });
 	}
 	else if (CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::HOLD)
 	{
-		m_ePoseDir = EPoseDirection::RIGHT;
+		m_bFlipped = true;
 		m_ePlayerState = EPlayerState::WALK;
 		SetPosition(GetPosition() + fDT * Vec2{ 200.f, 0.f });
 	}
@@ -136,14 +136,14 @@ void CPlayer::Render(HDC hDC)
 	);
 	*/
 
-	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y, m_ePoseDir);
+	GetTextureComponent()->Render(hDC);
 
 	//TransparentBlt(
 	//	hDC,
 	//	(int)(vPos.x - (float)(iWidth / 2)),
 	//	(int)(vPos.y - (float)(iHeight / 2)),
 	//	iWidth, iHeight,
-	//	GetTexture()->GetDC(),
+	//	GetTextureComponent()->GetDC(),
 	//	0, 0, iWidth, iHeight,
 	//	RGB(255, 255, 255)
 	//);
@@ -151,21 +151,22 @@ void CPlayer::Render(HDC hDC)
 	GetCollider()->Render(hDC);
 }
 
-void CPlayer::OnCollisionBegin(TCollisionCtx Ctx)
+void CPlayer::OnCollisionBegin(const TCollisionCtx& Ctx)
 {
 	CObject* pObject = Ctx.pCounterPart->GetOwner();
 	m_vecObjectsOnCollision[(int)pObject->GetObjectType()].push_back(pObject);
 
 	if (dynamic_cast<CMonster*>(pObject))
 	{
+		wcout << "[Player] " << GetName() << " hit by " << pObject->GetName() << endl;
 	}
 }
 
-void CPlayer::OnCollision(TCollisionCtx Ctx)
+void CPlayer::OnCollision(const TCollisionCtx& Ctx)
 {
 }
 
-void CPlayer::OnCollisionEnd(TCollisionCtx Ctx)
+void CPlayer::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 	CObject* pObject = Ctx.pCounterPart->GetOwner();
 	auto iter = find(m_vecObjectsOnCollision[(int)pObject->GetObjectType()].begin(),
@@ -189,7 +190,7 @@ void CPlayer::SortCollisionList()
 	}
 }
 
-void CPlayer::OnKeyEventTriggered(TKeyEventCtx Ctx)
+void CPlayer::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
 	auto [eKeyEvent, eKeyState] = Ctx;
 
@@ -213,10 +214,12 @@ void CPlayer::OnKeyEventTriggered(TKeyEventCtx Ctx)
 	if (eKeyEvent == EEventType::SKILL_DEFAULT)
 	{
 		cout << "[Player] Basic Attack" << endl;
-		CHitScanSkill* pSkill = dynamic_cast<CHitScanSkill*>(m_pSkillComponent->GetSkillByName(L"ActiveSkill"));
+		CHitScanSkill* pSkill = dynamic_cast<CHitScanSkill*>(m_pSkillComponent->GetSkillInstance(L"ActiveSkill"));
 		if (pSkill)
 		{
-			pSkill->Execute();
+
+			CSceneManager::GetInstance()->AddObject(CAbstractFactory<CObject, CHitScanSkill>::Create(), EObjectType::SKILL);
+			;
 		}
 		
 	}

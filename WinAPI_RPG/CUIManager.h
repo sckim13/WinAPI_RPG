@@ -19,7 +19,7 @@ public:
 
 	CUI* GetUI(wstring wstrName);
 
-	void OnMouseEventTriggered(EKey eKey, EKeyState eKeyState);
+	void OnMouseEventTriggered(const TMouseEventCtx& Ctx);
 
 	void UpdateUIOrder(CUI* pUI);
 

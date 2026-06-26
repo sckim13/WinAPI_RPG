@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "CComponent.h"
+#include "CBase.h"
 
-class CResource : public CComponent
+class CResource : public CBase
 {
 public:
 	CResource();

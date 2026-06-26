@@ -7,7 +7,7 @@ public:
 	static TBase* Create()
 	{
 		TBase* p = new TDerived;
-		p->Initialize();
+		// p->Initialize();
 		return p;
 	}
 };

@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "CCharacter.h"
 
-CCharacter::CCharacter() : m_ePoseDir(EPoseDirection::LEFT)
+CCharacter::CCharacter()
 {
 }
 
@@ -38,14 +38,14 @@ void CCharacter::Render(HDC hDC)
 {
 }
 
-void CCharacter::OnCollisionBegin(TCollisionCtx Ctx)
+void CCharacter::OnCollisionBegin(const TCollisionCtx& Ctx)
 {
 }
 
-void CCharacter::OnCollision(TCollisionCtx Ctx)
+void CCharacter::OnCollision(const TCollisionCtx& Ctx)
 {
 }
 
-void CCharacter::OnCollisionEnd(TCollisionCtx Ctx)
+void CCharacter::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 }

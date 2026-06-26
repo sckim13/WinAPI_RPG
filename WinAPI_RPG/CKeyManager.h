@@ -25,7 +25,8 @@ public:
 
 	inline EKeyState GetKeyState(EKey eKey) { return m_vecKey[(int)eKey].eKeyState; }
 
-	CEventDelegate<TKeyEventCtx>* m_hOnKeyEventTriggered;
+	CEventDelegate<TKeyEventCtx>* m_OnKeyEventTriggered;
+	CEventDelegate<TMouseEventCtx>* m_OnMouseEventTriggered;
 private:
 	vector<tKeyInfo> m_vecKey;
 	float fDoubleClickThreshold = 0.2f;

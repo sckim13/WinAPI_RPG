@@ -4,7 +4,7 @@
 #include "CUIManager.h"
 #include "MathUtil.h"
 
-CUI::CUI() : m_bVisible(false), m_vCursorPosCached{}, m_eUIType(EUIType::NONE), m_eUIStatus(EUIStatus::IDLE)
+CUI::CUI() : m_bVisible(false), m_eUIType(EUIType::NONE), m_eUIStatus(EUIStatus::IDLE), m_vDragCursorOrigin{}, m_vDragUIOrigin{}
 {
 }
 
@@ -14,9 +14,14 @@ CUI::~CUI()
 
 void CUI::Initialize()
 {
-	CKeyManager::GetInstance()->m_hOnKeyEventTriggered->AddBinding(
-		this,
-		[this](TKeyEventCtx Ctx) { OnKeyEventTriggered(Ctx); });
+    __super::Initialize();
+}
+
+void CUI::PostInitialize()
+{
+    __super::PostInitialize();
+
+    CKeyManager::GetInstance()->m_OnKeyEventTriggered->AddBinding(GetID(), [this](const TKeyEventCtx& Ctx) { OnKeyEventTriggered(Ctx); });
 }
 
 void CUI::Render(HDC hDC)
@@ -35,13 +40,19 @@ void CUI::Render(HDC hDC)
     SelectObject(hDC, hOldBrush);
 }
 
-void CUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
+void CUI::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
 }
 
 void CUI::OnFocused()
 {
     CUIManager::GetInstance()->UpdateUIOrder(this);
+}
+
+void CUI::SetDragOrigin(Vec2 vUIPos, Vec2 vCursorPos)
+{
+    m_vDragUIOrigin = vUIPos;
+    m_vDragCursorOrigin = vCursorPos;
 }
 
 bool CUI::IsCursorOnUI(Vec2 vCursorPos)
@@ -67,12 +78,10 @@ bool CUI::IsValidInput(Vec2 vCursorPos)
 	}
 }
 
-void CUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
+void CUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
-    /* vCursorPos is local */
+    /* vCursorPos is screen space (not local) */
     auto [eKey, eKeyState, vCursorPos] = Ctx;
-
-    cout << "bp6" << endl;
 
     if (eKey == EKey::L_CLICK)
     {
@@ -90,7 +99,7 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
         if (/* this is temporary */ MathUtil::IsPointInRect(vCursorPos, Vec2{ 0.f, 0.f }, m_vDummyDragArea))
         {
             cout << "[UI]" << magic_enum::enum_name(GetUIType()) << " UI drag start" << endl;
-            SetCursorPressedPoint(vCursorPos);
+            SetDragOrigin(GetPosition(), vCursorPos);
             SetUIStatus(EUIStatus::MOVE);
         }
         break;
@@ -99,7 +108,10 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
     {
         if (GetUIStatus() == EUIStatus::MOVE)
         {
-            SetPosition(GetPosition() + vCursorPos - m_vCursorPosCached);
+            Vec2 vDragAmount = vCursorPos - m_vDragCursorOrigin;
+            cout << vDragAmount;
+            cout << m_vDragUIOrigin << endl;
+            SetPosition(m_vDragUIOrigin + vDragAmount);
         }
         break;
     }
@@ -107,6 +119,7 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
     {
         if (GetUIStatus() == EUIStatus::MOVE)
         {
+            cout << GetPosition();
             cout << "[UI]" << magic_enum::enum_name(GetUIType()) << " UI drag end" << endl;
             SetUIStatus(EUIStatus::IDLE);
         }

@@ -1,6 +1,6 @@
 ﻿#include "pch.h"
 #include "CEquipItem.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 #include "CTransform.h"
 #include "CCollider.h"
 #include "CResourceManager.h"
@@ -21,8 +21,9 @@ void CEquipItem::Initialize()
 	m_eItemType = EItemType::EQUIP;
 	m_eEquipSlot = EEquipSlot::HEAD;
 
-	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"Item", L"Texture\\Item.bmp");
-	m_pTexture->AttachTo(this);
+	m_pTextureComponent = new CTextureComponent;
+	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->BindTexture(L"Item");
 
 	m_pCollider = new CCollider;
 	m_pCollider->AttachTo(this);
@@ -57,7 +58,7 @@ void CEquipItem::Render(HDC hDC)
 {
 	if (GetOwner()) return;
 
-	GetTexture()->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
+	GetTextureComponent()->Render(hDC);
 
 	GetCollider()->Render(hDC);
 }

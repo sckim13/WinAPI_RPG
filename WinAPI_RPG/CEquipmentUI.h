@@ -2,7 +2,7 @@
 
 #include "CUI.h"
 
-class CTexture;
+class CTextureComponent;
 
 class CEquipmentUI : public CUI
 {
@@ -20,15 +20,15 @@ public:
 	virtual bool IsValidInput(Vec2 vCursorPos) override;
 
 private:
-	CTexture* m_pMainTexture;
+	CTextureComponent* m_pMainTexture;
 
 	Vec2 m_pDummyItemRect = Vec2{ 100.f, 100.f };
 
 	array<const CItem*, (int)EEquipSlot::MAX> m_arrEquipSlot;
 
-	void OnEquipmentUpdated(TEquipmentCtx Ctx);
-	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
-	virtual void OnMouseEventTriggered(TMouseEventCtx Ctx) override;
+	void OnEquipmentUpdated(const TEquipmentCtx& Ctx);
+	virtual void OnKeyEventTriggered(const TKeyEventCtx& Ctx) override;
+	virtual void OnMouseEventTriggered(const TMouseEventCtx& Ctx) override;
 
 	// Inherited via CUI
 	bool IsCursorOnUI(Vec2 vCursorPos) override;

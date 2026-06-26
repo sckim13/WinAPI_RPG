@@ -8,6 +8,7 @@
 #include "CUIManager.h"
 #include "CItemManager.h"
 #include "CCollisionManager.h"
+#include "CResourceManager.h"
 
 CMainGame::CMainGame()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
@@ -50,6 +51,7 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	CTimeManager::GetInstance()->Initialize();
 	CKeyManager::GetInstance()->Initialize();
 	CPathManager::GetInstance()->Initialize();
+	CResourceManager::GetInstance()->Initialize();
 	CSceneManager::GetInstance()->Initialize();
 	CItemManager::GetInstance()->Initialize();
 	CCollisionManager::GetInstance()->Initialize();

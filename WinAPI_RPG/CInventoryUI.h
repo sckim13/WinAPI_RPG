@@ -3,6 +3,7 @@
 #include "CUI.h"
 
 class CTexture;
+class CTextureComponent;
 
 class CInventoryUI : public CUI
 {
@@ -17,14 +18,14 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void OnInventoryUpdated(TInventoryCtx Ctx);
+	void OnInventoryUpdated(const TInventoryCtx& Ctx);
 
 	virtual bool IsValidInput(Vec2 vCursorPos) override;
 
-	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx) override;
-	virtual void OnMouseEventTriggered(TMouseEventCtx Ctx) override;
+	virtual void OnKeyEventTriggered(const TKeyEventCtx& Ctx) override;
+	virtual void OnMouseEventTriggered(const TMouseEventCtx& Ctx) override;
 private:
-	CTexture* m_pMainTexture;
+	CTextureComponent* m_pMainTexture;
 	Vec2 m_pDummyItemRect = Vec2 {100.f, 100.f};
 	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_arrItem;
 	EInventoryTab m_eCurrentTab;

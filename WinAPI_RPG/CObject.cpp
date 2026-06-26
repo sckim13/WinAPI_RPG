@@ -5,7 +5,7 @@
 #include "CCollider.h"
 #include "CKeyManager.h"
 
-CObject::CObject() : m_pTexture(nullptr), m_pCollider(nullptr), m_wstrName{}
+CObject::CObject() : m_pTextureComponent(nullptr), m_pCollider(nullptr), m_wstrName{}, m_bFlipped(false)
 {
 }
 
@@ -16,9 +16,9 @@ CObject::~CObject()
 
 void CObject::Initialize()
 {
-	CKeyManager::GetInstance()->m_hOnKeyEventTriggered->AddBinding(
-		this,
-		[this](TKeyEventCtx Ctx) { OnKeyEventTriggered(Ctx); }
+	CKeyManager::GetInstance()->m_OnKeyEventTriggered->AddBinding(
+		GetID(),
+		[this](const TKeyEventCtx& Ctx) { OnKeyEventTriggered(Ctx); }
 	);
 }
 
@@ -56,6 +56,6 @@ void CObject::AddComponent(CComponent* pComponent)
 	m_vecComponent.push_back(pComponent);
 }
 
-void CObject::OnKeyEventTriggered(TKeyEventCtx Ctx)
+void CObject::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
 }

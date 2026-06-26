@@ -46,3 +46,8 @@ void CSceneManager::Render(HDC hDC)
 {
 	m_pCurrentScene->Render(hDC);
 }
+
+void CSceneManager::AddObject(CObject* pObject, EObjectType eType)
+{
+	m_pCurrentScene->AddObject(pObject, eType);
+}

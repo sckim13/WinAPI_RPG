@@ -3,6 +3,7 @@
 #include "CBase.h"
 
 class CObject;
+class CUI;
 
 class CComponent : public CBase
 {
@@ -17,7 +18,7 @@ public:
 	virtual void Release() PURE;
 	virtual void Render(HDC hDC) PURE;
 
-	void AttachTo(CObject* pObject);
+	void AttachTo(CObject* pObject); // must be called after allocating the component in object
 
 private:
 	CObject* m_pOwner;

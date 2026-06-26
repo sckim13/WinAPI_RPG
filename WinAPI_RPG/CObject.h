@@ -1,8 +1,9 @@
 ﻿#pragma once
 
 #include "CBase.h"
+#include "CTransform.h"
 
-class CTexture;
+class CTextureComponent;
 class CCollider;
 class CComponent;
 
@@ -22,19 +23,32 @@ public:
 	void AddComponent(CComponent* pComponent);
 
 protected:
-	CTexture* m_pTexture;
+	CTextureComponent* m_pTextureComponent;
 	CCollider* m_pCollider;
 	EObjectType m_eObjectType;
 	wstring m_wstrName;
+	bool m_bFlipped; // to flip texture
 	vector<CComponent*> m_vecComponent;
 
-	virtual void OnKeyEventTriggered(TKeyEventCtx Ctx);
+	virtual void OnKeyEventTriggered(const TKeyEventCtx& Ctx);
+
+	CTransform m_pTransform;
 
 public:
-	inline CTexture* GetTexture() const { return m_pTexture; }
+	inline CTransform* GetTransform() { return &m_pTransform; }
+
+	inline Vec2 GetPosition() { return GetTransform()->GetPosition(); }
+	inline float GetRotation() { return GetTransform()->GetRotation(); }
+	inline Vec2 GetScale() { return GetTransform()->GetScale(); }
+	inline void SetPosition(Vec2 vPos) { return GetTransform()->SetPosition(vPos); }
+	inline void SetRotation(float fRot) { return GetTransform()->SetRotation(fRot); }
+	inline void SetScale(Vec2 vScale) { return GetTransform()->SetScale(vScale); }
+
+	inline CTextureComponent* GetTextureComponent() const { return m_pTextureComponent; }
 	inline CCollider* GetCollider() const { return m_pCollider; }
 	inline EObjectType GetObjectType() const { return m_eObjectType; }
-	inline const wstring GetName() const { return m_wstrName; }
+	inline const wstring& GetName() const { return m_wstrName; }
+	inline bool IsFlipped() const { return m_bFlipped; }
 
 	inline void SetName(wstring& wstrName) { m_wstrName = wstrName; }
 };

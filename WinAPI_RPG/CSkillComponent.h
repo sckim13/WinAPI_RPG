@@ -23,6 +23,6 @@ private:
 	map<const wstring, CSkill*> m_mapSkill;
 
 public:
-	CSkill* GetSkillByName(const wstring& wstrName) { return m_mapSkill[wstrName]; }
+	CSkill* GetSkillInstance(const wstring& wstrName) { return m_mapSkill[wstrName]; }
 };
 

@@ -24,6 +24,8 @@ public:
 	void Enter();
 	void Exit();
 
+	void AddObject(CObject* pObject, EObjectType eType);
+
 private:
 	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
 	const wstring m_strName;

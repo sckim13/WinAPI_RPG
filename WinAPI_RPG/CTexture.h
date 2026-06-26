@@ -15,8 +15,10 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	virtual void Render(HDC hDC, int iX, int iY, EPoseDirection bDir = EPoseDirection::LEFT);
-	virtual void Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, EPoseDirection bDir = EPoseDirection::LEFT);
+	// for single image
+	virtual void Render(HDC hDC, int iX, int iY, bool bFlipped = false);
+	// for animation sprite
+	virtual void Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, bool bFlipped = false);
 
 	void Load(const wstring& strPath);
 

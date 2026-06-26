@@ -95,13 +95,6 @@ void CScene::Update()
 
 void CScene::LateUpdate()
 {
-	/* check collision */
-	/* in toy case, compare Player and Monster */
-	
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::MONSTER], m_vecObject[(int)EObjectType::PLAYER]);
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::ITEM], m_vecObject[(int)EObjectType::PLAYER]);
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::SKILL], m_vecObject[(int)EObjectType::MONSTER]);
-
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
 		for (auto& pObject : m_vecObject[i])
@@ -109,6 +102,12 @@ void CScene::LateUpdate()
 			pObject->LateUpdate();
 		}
 	}
+
+	/* check collision */
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::MONSTER], m_vecObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::ITEM], m_vecObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::SKILL], m_vecObject[(int)EObjectType::MONSTER]);
+
 }
 
 void CScene::Release()
@@ -147,4 +146,9 @@ void CScene::Exit()
 	//		Safe_Delete(pObject);
 	//	}
 	//}
+}
+
+void CScene::AddObject(CObject* pObject, EObjectType eType)
+{
+	m_vecObject[(int)eType].push_back(pObject);
 }

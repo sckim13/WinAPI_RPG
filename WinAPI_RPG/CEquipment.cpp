@@ -17,7 +17,7 @@ CEquipment::~CEquipment()
 
 void CEquipment::Initialize()
 {
-	m_hOnEquipmentUpdated = new CEventDelegate<TEquipmentCtx>;
+	m_OnEquipmentUpdated = new CEventDelegate<TEquipmentCtx>;
 }
 
 void CEquipment::PostInitialize()
@@ -34,7 +34,7 @@ void CEquipment::LateUpdate()
 
 void CEquipment::Release()
 {
-	Safe_Delete<CEventDelegate<TEquipmentCtx>*>(m_hOnEquipmentUpdated);
+	Safe_Delete<CEventDelegate<TEquipmentCtx>*>(m_OnEquipmentUpdated);
 }
 
 void CEquipment::Render(HDC hDC)
@@ -53,7 +53,7 @@ void CEquipment::Equip(CItem* pItem)
 	}
 	m_arrEquipSlot[(int)eEquipSlot] = pEquipItem;
 
-	m_hOnEquipmentUpdated->Broadcast(TEquipmentCtx{ CaptureSlot() });
+	m_OnEquipmentUpdated->Broadcast(TEquipmentCtx{ CaptureSlot() });
 }
 
 void CEquipment::UnEquip(EEquipSlot eSlot)
@@ -64,7 +64,7 @@ void CEquipment::UnEquip(EEquipSlot eSlot)
 
 	m_arrEquipSlot[(int)eSlot] = nullptr;
 
-	m_hOnEquipmentUpdated->Broadcast(TEquipmentCtx{ CaptureSlot() });
+	m_OnEquipmentUpdated->Broadcast(TEquipmentCtx{ CaptureSlot() });
 }
 
 array<const CItem*, (int)EEquipSlot::MAX> CEquipment::CaptureSlot()

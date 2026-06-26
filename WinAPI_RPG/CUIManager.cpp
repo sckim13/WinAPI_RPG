@@ -2,6 +2,7 @@
 #include "CUIManager.h"
 #include "CInventoryUI.h"
 #include "CEquipmentUI.h"
+#include "CKeyManager.h"
 #include "CCursor.h"
 #include "CUI.h"
 
@@ -29,10 +30,17 @@ void CUIManager::Initialize()
     m_mapUI.insert({ L"Equipment", pEquipmentUI });
     m_listUI.push_front(pEquipmentUI);
     m_umapUI.insert({ pEquipmentUI, m_listUI.begin() });
+
+    for (auto pair : m_mapUI)
+    {
+        pair.second->Initialize();
+    }
 }
 
 void CUIManager::PostInitialize()
 {
+    CKeyManager::GetInstance()->m_OnMouseEventTriggered->AddBinding(GetID(), [this](const TMouseEventCtx& Ctx) { OnMouseEventTriggered(Ctx); });
+
     for (auto pair : m_mapUI)
     {
         pair.second->PostInitialize();
@@ -81,8 +89,9 @@ CUI* CUIManager::GetUI(wstring wstrName)
 }
 
 
-void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
+void CUIManager::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
+    auto [eKey, eKeyState, DummyCursorPos] = Ctx;
     Vec2 vCursorPos = m_pCursor->GetPosition();
 
     for (auto iter = m_listUI.begin(); iter != m_listUI.end(); )
@@ -91,7 +100,7 @@ void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
 
         if (pUI->IsValidInput(vCursorPos))
         {
-            pUI->OnMouseEventTriggered(TMouseEventCtx{eKey, eKeyState, vCursorPos - pUI->GetPosition()});
+            pUI->OnMouseEventTriggered(TMouseEventCtx{eKey, eKeyState, vCursorPos});
             /* Caution!! : Below function causes dangling iter */
             UpdateUIOrder(pUI);
             /* Caution!! : Above function causes dangling iter */
@@ -102,7 +111,7 @@ void CUIManager::OnMouseEventTriggered(EKey eKey, EKeyState eKeyState)
             ++iter;
         }
     }
-    cout << "[UI Manager] No UI is on the cursor" << endl;
+    // cout << "[UI Manager] No UI is on the cursor" << endl;
 }
 
 void CUIManager::UpdateUIOrder(CUI* pUI)

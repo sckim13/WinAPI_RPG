@@ -58,12 +58,12 @@ void CAnimator::Render(HDC hDC)
 
 void CAnimator::BindTexture(const wstring& wstrName)
 {
-	m_pSprite = CResourceManager::GetInstance()->LoadTexture(wstrName, L"");
+	m_pSprite = CResourceManager::GetInstance()->LoadTexture(wstrName);
+	assert(m_pSprite);
 }
 
 void CAnimator::Play()
 {
-	assert(m_pSprite);
 
 	m_bIsPlaying = true;
 	m_iCurrentIndex = 0;

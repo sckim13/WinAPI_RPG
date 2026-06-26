@@ -15,7 +15,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 public:
-	CTexture* LoadTexture(const wstring& strKey, const wstring& strRelPath);
+	CTexture* LoadTexture(const wstring& strKey);
 
 private:
 	map<wstring, CTexture*> m_mapTexture;

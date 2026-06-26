@@ -1,6 +1,8 @@
 #pragma once
 
-class CManager
+#include "CBase.h"
+
+class CManager : public CBase
 {
 public:
 	virtual void Initialize() PURE;

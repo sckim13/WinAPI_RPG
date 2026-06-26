@@ -11,6 +11,7 @@ CHitScanSkill::CHitScanSkill()
 
 CHitScanSkill::~CHitScanSkill()
 {
+	Release();
 }
 
 void CHitScanSkill::Initialize()
@@ -18,29 +19,30 @@ void CHitScanSkill::Initialize()
 	__super::Initialize();
 
 	m_pCollider = new CCollider;
-	m_pCollider->Initialize();
+	m_pCollider->AttachTo(this);
 
-	m_pCollider->m_hOnCollisionBegin->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionBegin(Ctx); });
-	m_pCollider->m_hOnCollisionEnd->AddBinding(this, [this](TCollisionCtx Ctx) { OnCollisionEnd(Ctx); });
-
-	CResourceManager::GetInstance()->LoadTexture(L"ActiveSkill", L"Texture\\ActiveSkill.bmp");
+	CResourceManager::GetInstance()->LoadTexture(L"ActiveSkill");
 	m_pAnimator = new CAnimator;
+	m_pAnimator->AttachTo(this);
 	m_pAnimator->BindTexture(L"ActiveSkill");
-	m_pAnimator->SetOwner(this);
 }
 
 void CHitScanSkill::PostInitialize()
 {
+	__super::PostInitialize();
+
+	m_pCollider->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
+	m_pCollider->m_OnCollisionEnd->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionEnd(Ctx); });
 }
 
 void CHitScanSkill::Update()
 {
-	m_pAnimator->Update();
+	__super::Update();
 }
 
 void CHitScanSkill::LateUpdate()
 {
-	SetPosition(GetPosition());
+	__super::LateUpdate();
 }
 
 void CHitScanSkill::Release()
@@ -63,7 +65,7 @@ void CHitScanSkill::Execute()
 	/* */
 }
 
-void CHitScanSkill::OnCollisionBegin(TCollisionCtx Ctx)
+void CHitScanSkill::OnCollisionBegin(const TCollisionCtx& Ctx)
 {
 	__super::OnCollisionBegin(Ctx);
 
@@ -77,10 +79,10 @@ void CHitScanSkill::OnCollisionBegin(TCollisionCtx Ctx)
 	}
 }
 
-void CHitScanSkill::OnCollision(TCollisionCtx Ctx)
+void CHitScanSkill::OnCollision(const TCollisionCtx& Ctx)
 {
 }
 
-void CHitScanSkill::OnCollisionEnd(TCollisionCtx Ctx)
+void CHitScanSkill::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 }

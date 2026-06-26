@@ -4,7 +4,7 @@
 #include "CPlayer.h"
 #include "CEquipment.h"
 #include "CResourceManager.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 #include "CItem.h"
 #include "MathUtil.h"
 #include "CItemManager.h"
@@ -23,13 +23,15 @@ void CEquipmentUI::Initialize()
 
 	SetUIType(EUIType::EQUIPMENT);
 
-	m_pMainTexture = CResourceManager::GetInstance()->LoadTexture(L"Equipment", L"Texture\\Equipment.bmp");
+	m_pMainTexture = new CTextureComponent;
+	m_pMainTexture->AttachTo(this);
+	m_pMainTexture->BindTexture(L"Equipment");
 }
 
 void CEquipmentUI::PostInitialize()
 {
-	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_hOnEquipmentUpdated->AddBinding(
-		this, [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
+	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_OnEquipmentUpdated->AddBinding(
+		GetID(), [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
 	);
 }
 
@@ -49,13 +51,13 @@ void CEquipmentUI::Render(HDC hDC)
 {
 	if (!IsVisible()) return;
 
-	m_pMainTexture->Render(hDC, (int)GetPosition().x, (int)GetPosition().y);
+	m_pMainTexture->Render(hDC);
 
 	for (int i = 0; i < (int)EEquipSlot::MAX; ++i)
 	{
 		if (const CItem* pItem = m_arrEquipSlot[i])
 		{
-			pItem->GetTexture()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
+			pItem->GetTextureComponent()->Render(hDC, (int)m_pDummyItemRect.x, (int)m_pDummyItemRect.y);
 		}
 	}
 
@@ -70,16 +72,18 @@ bool CEquipmentUI::IsValidInput(Vec2 vCursorPos)
 	return true;
 }
 
-void CEquipmentUI::OnEquipmentUpdated(TEquipmentCtx Ctx)
+void CEquipmentUI::OnEquipmentUpdated(const TEquipmentCtx& Ctx)
 {
 	auto [arrEquipSlot] = Ctx;
 
 	m_arrEquipSlot = arrEquipSlot;
 }
 
-void CEquipmentUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
+void CEquipmentUI::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
 	auto [eKeyEvent, eKeyState] = Ctx;
+
+	if (eKeyState != EKeyState::PRESSED) return;
 
 	if (eKeyEvent == EEventType::UI_EQUIPMENT)
 	{
@@ -90,17 +94,16 @@ void CEquipmentUI::OnKeyEventTriggered(TKeyEventCtx Ctx)
 
 bool CEquipmentUI::IsCursorOnUI(Vec2 vCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetSize());
+	return MathUtil::IsPointInRect(vCursorPos - GetPosition(), Vec2{ 0, 0 }, m_pMainTexture->GetTextureSize());
 }
 
 
-void CEquipmentUI::OnMouseEventTriggered(TMouseEventCtx Ctx)
+void CEquipmentUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
 	__super::OnMouseEventTriggered(Ctx);
 
-
 	auto [eKey, eKeyState, vCursorPos] = Ctx;
-	cout << magic_enum::enum_name(eKey) << ", " << magic_enum::enum_name(eKeyState) << ", (" << vCursorPos.x << ", " << vCursorPos.y << ")" << endl;
+	// cout << magic_enum::enum_name(eKey) << ", " << magic_enum::enum_name(eKeyState) << ", (" << vCursorPos.x << ", " << vCursorPos.y << ")" << endl;
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
 		&& MathUtil::IsPointInRect(vCursorPos, m_pDummyItemRect, m_pDummyItemRect + Vec2{ 100.f, 100.f }))

@@ -3,7 +3,7 @@
 #include "CCollider.h"
 #include "CMonster.h"
 #include "CResourceManager.h"
-#include "CTexture.h"
+#include "CTextureComponent.h"
 
 CActiveSkill::CActiveSkill() : m_pAnimator(nullptr)
 {
@@ -17,8 +17,9 @@ void CActiveSkill::Initialize()
 {
 	__super::Initialize();
 
-	m_pTexture = CResourceManager::GetInstance()->LoadTexture(L"ActiveSkill", L"Texture\\ActiveSkill.bmp");
-	m_pTexture->SetOwner(this);
+	m_pTextureComponent = new CTextureComponent;
+	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->BindTexture(L"ActiveSkill");
 }
 
 void CActiveSkill::PostInitialize()
@@ -41,7 +42,7 @@ void CActiveSkill::Render(HDC hDC)
 {
 }
 
-void CActiveSkill::OnCollisionBegin(TCollisionCtx Ctx)
+void CActiveSkill::OnCollisionBegin(const TCollisionCtx& Ctx)
 {
 	auto [pCollider] = Ctx;
 
@@ -52,10 +53,10 @@ void CActiveSkill::OnCollisionBegin(TCollisionCtx Ctx)
 	}
 }
 
-void CActiveSkill::OnCollision(TCollisionCtx Ctx)
+void CActiveSkill::OnCollision(const TCollisionCtx& Ctx)
 {
 }
 
-void CActiveSkill::OnCollisionEnd(TCollisionCtx Ctx)
+void CActiveSkill::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 }

@@ -10,6 +10,8 @@ enum class EObjectType
 	NPC,
 	ITEM,
 	SKILL,
+	MAP,
+	FOOTHOLD,
 
 	MAX,
 };

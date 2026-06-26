@@ -134,7 +134,8 @@ CKeyManager::~CKeyManager()
 
 void CKeyManager::Initialize()
 {
-	m_hOnKeyEventTriggered = new CEventDelegate<TKeyEventCtx>;
+	m_OnKeyEventTriggered = new CEventDelegate<TKeyEventCtx>;
+	m_OnMouseEventTriggered = new CEventDelegate<TMouseEventCtx>;
 
 	for (int i = 0; i < (int)EKey::MAX; ++i)
 	{
@@ -196,7 +197,7 @@ void CKeyManager::Update()
 			{
 				if (m_vecKey[i].bPressedOnLastUpdate)
 				{
-						cout << "[Key Manager] Key \"" << magic_enum::enum_name((EKey)i) << "\" Released" << endl;
+					cout << "[Key Manager] Key \"" << magic_enum::enum_name((EKey)i) << "\" Released" << endl;
 					m_vecKey[i].eKeyState = EKeyState::RELEASED;
 				}
 				else
@@ -234,19 +235,15 @@ void CKeyManager::Update()
 		}
 		else if (m_mapInputEvent[(EKey)i] > EEventType::MOUSE_NONE && m_mapInputEvent[(EKey)i] < EEventType::MOUSE_MAX)
 		{
+			/* UI Mouse Event Handling */
 			// cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << ", " << magic_enum::enum_name(m_vecKey[i].eKeyState) << " is triggered" << endl;
-			CUIManager::GetInstance()->OnMouseEventTriggered((EKey)i, m_vecKey[i].eKeyState);
-		}
-		else if(m_mapInputEvent[(EKey)i] > EEventType::UI_NONE && m_mapInputEvent[(EKey)i] < EEventType::UI_MAX)
-		{
-			if (m_vecKey[i].eKeyState != EKeyState::PRESSED && m_vecKey[i].eKeyState != EKeyState::DOUBLE_PRESSED) continue;
-			// cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << " is triggered" << endl;
-			m_hOnKeyEventTriggered->Broadcast(TKeyEventCtx{ m_mapInputEvent[(EKey)i], m_vecKey[i].eKeyState });
+			m_OnMouseEventTriggered->Broadcast(TMouseEventCtx{ (EKey)i, m_vecKey[i].eKeyState, Vec2{0.f, 0.f} });
 		}
 		else
 		{
+			/* Key Event Handling */
 			// cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << " is triggered" << endl;
-			m_hOnKeyEventTriggered->Broadcast(TKeyEventCtx{ m_mapInputEvent[(EKey)i], m_vecKey[i].eKeyState});
+			m_OnKeyEventTriggered->Broadcast(TKeyEventCtx{ m_mapInputEvent[(EKey)i], m_vecKey[i].eKeyState });
 		}
 	}
 
@@ -258,7 +255,7 @@ void CKeyManager::LateUpdate()
 
 void CKeyManager::Release()
 {
-	Safe_Delete<CEventDelegate<TKeyEventCtx>*>(m_hOnKeyEventTriggered);
+	Safe_Delete<CEventDelegate<TKeyEventCtx>*>(m_OnKeyEventTriggered);
 }
 
 void CKeyManager::Render(HDC hDC)

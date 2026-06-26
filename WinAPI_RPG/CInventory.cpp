@@ -4,7 +4,7 @@
 #include "CEquipItem.h"
 
 
-CInventory::CInventory() : m_eCurrentTab(EInventoryTab::EQUIP), m_hOnInventoryUpdated(nullptr), m_pItemContainer{}
+CInventory::CInventory() : m_eCurrentTab(EInventoryTab::EQUIP), m_OnInventoryUpdated(nullptr), m_pItemContainer{}
 {
 }
 
@@ -17,7 +17,7 @@ void CInventory::Initialize()
 {
 	ClearItemContainer();
 
-	m_hOnInventoryUpdated = new CEventDelegate<TInventoryCtx>;
+	m_OnInventoryUpdated = new CEventDelegate<TInventoryCtx>;
 }
 
 void CInventory::ClearItemContainer()
@@ -45,7 +45,7 @@ void CInventory::LateUpdate()
 
 void CInventory::Release()
 {
-	Safe_Delete<CEventDelegate<TInventoryCtx>*>(m_hOnInventoryUpdated);
+	Safe_Delete<CEventDelegate<TInventoryCtx>*>(m_OnInventoryUpdated);
 }
 
 void CInventory::Render(HDC hDC)
@@ -61,7 +61,7 @@ void CInventory::PushItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == nullptr)
 		{
 			m_pItemContainer[(int)eItemType][i] = pItem;
-			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
+			m_OnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 			return;
 		}
 	}
@@ -76,7 +76,7 @@ void CInventory::PopItem(CItem* pItem)
 		if (m_pItemContainer[(int)eItemType][i] == pItem)
 		{
 			m_pItemContainer[(int)eItemType][i] = nullptr;
-			m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
+			m_OnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 			return;
 		}
 	}
@@ -105,7 +105,7 @@ void CInventory::Pack(EInventoryTab eTab)
 		}
 	}
 
-	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
+	m_OnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 }
 
 void CInventory::Sort(EInventoryTab eTab)
@@ -117,7 +117,7 @@ void CInventory::Sort(EInventoryTab eTab)
 		}
 	);
 
-	m_hOnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
+	m_OnInventoryUpdated->Broadcast(TInventoryCtx{ CaptureInventory(), m_eCurrentTab });
 }
 
 bool CInventory::Compare(EInventoryTab eTab, CItem* lhs, CItem* rhs)

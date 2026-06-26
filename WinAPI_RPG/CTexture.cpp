@@ -34,19 +34,19 @@ void CTexture::Render(HDC hDC)
 {
 }
 
-void CTexture::Render(HDC hDC, int iX, int iY, EPoseDirection bDir)
+void CTexture::Render(HDC hDC, int iX, int iY, bool bFlipped)
 {
 	StretchBlt(
 		hDC,
 		iX, iY,
-		(bDir == EPoseDirection::LEFT ? 1 : -1) * GetWidth(), GetHeight(),
+		(!bFlipped ? 1 : -1) * GetWidth(), GetHeight(),
 		m_hDC,
 		0, 0,
 		GetWidth(), GetHeight(),
 		SRCCOPY);
 }
 
-void CTexture::Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, EPoseDirection bDir)
+void CTexture::Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, bool bFlipped)
 {
 	BLENDFUNCTION bf;
 	bf.BlendOp = AC_SRC_OVER;
