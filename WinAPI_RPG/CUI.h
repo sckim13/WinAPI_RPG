@@ -12,7 +12,7 @@ public:
 	virtual void PostInitialize() override;
 	virtual void Update() PURE;
 	virtual void LateUpdate() PURE;
-	virtual void Release() PURE;
+	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
 	virtual bool IsCursorOnUI(Vec2 vCursorPos);

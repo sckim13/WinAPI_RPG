@@ -49,9 +49,6 @@
     <Filter Include="Engine\01. Util">
       <UniqueIdentifier>{972c2f71-f05f-4969-9098-f4df8e5fbe70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\01. Util\Struct">
-      <UniqueIdentifier>{1c3e02cc-f875-4dd4-8582-daed3078d2af}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\01. Util\Type">
       <UniqueIdentifier>{0fbe7ae2-2e24-47be-b144-f91d6a67671a}</UniqueIdentifier>
     </Filter>
@@ -145,9 +142,6 @@
     <Filter Include="Engine\02. Manager\ItemManager">
       <UniqueIdentifier>{99b4ca96-c351-4f40-825e-7983ca916c99}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Object\Skill\Passive">
-      <UniqueIdentifier>{c7f2367d-9e12-4ec1-8b02-f533a38c5a58}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\03. Object\Skill\Active">
       <UniqueIdentifier>{8665ee9f-6633-40e3-a6e2-056924775b99}</UniqueIdentifier>
     </Filter>
@@ -201,6 +195,15 @@
     </Filter>
     <Filter Include="Engine\03. Object\UI\EquipmentUI">
       <UniqueIdentifier>{61b5f9e6-230b-49e4-b0e8-a61720c367d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\UI\DamageUI">
+      <UniqueIdentifier>{a8462b05-bab8-4598-ba2f-956f44e2c9bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\EffectManager">
+      <UniqueIdentifier>{f2cb88b9-4a22-4ff1-9a03-4daa5e409a9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Skill\Active\Passive">
+      <UniqueIdentifier>{c7f2367d-9e12-4ec1-8b02-f533a38c5a58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -355,7 +358,7 @@
       <Filter>Engine\03. Object\Skill\Active</Filter>
     </ClInclude>
     <ClInclude Include="CPassiveSkill.h">
-      <Filter>Engine\03. Object\Skill\Passive</Filter>
+      <Filter>Engine\03. Object\Skill\Active\Passive</Filter>
     </ClInclude>
     <ClInclude Include="ICombat.h">
       <Filter>Engine\07. Interface\Combat</Filter>
@@ -386,6 +389,15 @@
     </ClInclude>
     <ClInclude Include="CTextureComponent.h">
       <Filter>Engine\04. Component\TextureComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="CDamageUI.h">
+      <Filter>Engine\03. Object\UI\DamageUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>Engine\01. Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffectManager.h">
+      <Filter>Engine\02. Manager\EffectManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -513,7 +525,7 @@
       <Filter>Engine\03. Object\Skill\Active</Filter>
     </ClCompile>
     <ClCompile Include="CPassiveSkill.cpp">
-      <Filter>Engine\03. Object\Skill\Passive</Filter>
+      <Filter>Engine\03. Object\Skill\Active\Passive</Filter>
     </ClCompile>
     <ClCompile Include="ICombat.cpp">
       <Filter>Engine\07. Interface\Combat</Filter>
@@ -541,6 +553,12 @@
     </ClCompile>
     <ClCompile Include="CTextureComponent.cpp">
       <Filter>Engine\04. Component\TextureComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="CDamageUI.cpp">
+      <Filter>Engine\03. Object\UI\DamageUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffectManager.cpp">
+      <Filter>Engine\02. Manager\EffectManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

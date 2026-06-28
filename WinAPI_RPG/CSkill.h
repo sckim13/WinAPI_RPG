@@ -17,6 +17,8 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	virtual void Execute() PURE;
+
 private:
 	/* Skill Info */
 

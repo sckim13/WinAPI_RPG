@@ -25,9 +25,11 @@ public:
 	void Exit();
 
 	void AddObject(CObject* pObject, EObjectType eType);
+	void RequestAddObject(CObject* pObject, EObjectType eType);
 
 private:
-	vector<CObject*> m_vecObject[(UINT)EObjectType::MAX];
+	list<CObject*> m_listObject[(UINT)EObjectType::MAX];
+	queue<CObject*> m_queueObjectCreationRequested[(UINT)EObjectType::MAX];
 	const wstring m_strName;
 };
 

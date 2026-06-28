@@ -20,5 +20,10 @@ public:
 	virtual void OnCollisionBegin(const TCollisionCtx& Ctx) override;
 	virtual void OnCollision(const TCollisionCtx& Ctx) override;
 	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
+
+private:
+	void OnAnimationFinished();
+
+	int m_iHitScanFrame;
 };
 

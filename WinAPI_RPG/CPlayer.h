@@ -1,15 +1,13 @@
 ﻿#pragma once
 
 #include "CCharacter.h"
-#include "ICombat.h"
 
 class CInventory;
 class CEquipment;
 class CSkillComponent;
 
-class CPlayer : public CCharacter, public ICombat
+class CPlayer : public CCharacter
 {
-
 public:
 	CPlayer();
 	virtual ~CPlayer();
@@ -28,6 +26,10 @@ public:
 
 	void SortCollisionList();
 
+	/* ICombat */
+	virtual void OnHit(long long llDamage) override;
+	virtual void OnDead() override;
+
 private:
 	EPlayerState m_ePlayerState;
 
@@ -37,14 +39,19 @@ private:
 
 	vector<CObject*> m_vecObjectsOnCollision[(int)EObjectType::MAX];
 
+
 	/* CObject */
 	virtual void OnKeyEventTriggered(const TKeyEventCtx& Ctx) override;
+
+
+	bool m_bOnKeyEventCoolDown;
+	inline bool IsKeyEventCoolDown() { return m_bOnKeyEventCoolDown; }
+	TTimerHandle m_KeyEventCoolDownHandle;
+	inline void SetKeyEventEnabled() { { m_bOnKeyEventCoolDown = false; } }
 
 public:
 	inline CInventory* GetInventory() { return m_pInventory; }
 	inline CEquipment* GetEquipment() { return m_pEquipment; }
 
-	virtual void OnHit() override;
-	virtual void OnDead() override;
 };
 

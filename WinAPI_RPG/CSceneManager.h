@@ -18,6 +18,7 @@ public:
 	virtual void Render(HDC hDC) override;
 
 	void AddObject(CObject* pObject, EObjectType eType);
+	void RequestAddObject(CObject* pObject, EObjectType eType);
 
 private:
 	CCursor* m_pCursor;

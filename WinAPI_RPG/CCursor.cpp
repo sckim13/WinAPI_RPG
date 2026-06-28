@@ -17,7 +17,7 @@ void CCursor::Initialize()
 	__super::Initialize();
 
 	m_pTextureComponent = new CTextureComponent;
-	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->AttachTo(this);
 	m_pTextureComponent->BindTexture(L"Cursor");
 }
 

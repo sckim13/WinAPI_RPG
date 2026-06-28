@@ -47,11 +47,14 @@ private:
 
 	bool m_bEnabled;
 
+	Vec2 m_vSize;
+
 
 public:
 	inline CTransform* GetTransform() { return &m_Transform; }
 	inline RECT* GetRect() { return &m_rcCollision; }
 	void SetEnabled(bool bEnabled) { m_bEnabled = bEnabled; }
 	bool IsEnabled() { return m_bEnabled; }
+	void SetSize(const Vec2& vSize) { m_vSize = vSize; }
 };
 

@@ -4,6 +4,7 @@
 #include "CMonster.h"
 #include "CResourceManager.h"
 #include "CTextureComponent.h"
+#include "CAnimator.h"
 
 CActiveSkill::CActiveSkill() : m_pAnimator(nullptr)
 {
@@ -17,21 +18,24 @@ void CActiveSkill::Initialize()
 {
 	__super::Initialize();
 
-	m_pTextureComponent = new CTextureComponent;
-	m_pTextureComponent->SetOwner(this);
-	m_pTextureComponent->BindTexture(L"ActiveSkill");
+	m_pAnimator = new CAnimator;
+	m_pAnimator->AttachTo(this);
+	m_pAnimator->BindTexture(L"ActiveSkill");
 }
 
 void CActiveSkill::PostInitialize()
 {
+	__super::PostInitialize();
 }
 
 void CActiveSkill::Update()
 {
+	__super::Update();
 }
 
 void CActiveSkill::LateUpdate()
 {
+	__super::LateUpdate();
 }
 
 void CActiveSkill::Release()

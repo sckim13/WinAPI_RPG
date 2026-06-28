@@ -22,7 +22,7 @@ void CEquipItem::Initialize()
 	m_eEquipSlot = EEquipSlot::HEAD;
 
 	m_pTextureComponent = new CTextureComponent;
-	m_pTextureComponent->SetOwner(this);
+	m_pTextureComponent->AttachTo(this);
 	m_pTextureComponent->BindTexture(L"Item");
 
 	m_pCollider = new CCollider;
@@ -42,11 +42,6 @@ void CEquipItem::Update()
 void CEquipItem::LateUpdate()
 {
 	__super::LateUpdate();
-
-	if (GetOwner())
-	{
-		SetPosition(GetOwner()->GetPosition());
-	}
 }
 
 void CEquipItem::Release()

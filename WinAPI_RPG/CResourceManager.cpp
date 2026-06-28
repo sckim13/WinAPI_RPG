@@ -13,6 +13,34 @@ map<const wstring, const wstring> g_TextureSource =
     {L"ActiveSkill", L"Texture\\ActiveSkill.bmp"},
     {L"Item", L"Texture\\Item.bmp"},
 
+    // Damage
+    {L"Damage_Red_Normal_0", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.0.bmp"},
+    {L"Damage_Red_Normal_1", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.1.bmp"},
+    {L"Damage_Red_Normal_2", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.2.bmp"},
+    {L"Damage_Red_Normal_3", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.3.bmp"},
+    {L"Damage_Red_Normal_4", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.4.bmp"},
+    {L"Damage_Red_Normal_5", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.5.bmp"},
+    {L"Damage_Red_Normal_6", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.6.bmp"},
+    {L"Damage_Red_Normal_7", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.7.bmp"},
+    {L"Damage_Red_Normal_8", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.8.bmp"},
+    {L"Damage_Red_Normal_9", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.9.bmp"},
+    {L"Damage_Red_Normal_man", L"Texture\\UI\\Damage\\Normal\\208.effect.NoCustom.NoRed1.3.bmp"},
+    {L"Damage_Red_Normal_eok", L"Texture\\UI\\Damage\\Normal\\208.effect.NoCustom.NoRed1.4.bmp"},
+    {L"Damage_Red_Normal_miss", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed0.Miss.bmp"},
+    {L"Damage_Red_Cri_0", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.0.bmp"},
+    {L"Damage_Red_Cri_1", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.1.bmp"},
+    {L"Damage_Red_Cri_2", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.2.bmp"},
+    {L"Damage_Red_Cri_3", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.3.bmp"},
+    {L"Damage_Red_Cri_4", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.4.bmp"},
+    {L"Damage_Red_Cri_5", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.5.bmp"},
+    {L"Damage_Red_Cri_6", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.6.bmp"},
+    {L"Damage_Red_Cri_7", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.7.bmp"},
+    {L"Damage_Red_Cri_8", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.8.bmp"},
+    {L"Damage_Red_Cri_9", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.9.bmp"},
+    {L"Damage_Red_Cri_man", L"Texture\\UI\\Damage\\Critical\\208.effect.NoCustom.NoCri1.3.bmp"},
+    {L"Damage_Red_Cri_eok", L"Texture\\UI\\Damage\\Critical\\208.effect.NoCustom.NoCri1.4.bmp"},
+
+
 };
 
 CResourceManager::CResourceManager()
@@ -60,11 +88,11 @@ void CResourceManager::LateUpdate()
 
 void CResourceManager::Release()
 {
-    //for (auto& pair : m_mapTexture)
-    //{
-    //    Safe_Delete(pair.second);
-    //}
-    //m_mapTexture.clear();
+    for (auto& pair : m_mapTexture)
+    {
+        Safe_Delete(pair.second);
+    }
+    m_mapTexture.clear();
 }
 
 void CResourceManager::Render(HDC hDC)

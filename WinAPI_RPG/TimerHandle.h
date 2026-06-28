@@ -8,14 +8,14 @@ struct TTimerCtx
 {
 
 public:
-	TTimerCtx() : m_lPrevExecutedTime(0), m_fDuration(0), m_bLoop(false), m_bNoDelay(false), m_F{} {}
+	TTimerCtx() : m_fPrevExecutedTime(0.f), m_fDuration(0.f), m_bLoop(false), m_bNoDelay(false), m_F{} {}
 
-	DWORD GetPrevExecutedTime() { return m_lPrevExecutedTime; }
+	float GetPrevExecutedTime() { return m_fPrevExecutedTime; }
 	bool IsLoop() { return m_bLoop; }
 	bool IsNoDelay() { return m_bNoDelay; }
 	float GetDuration() { return m_fDuration; }
 
-	void SetPrevExecutedTime(DWORD dwTime) { m_lPrevExecutedTime = dwTime; }
+	void SetPrevExecutedTime(float fTime) { m_fPrevExecutedTime = fTime; }
 	void SetDuration(float fDuration) { m_fDuration = fDuration; }
 	void SetLoop(bool bLoop) { m_bLoop = bLoop; }
 	void SetNoDelay(bool bNoDelay) { m_bNoDelay = bNoDelay; }
@@ -23,13 +23,13 @@ public:
 
 	void Execute() { m_F(); }
 
-	bool OnTime(DWORD dwTime)
+	bool OnTime(float fTime)
 	{
-		return (float)dwTime / 1000.f > (float)m_lPrevExecutedTime / 1000.f + m_fDuration;
+		return fTime > m_fPrevExecutedTime + m_fDuration;
 	}
 
 private:
-	DWORD m_lPrevExecutedTime;
+	float m_fPrevExecutedTime;
 	float m_fDuration;
 	bool m_bLoop;
 	bool m_bNoDelay;
@@ -39,7 +39,7 @@ private:
 
 struct TTimerHandle
 {
-	friend class CTimerMgr;
+	friend class CTimerManager;
 
 public:
 	TTimerHandle() : m_ID(-1) {}

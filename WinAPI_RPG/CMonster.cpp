@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "EventContext.h"
 #include "CTimeManager.h"
+#include "CCombatManager.h"
 
 CMonster::CMonster()
 {
@@ -73,7 +74,7 @@ void CMonster::OnCollisionBegin(const TCollisionCtx& Ctx)
 	CPlayer* pPlayer = dynamic_cast<CPlayer*>(pObject);
 	if (pPlayer)
 	{
-		pPlayer->OnHit();
+		CCombatManager::GetInstance()->RequestDamage(pPlayer, vector<long long>{10});
 	}
 }
 
@@ -85,13 +86,19 @@ void CMonster::OnCollisionEnd(const TCollisionCtx& Ctx)
 {
 }
 
-void CMonster::OnHit()
+void CMonster::OnHit(long long llDamage)
 {
 	cout << "[Monster] Hit by Player" << endl;
+	m_llHP = max(m_llHP - llDamage, 0);
+	if (m_llHP == 0)
+	{
+		SetDead();
+	}
 }
 
 void CMonster::OnDead()
 {
 	cout << "[Monster] Dead" << endl;
+	SetDead();
 }
 

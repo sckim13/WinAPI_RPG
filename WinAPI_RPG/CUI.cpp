@@ -10,6 +10,7 @@ CUI::CUI() : m_bVisible(false), m_eUIType(EUIType::NONE), m_eUIStatus(EUIStatus:
 
 CUI::~CUI()
 {
+    Release();
 }
 
 void CUI::Initialize()
@@ -22,6 +23,11 @@ void CUI::PostInitialize()
     __super::PostInitialize();
 
     CKeyManager::GetInstance()->m_OnKeyEventTriggered->AddBinding(GetID(), [this](const TKeyEventCtx& Ctx) { OnKeyEventTriggered(Ctx); });
+}
+
+void CUI::Release()
+{
+    CKeyManager::GetInstance()->m_OnKeyEventTriggered->DeleteBinding(GetID());
 }
 
 void CUI::Render(HDC hDC)
@@ -96,7 +102,7 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
     case EKeyState::PRESSED:
     case EKeyState::DOUBLE_PRESSED:
     {
-        if (/* this is temporary */ MathUtil::IsPointInRect(vCursorPos, Vec2{ 0.f, 0.f }, m_vDummyDragArea))
+        if (/* this is temporary */ MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_vDummyDragArea))
         {
             cout << "[UI]" << magic_enum::enum_name(GetUIType()) << " UI drag start" << endl;
             SetDragOrigin(GetPosition(), vCursorPos);
@@ -109,8 +115,6 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
         if (GetUIStatus() == EUIStatus::MOVE)
         {
             Vec2 vDragAmount = vCursorPos - m_vDragCursorOrigin;
-            cout << vDragAmount;
-            cout << m_vDragUIOrigin << endl;
             SetPosition(m_vDragUIOrigin + vDragAmount);
         }
         break;

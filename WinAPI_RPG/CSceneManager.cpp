@@ -51,3 +51,8 @@ void CSceneManager::AddObject(CObject* pObject, EObjectType eType)
 {
 	m_pCurrentScene->AddObject(pObject, eType);
 }
+
+void CSceneManager::RequestAddObject(CObject* pObject, EObjectType eType)
+{
+	m_pCurrentScene->RequestAddObject(pObject, eType);
+}

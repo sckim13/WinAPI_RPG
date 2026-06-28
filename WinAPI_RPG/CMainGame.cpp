@@ -9,6 +9,8 @@
 #include "CItemManager.h"
 #include "CCollisionManager.h"
 #include "CResourceManager.h"
+#include "CEffectManager.h"
+#include "CTimerManager.h"
 
 CMainGame::CMainGame()
 	: m_hWnd(nullptr), m_WndResolution{}, m_hDC(nullptr),
@@ -54,6 +56,7 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 	CResourceManager::GetInstance()->Initialize();
 	CSceneManager::GetInstance()->Initialize();
 	CItemManager::GetInstance()->Initialize();
+	CEffectManager::GetInstance()->Initialize();
 	CCollisionManager::GetInstance()->Initialize();
 	CUIManager::GetInstance()->Initialize();
 
@@ -79,6 +82,7 @@ void CMainGame::PostInitialize()
 	CPathManager::GetInstance()->PostInitialize();
 	CSceneManager::GetInstance()->PostInitialize();
 	CItemManager::GetInstance()->PostInitialize();
+	CEffectManager::GetInstance()->PostInitialize();
 	CCollisionManager::GetInstance()->PostInitialize();
 	CUIManager::GetInstance()->PostInitialize();
 }
@@ -96,7 +100,9 @@ void CMainGame::Update()
 	CTimeManager::GetInstance()->Update();
 	CKeyManager::GetInstance()->Update();
 
+	CTimerManager::GetInstance()->Update();
 	CSceneManager::GetInstance()->Update();
+	CEffectManager::GetInstance()->Update();
 	CCollisionManager::GetInstance()->Update();
 	
 	CUIManager::GetInstance()->Update();
@@ -124,6 +130,7 @@ void CMainGame::Render()
 	Rectangle(m_hDCMem, -1, -1, m_WndResolution.x + 1, m_WndResolution.y + 1);
 
 	CSceneManager::GetInstance()->Render(m_hDCMem);
+	CEffectManager::GetInstance()->Render(m_hDCMem);
 	CUIManager::GetInstance()->Render(m_hDCMem);
 
 	BitBlt(m_hDC, 0, 0, m_WndResolution.x, m_WndResolution.y,

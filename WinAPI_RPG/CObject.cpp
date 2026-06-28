@@ -5,12 +5,13 @@
 #include "CCollider.h"
 #include "CKeyManager.h"
 
-CObject::CObject() : m_pTextureComponent(nullptr), m_pCollider(nullptr), m_wstrName{}, m_bFlipped(false)
+CObject::CObject() : m_pTextureComponent(nullptr), m_pCollider(nullptr), m_wstrName{}, m_bFlipped(false), m_bPendingDead(false)
 {
 }
 
 CObject::~CObject()
 {
+	cout << "[Object] No. " << GetID() << " Destroyed" << endl;
 	Release();
 }
 
@@ -44,6 +45,8 @@ void CObject::LateUpdate()
 
 void CObject::Release()
 {
+	CKeyManager::GetInstance()->m_OnKeyEventTriggered->DeleteBinding(GetID());
+
 	for (CComponent* pComponent : m_vecComponent)
 	{
 		Safe_Delete<CComponent*>(pComponent);

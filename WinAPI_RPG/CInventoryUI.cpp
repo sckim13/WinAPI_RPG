@@ -17,6 +17,7 @@ CInventoryUI::CInventoryUI()
 
 CInventoryUI::~CInventoryUI()
 {
+	Release();
 }
 
 void CInventoryUI::Initialize()
@@ -32,6 +33,8 @@ void CInventoryUI::Initialize()
 
 void CInventoryUI::PostInitialize()
 {
+	__super::PostInitialize();
+
 	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_OnInventoryUpdated->AddBinding(
 		GetID(), 
 		[this](const TInventoryCtx& Ctx) { OnInventoryUpdated(Ctx); }
@@ -48,6 +51,7 @@ void CInventoryUI::LateUpdate()
 
 void CInventoryUI::Release()
 {
+	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_OnInventoryUpdated->DeleteBinding(GetID());
 }
 
 void CInventoryUI::Render(HDC hDC)
@@ -60,7 +64,7 @@ void CInventoryUI::Render(HDC hDC)
 	{
 		if (const CItem* pItem = m_arrItem[(int)m_eCurrentTab][i])
 		{
-			pItem->GetTextureComponent()->Render(hDC, (int)m_pDummyItemRect.x, (int)(m_pDummyItemRect.y));
+			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
 		}
 	}
 
@@ -108,7 +112,7 @@ void CInventoryUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
-		&& MathUtil::IsPointInRect(vCursorPos, m_pDummyItemRect, m_pDummyItemRect + Vec2{ 100.f, 100.f }))
+		&& MathUtil::IsPointInRect(vCursorPos - GetPosition(), m_pDummyItemRect, m_pDummyItemRect + Vec2{100.f, 100.f}))
 	{
 		cout << "[Inventory UI] Item Equip event" << endl;
 		CItemManager::GetInstance()->RequestEquipItem(m_eCurrentTab, 0);
@@ -117,5 +121,5 @@ void CInventoryUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 
 bool CInventoryUI::IsCursorOnUI(Vec2 vCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos - GetPosition(), Vec2{0, 0}, m_pMainTexture->GetTextureSize());
+	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetTextureSize());
 }

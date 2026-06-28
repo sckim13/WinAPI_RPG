@@ -14,9 +14,14 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
+	void SetTimer(TTimerHandle& THandle, function<void()> F, float fDelay, bool bLoop, float fFirstDelay = -1.f);
+	void RestartTimer(TTimerHandle& THandle);
+	void ClearTimer(TTimerHandle& THandle);
+	void DeleteHandle(INT64 h_ID);
 
 
 private:
+	static INT64 g_ID;
+	map<INT64, TTimerCtx*> m_mapCtx;
 
 };
-

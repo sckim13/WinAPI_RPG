@@ -21,15 +21,15 @@ CScene::~CScene()
 void CScene::Initialize()
 {
 	CObject* pPlayer = new CPlayer;
-	m_vecObject[(UINT)EObjectType::PLAYER].push_back(pPlayer);
+	m_listObject[(UINT)EObjectType::PLAYER].push_back(pPlayer);
 	CObject* pMonsterA = new CMonster;
-	m_vecObject[(UINT)EObjectType::MONSTER].push_back(pMonsterA);
+	m_listObject[(UINT)EObjectType::MONSTER].push_back(pMonsterA);
 	CObject* pItemA = new CEquipItem;
-	m_vecObject[(UINT)EObjectType::ITEM].push_back(pItemA);
+	m_listObject[(UINT)EObjectType::ITEM].push_back(pItemA);
 
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			pObject->Initialize();
 		}
@@ -47,15 +47,16 @@ void CScene::Initialize()
 
 void CScene::Initialize(CPlayer* pPlayer)
 {
-	m_vecObject[(UINT)EObjectType::PLAYER].push_back(pPlayer);
+
+	m_listObject[(UINT)EObjectType::PLAYER].push_back(pPlayer);
 	CObject* pMonsterA = new CMonster;
-	m_vecObject[(UINT)EObjectType::MONSTER].push_back(pMonsterA);
+	m_listObject[(UINT)EObjectType::MONSTER].push_back(pMonsterA);
 	CObject* pItemA = new CEquipItem;
-	m_vecObject[(UINT)EObjectType::ITEM].push_back(pItemA);
+	m_listObject[(UINT)EObjectType::ITEM].push_back(pItemA);
 
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			pObject->Initialize();
 		}
@@ -75,7 +76,7 @@ void CScene::PostInitialize()
 {
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			pObject->PostInitialize();
 		}
@@ -84,11 +85,32 @@ void CScene::PostInitialize()
 
 void CScene::Update()
 {
+	// push the objects requested to be created at the last frame
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		while (!m_queueObjectCreationRequested[i].empty())
 		{
-			pObject->Update();
+			CObject* pObject = m_queueObjectCreationRequested[i].front();
+			m_listObject[i].push_back(pObject);
+			m_queueObjectCreationRequested[i].pop();
+		}
+	}
+
+	for (int i = 0; i < (int)EObjectType::MAX; ++i)
+	{
+		for (auto iter = m_listObject[i].begin(); iter != m_listObject[i].end(); )
+		{
+			CObject* pObject = (*iter);
+			if (pObject->IsDead())
+			{
+				Safe_Delete<CObject*>(pObject);
+				iter = m_listObject[i].erase(iter);
+			}
+			else
+			{
+				pObject->Update();
+				++iter;
+			}
 		}
 	}
 }
@@ -97,16 +119,16 @@ void CScene::LateUpdate()
 {
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			pObject->LateUpdate();
 		}
 	}
 
 	/* check collision */
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::MONSTER], m_vecObject[(int)EObjectType::PLAYER]);
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::ITEM], m_vecObject[(int)EObjectType::PLAYER]);
-	CCollisionManager::GetInstance()->CheckCollisionGroup(m_vecObject[(int)EObjectType::SKILL], m_vecObject[(int)EObjectType::MONSTER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_listObject[(int)EObjectType::MONSTER], m_listObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_listObject[(int)EObjectType::ITEM], m_listObject[(int)EObjectType::PLAYER]);
+	CCollisionManager::GetInstance()->CheckCollisionGroup(m_listObject[(int)EObjectType::SKILL], m_listObject[(int)EObjectType::MONSTER]);
 
 }
 
@@ -114,7 +136,7 @@ void CScene::Release()
 {
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			Safe_Delete(pObject);
 		}
@@ -125,7 +147,7 @@ void CScene::Render(HDC hDC)
 {
 	for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	{
-		for (auto& pObject : m_vecObject[i])
+		for (auto& pObject : m_listObject[i])
 		{
 			pObject->Render(hDC);
 		}
@@ -141,14 +163,24 @@ void CScene::Exit()
 {
 	//for (int i = 0; i < (int)EObjectType::MAX; ++i)
 	//{
-	//	for (auto& pObject : m_vecObject[i])
+	//	for (auto& pObject : m_listObject[i])
 	//	{
 	//		Safe_Delete(pObject);
 	//	}
 	//}
+
+	// collisionmanager에게 이전 정보 초기화시키기
 }
 
 void CScene::AddObject(CObject* pObject, EObjectType eType)
 {
-	m_vecObject[(int)eType].push_back(pObject);
+	m_listObject[(int)eType].push_back(pObject);
+}
+
+void CScene::RequestAddObject(CObject* pObject, EObjectType eType)
+{
+	// initialize object manually since it is added in the middle of loop
+	pObject->Initialize();
+	pObject->PostInitialize();
+	m_queueObjectCreationRequested[(int)eType].push(pObject);
 }

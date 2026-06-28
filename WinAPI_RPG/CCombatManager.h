@@ -2,6 +2,8 @@
 
 #include "CManager.h"
 
+class CCharacter;
+
 class CCombatManager : public CManager
 {
 	SINGLETON(CCombatManager);
@@ -15,6 +17,8 @@ public:
 	virtual void Render(HDC hDC) override;
 
 	CEventDelegate<TCombatCtx> m_hOnCombatTriggered;
+
+	void RequestDamage(CCharacter* pCharacter, const vector<long long>& vecDamage);
 
 };
 

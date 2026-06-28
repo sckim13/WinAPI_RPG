@@ -3,5 +3,7 @@
 class CPassiveSkill :
     public CSkill
 {
+public:
+    virtual void Execute() PURE;
 };
 

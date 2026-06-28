@@ -35,7 +35,7 @@ void CCollisionManager::Render(HDC hDC)
 {
 }
 
-void CCollisionManager::CheckCollisionGroup(vector<CObject*>& lGroup, vector<CObject*>& rGroup)
+void CCollisionManager::CheckCollisionGroup(list<CObject*>& lGroup, list<CObject*>& rGroup)
 {
 	for (auto& plObject : lGroup)
 	{
@@ -47,16 +47,30 @@ void CCollisionManager::CheckCollisionGroup(vector<CObject*>& lGroup, vector<COb
 			{
 				if ((iter == m_mapPrevCollisionInfo.end()) || (iter->second == false))
 				{
+					/* normal collision case */
 					wcout << "[Collision Manager] Collision Start : " << plObject->GetName() << " & " << prObject->GetName() << endl;
 					plObject->GetCollider()->OnCollisionBegin(TCollisionCtx{ prObject->GetCollider() });
 					prObject->GetCollider()->OnCollisionBegin(TCollisionCtx{ plObject->GetCollider() });
+					m_mapPrevCollisionInfo.insert_or_assign(ID, true);
 				}
 				else
 				{
-					plObject->GetCollider()->OnCollision(TCollisionCtx{ prObject->GetCollider() });
-					prObject->GetCollider()->OnCollision(TCollisionCtx{ plObject->GetCollider() });
+					if (plObject->IsDead() || prObject->IsDead())
+					{
+						/* end collision when one or more object is pending dead */
+						wcout << "[Collision Manager] Collision End : " << plObject->GetName() << " & " << prObject->GetName() << endl;
+						plObject->GetCollider()->OnCollisionEnd(TCollisionCtx{ prObject->GetCollider() });
+						prObject->GetCollider()->OnCollisionEnd(TCollisionCtx{ plObject->GetCollider() });
+						m_mapPrevCollisionInfo[ID] = false;
+					}
+					else
+					{
+						/* normal collision case */
+						plObject->GetCollider()->OnCollision(TCollisionCtx{ prObject->GetCollider() });
+						prObject->GetCollider()->OnCollision(TCollisionCtx{ plObject->GetCollider() });
+						m_mapPrevCollisionInfo.insert_or_assign(ID, true);
+					}
 				}
-				m_mapPrevCollisionInfo[ID] = true;
 			}
 			else
 			{

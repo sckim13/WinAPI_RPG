@@ -137,6 +137,8 @@
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CController.h" />
     <ClInclude Include="CCursor.h" />
+    <ClInclude Include="CDamageUI.h" />
+    <ClInclude Include="CEffectManager.h" />
     <ClInclude Include="CEquipItem.h" />
     <ClInclude Include="CEquipment.h" />
     <ClInclude Include="CEquipmentUI.h" />
@@ -182,6 +184,7 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Third-party\magic_enum.hpp" />
     <ClInclude Include="TimerHandle.h" />
@@ -200,6 +203,8 @@
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CController.cpp" />
     <ClCompile Include="CCursor.cpp" />
+    <ClCompile Include="CDamageUI.cpp" />
+    <ClCompile Include="CEffectManager.cpp" />
     <ClCompile Include="CEquipItem.cpp" />
     <ClCompile Include="CEquipment.cpp" />
     <ClCompile Include="CEquipmentUI.cpp" />

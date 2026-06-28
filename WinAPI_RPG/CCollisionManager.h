@@ -17,7 +17,7 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void CheckCollisionGroup(vector<CObject*>& lGroup, vector<CObject*>& rGroup);
+	void CheckCollisionGroup(list<CObject*>& lGroup, list<CObject*>& rGroup);
 
 private:
 	bool IsColliding(CObject* lhs, CObject* rhs);

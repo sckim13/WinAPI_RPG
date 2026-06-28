@@ -21,8 +21,9 @@
 #include "CSkillComponent.h"
 #include "CActiveSkill.h"
 #include "CSceneManager.h"
+#include "CTimerManager.h"
 
-CPlayer::CPlayer()
+CPlayer::CPlayer() : m_bOnKeyEventCoolDown(false)
 {
 	m_eObjectType = EObjectType::PLAYER;
 }
@@ -64,6 +65,12 @@ void CPlayer::PostInitialize()
 
 	m_pCollider->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
 	m_pCollider->m_OnCollisionEnd->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionEnd(Ctx); });
+	
+	CTimerManager::GetInstance()->SetTimer(
+		m_KeyEventCoolDownHandle,
+		[this]() { SetKeyEventEnabled(); },
+		1.f, true
+	);
 }
 
 void CPlayer::Update()
@@ -113,6 +120,9 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Release()
 {
+	m_pCollider->m_OnCollisionBegin->DeleteBinding(GetID());
+	m_pCollider->m_OnCollisionEnd->DeleteBinding(GetID());
+
 	CItemManager::GetInstance()->SetPlayer(nullptr);
 }
 
@@ -192,7 +202,12 @@ void CPlayer::SortCollisionList()
 
 void CPlayer::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 {
+	if (IsKeyEventCoolDown()) return;
+
 	auto [eKeyEvent, eKeyState] = Ctx;
+
+	m_bOnKeyEventCoolDown = true;
+	CTimerManager::GetInstance()->RestartTimer(m_KeyEventCoolDownHandle);
 
 	if (eKeyEvent == EEventType::PICKITEM)
 	{
@@ -200,7 +215,7 @@ void CPlayer::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 		{
 			CItem* pItem = dynamic_cast<CItem*>(m_vecObjectsOnCollision[(int)EObjectType::ITEM].front());
 			pItem->SetOwner(this);
-			pItem->SetPosition(GetPosition());
+			pItem->SetPosition(Vec2{0.f, 0.f});
 			pItem->GetCollider()->SetEnabled(false);
 			m_pInventory->PushItem(pItem);
 			wcout << "[Player] Grab item : " << pItem->GetName() << endl;
@@ -214,19 +229,13 @@ void CPlayer::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 	if (eKeyEvent == EEventType::SKILL_DEFAULT)
 	{
 		cout << "[Player] Basic Attack" << endl;
-		CHitScanSkill* pSkill = dynamic_cast<CHitScanSkill*>(m_pSkillComponent->GetSkillInstance(L"ActiveSkill"));
-		if (pSkill)
-		{
-
-			CSceneManager::GetInstance()->AddObject(CAbstractFactory<CObject, CHitScanSkill>::Create(), EObjectType::SKILL);
-			;
-		}
-		
+		CActiveSkill* pSkill = m_pSkillComponent->CreateSkill(L"ActiveSkill");
 	}
 }
 
-void CPlayer::OnHit()
+void CPlayer::OnHit(long long llDamage)
 {
+	m_llHP -= llDamage;
 	cout << "[Player] Hit" << endl;
 }
 

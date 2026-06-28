@@ -48,20 +48,29 @@ void CTexture::Render(HDC hDC, int iX, int iY, bool bFlipped)
 
 void CTexture::Render(HDC hDC, int iDstX, int iDstY, int iSrcX, int iSrcY, int iCX, int iCY, bool bFlipped)
 {
-	BLENDFUNCTION bf;
-	bf.BlendOp = AC_SRC_OVER;
-	bf.BlendFlags = 0;
-	bf.SourceConstantAlpha = 255;
-	bf.AlphaFormat = AC_SRC_ALPHA;
-
-	AlphaBlend(hDC,
+	StretchBlt(
+		hDC,
 		iDstX, iDstY,
-		iCX, iCY,
-		m_hDC, 
+		(!bFlipped ? 1 : -1) * iCX, iCY,
+		m_hDC,
 		iSrcX, iSrcY,
 		iCX, iCY,
-		bf
-	);
+		SRCCOPY);
+
+	//BLENDFUNCTION bf;
+	//bf.BlendOp = AC_SRC_OVER;
+	//bf.BlendFlags = 0;
+	//bf.SourceConstantAlpha = 255;
+	//bf.AlphaFormat = AC_SRC_ALPHA;
+
+	//AlphaBlend(hDC,
+	//	iDstX, iDstY,
+	//	iCX, iCY,
+	//	m_hDC, 
+	//	iSrcX, iSrcY,
+	//	iCX, iCY,
+	//	bf
+	//);
 }
 
 void CTexture::Load(const wstring& strPath)

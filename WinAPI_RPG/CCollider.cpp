@@ -4,7 +4,7 @@
 #include "CObject.h"
 #include "EventContext.h"
 
-CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_OnCollisionBegin(nullptr)
+CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_OnCollisionBegin(nullptr), m_vSize{30.f, 30.f}
 {
 }
 
@@ -100,8 +100,8 @@ void CCollider::OnCollisionEnd(const TCollisionCtx& Ctx)
 void CCollider::UpdateRect()
 {
 	Vec2 vPos = GetTransform()->GetPosition();
-	m_rcCollision.left = (int)vPos.x - 30;
-	m_rcCollision.right = (int)vPos.x + 30;
-	m_rcCollision.top = (int)vPos.y - 30;
-	m_rcCollision.bottom = (int)vPos.y + 30;
+	m_rcCollision.left = (int)vPos.x - m_vSize.x / 2;
+	m_rcCollision.right = (int)vPos.x + m_vSize.x / 2;
+	m_rcCollision.top = (int)vPos.y - m_vSize.y / 2;
+	m_rcCollision.bottom = (int)vPos.y + m_vSize.y / 2;
 }

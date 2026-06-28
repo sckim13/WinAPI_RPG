@@ -14,7 +14,6 @@ CSkill::~CSkill()
 void CSkill::Initialize()
 {
 	__super::Initialize();
-
 }
 
 void CSkill::PostInitialize()

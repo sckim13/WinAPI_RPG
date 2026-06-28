@@ -2,7 +2,7 @@
 
 #include "CComponent.h"
 
-class CSkill;
+class CActiveSkill;
 
 class CSkillComponent : public CComponent
 {
@@ -17,12 +17,11 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	void AddSkill(const wstring& wstrName, CSkill* pSkill);
+	CActiveSkill* CreateSkill(const wstring& wstrName);
 
 private:
-	map<const wstring, CSkill*> m_mapSkill;
+	vector<wstring> m_vecSkill;
 
 public:
-	CSkill* GetSkillInstance(const wstring& wstrName) { return m_mapSkill[wstrName]; }
 };
 

@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "CCharacter.h"
-#include "ICombat.h"
 
 struct TCollisionCtx;
 
-class CMonster : public CCharacter, public ICombat
+class CMonster : public CCharacter
 {
 public:
 	CMonster();
@@ -22,14 +21,9 @@ public:
 	virtual void OnCollision(const TCollisionCtx& Ctx) override;
 	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
 
-	virtual void OnHit() override;
+	virtual void OnHit(long long llDamage) override;
 	virtual void OnDead() override;
 
 private:
-	int m_iLevel;
-	int m_iMaxHP;
-	int m_iHP;
-	
-
 };
 

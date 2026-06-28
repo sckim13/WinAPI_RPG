@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "CSkillComponent.h"
 #include "CSkill.h"
+#include "CSceneManager.h"
+#include "CHitScanSkill.h"
 
 CSkillComponent::CSkillComponent()
 {
@@ -12,6 +14,7 @@ CSkillComponent::~CSkillComponent()
 
 void CSkillComponent::Initialize()
 {
+	m_vecSkill.push_back(L"ActiveSkill");
 }
 
 void CSkillComponent::PostInitialize()
@@ -28,17 +31,25 @@ void CSkillComponent::LateUpdate()
 
 void CSkillComponent::Release()
 {
-	for (auto pair : m_mapSkill)
-	{
-		Safe_Delete<CSkill*>(pair.second);
-	}
 }
 
 void CSkillComponent::Render(HDC hDC)
 {
 }
 
-void CSkillComponent::AddSkill(const wstring& wstrName, CSkill* pSkill)
+CActiveSkill* CSkillComponent::CreateSkill(const wstring& wstrName)
 {
-	m_mapSkill.insert({ wstrName, pSkill });
+	Vec2 vPlayerPos = GetOwner()->GetPosition();
+
+	CObject* pObject = CAbstractFactory<CObject, CHitScanSkill>::Create();
+	CSceneManager::GetInstance()->RequestAddObject(pObject, EObjectType::SKILL);
+
+	CSkill* pSkill = dynamic_cast<CSkill*>(pObject);
+	if (pSkill)
+	{
+		pSkill->SetPosition(vPlayerPos);
+		pSkill->Execute();
+	}
+
+	return dynamic_cast<CActiveSkill*>(pSkill);
 }

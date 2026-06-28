@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "CCharacter.h"
 
-CCharacter::CCharacter()
+CCharacter::CCharacter() : m_llHP(10000), m_llMaxHP(10000)
 {
 }
 

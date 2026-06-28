@@ -15,6 +15,7 @@ CEquipmentUI::CEquipmentUI() : m_pMainTexture(nullptr)
 
 CEquipmentUI::~CEquipmentUI()
 {
+	Release();
 }
 
 void CEquipmentUI::Initialize()
@@ -30,6 +31,8 @@ void CEquipmentUI::Initialize()
 
 void CEquipmentUI::PostInitialize()
 {
+	__super::PostInitialize();
+
 	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_OnEquipmentUpdated->AddBinding(
 		GetID(), [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
 	);
@@ -45,6 +48,7 @@ void CEquipmentUI::LateUpdate()
 
 void CEquipmentUI::Release()
 {
+	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_OnEquipmentUpdated->DeleteBinding(GetID());
 }
 
 void CEquipmentUI::Render(HDC hDC)
@@ -57,7 +61,7 @@ void CEquipmentUI::Render(HDC hDC)
 	{
 		if (const CItem* pItem = m_arrEquipSlot[i])
 		{
-			pItem->GetTextureComponent()->Render(hDC, (int)m_pDummyItemRect.x, (int)m_pDummyItemRect.y);
+			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
 		}
 	}
 
@@ -94,7 +98,7 @@ void CEquipmentUI::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 
 bool CEquipmentUI::IsCursorOnUI(Vec2 vCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos - GetPosition(), Vec2{ 0, 0 }, m_pMainTexture->GetTextureSize());
+	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetTextureSize());
 }
 
 
@@ -106,7 +110,7 @@ void CEquipmentUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 	// cout << magic_enum::enum_name(eKey) << ", " << magic_enum::enum_name(eKeyState) << ", (" << vCursorPos.x << ", " << vCursorPos.y << ")" << endl;
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
-		&& MathUtil::IsPointInRect(vCursorPos, m_pDummyItemRect, m_pDummyItemRect + Vec2{ 100.f, 100.f }))
+		&& MathUtil::IsPointInRect(vCursorPos - GetPosition(), m_pDummyItemRect, m_pDummyItemRect + Vec2{100.f, 100.f}))
 	{
 		cout << "[Equipment UI] Item UnEquip event" << endl;
 		CItemManager::GetInstance()->RequestUnEquipItem(EEquipSlot::HEAD);

@@ -13,6 +13,7 @@
 #include <Windows.h>
 #include <array>
 #include <queue>
+#include <stack>
 
 
 // User Defined Headers
@@ -22,6 +23,7 @@
 #include "Constant.h"
 #include "Vec2.h"
 #include "Mat3.h"
+#include "Struct.h"
 #include "CAbstractFactory.h"
 
 

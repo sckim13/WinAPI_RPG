@@ -2,13 +2,14 @@
 
 #include "CObject.h"
 #include "ICollide.h"
+#include "ICombat.h"
 
 class CTexture;
 class CCollider;
 class CTransform;
 class CController;
 
-class CCharacter : public CObject, public ICollide
+class CCharacter : public CObject, public ICollide, public ICombat
 {
 public:
 	CCharacter();
@@ -21,11 +22,18 @@ public:
 	virtual void Release() PURE;
 	virtual void Render(HDC hDC) PURE;
 
+	/* ICollide */
 	virtual void OnCollisionBegin(const TCollisionCtx& Ctx) override;
 	virtual void OnCollision(const TCollisionCtx& Ctx) override;
 	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
 
+	/* ICombat */
+	virtual void OnHit(long long llDamage) PURE;
+	virtual void OnDead() PURE;
+
 protected:
+	long long m_llHP;
+	long long m_llMaxHP;
 
 private:
 	// CController* m_pController;

@@ -256,6 +256,7 @@ void CKeyManager::LateUpdate()
 void CKeyManager::Release()
 {
 	Safe_Delete<CEventDelegate<TKeyEventCtx>*>(m_OnKeyEventTriggered);
+	Safe_Delete<CEventDelegate<TMouseEventCtx>*>(m_OnMouseEventTriggered);
 }
 
 void CKeyManager::Render(HDC hDC)

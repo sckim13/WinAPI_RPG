@@ -38,3 +38,16 @@ void CEventDelegate<T>::Broadcast(T Ctx)
 		pair.second(Ctx);
 	}
 }
+
+template<>
+class CEventDelegate<void>
+{
+public:
+	void AddBinding(INT64 ID, function<void()> F);
+	void DeleteBinding(INT64 ID);
+
+	void Broadcast();
+
+private:
+	map<INT64, function<void()>> m_mapEvent;
+};
