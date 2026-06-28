@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "CCombatManager.h"
 #include "CCharacter.h"
-#include "CDamageUi.h"
 #include "CEffectManager.h"
 
 CCombatManager::CCombatManager()

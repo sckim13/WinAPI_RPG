@@ -5,7 +5,6 @@
 #include "CKeyManager.h"
 #include "CCursor.h"
 #include "CUI.h"
-#include "CDamageUI.h"
 
 CUIManager::CUIManager() : m_pCursor(nullptr)
 {
