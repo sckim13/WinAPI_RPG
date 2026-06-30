@@ -8,6 +8,7 @@ class CTexture;
 class CCollider;
 class CTransform;
 class CController;
+class CMovementComponent;
 
 class CCharacter : public CObject, public ICollide, public ICombat
 {
@@ -34,6 +35,7 @@ public:
 protected:
 	long long m_llHP;
 	long long m_llMaxHP;
+	CMovementComponent* m_pMovementComponent;
 
 private:
 	// CController* m_pController;

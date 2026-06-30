@@ -31,7 +31,7 @@ public:
 	virtual void OnDead() override;
 
 private:
-	EPlayerState m_ePlayerState;
+	EPlayerAnimState m_ePlayerAnimState;
 
 	CInventory* m_pInventory;
 	CEquipment* m_pEquipment;
@@ -52,6 +52,8 @@ private:
 public:
 	inline CInventory* GetInventory() { return m_pInventory; }
 	inline CEquipment* GetEquipment() { return m_pEquipment; }
+
+	void SetAnimState(EPlayerAnimState eState) { m_ePlayerAnimState = eState; }
 
 };
 

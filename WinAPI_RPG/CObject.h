@@ -46,6 +46,7 @@ public:
 	inline void SetRotation(float fRot) { GetTransform()->SetRotation(fRot); }
 	inline void SetScale(Vec2 vScale) { GetTransform()->SetScale(vScale); }
 	inline void SetDead() { m_bPendingDead = true; }
+	inline void Flip(bool bFlip) { m_bFlipped = bFlip; }
 
 	inline CTextureComponent* GetTextureComponent() const { return m_pTextureComponent; }
 	inline CCollider* GetCollider() const { return m_pCollider; }

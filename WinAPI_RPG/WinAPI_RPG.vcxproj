@@ -143,6 +143,7 @@
     <ClInclude Include="CEquipmentUI.h" />
     <ClInclude Include="CEventDelegate.h" />
     <ClInclude Include="CEventManager.h" />
+    <ClInclude Include="CFootHold.h" />
     <ClInclude Include="CHitScanSkill.h" />
     <ClInclude Include="CInventory.h" />
     <ClInclude Include="CInventoryUI.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CManager.h" />
     <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CMovementComponent.h" />
     <ClInclude Include="CObject.h" />
     <ClInclude Include="Constant.h" />
     <ClInclude Include="CPassiveSkill.h" />
@@ -208,6 +210,7 @@
     <ClCompile Include="CEquipmentUI.cpp" />
     <ClCompile Include="CEventDelegate.cpp" />
     <ClCompile Include="CEventManager.cpp" />
+    <ClCompile Include="CFootHold.cpp" />
     <ClCompile Include="CHitScanSkill.cpp" />
     <ClCompile Include="CInventory.cpp" />
     <ClCompile Include="CInventoryUI.cpp" />
@@ -217,6 +220,7 @@
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CManager.cpp" />
     <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CMovementComponent.cpp" />
     <ClCompile Include="CObject.cpp" />
     <ClCompile Include="CPassiveSkill.cpp" />
     <ClCompile Include="CPathManager.cpp" />

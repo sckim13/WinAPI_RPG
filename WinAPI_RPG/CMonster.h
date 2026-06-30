@@ -24,6 +24,9 @@ public:
 	virtual void OnHit(long long llDamage) override;
 	virtual void OnDead() override;
 
+	// TODO : bind projectile skill target to monster's delegate
+	CEventDelegate<void> m_NoticeDead;
+
 private:
 };
 

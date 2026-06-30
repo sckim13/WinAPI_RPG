@@ -26,7 +26,7 @@ enum class ESceneType
 	MAX,
 };
 
-enum class EPlayerAnim
+enum class EPlayerAnimState
 {
 	STAND,
 	ALERT,

@@ -7,7 +7,6 @@
 #include "CPathManager.h"
 #include "CResourceManager.h"
 #include "CCollider.h"
-#include "CTransform.h"
 #include "CSkill.h"
 #include "CInventory.h"
 #include "CEquipment.h"
@@ -22,6 +21,7 @@
 #include "CActiveSkill.h"
 #include "CSceneManager.h"
 #include "CTimerManager.h"
+#include "CMovementComponent.h"
 
 CPlayer::CPlayer() : m_bOnKeyEventCoolDown(false)
 {
@@ -57,6 +57,9 @@ void CPlayer::Initialize()
 	
 	m_pEquipment = new CEquipment;
 	m_pEquipment->AttachTo(this);
+
+	m_pMovementComponent = new CMovementComponent;
+	m_pMovementComponent->AttachTo(this);
 }
 
 void CPlayer::PostInitialize()
@@ -78,39 +81,6 @@ void CPlayer::Update()
 	__super::Update();
 
 	SortCollisionList();
-
-	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
-
-	if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::HOLD
-		&& CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::HOLD)
-	{
-	}
-	else if (CKeyManager::GetInstance()->GetKeyState(EKey::LEFT) == EKeyState::HOLD)
-	{
-		m_bFlipped = false;
-		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDT * Vec2{ -200.f, 0.f });
-	}
-	else if (CKeyManager::GetInstance()->GetKeyState(EKey::RIGHT) == EKeyState::HOLD)
-	{
-		m_bFlipped = true;
-		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDT * Vec2{ 200.f, 0.f });
-	}
-	else if (CKeyManager::GetInstance()->GetKeyState(EKey::UP) == EKeyState::HOLD)
-	{
-		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDT * Vec2{ 0.f, -200.f });
-	}
-	else if (CKeyManager::GetInstance()->GetKeyState(EKey::DOWN) == EKeyState::HOLD)
-	{
-		m_ePlayerState = EPlayerState::WALK;
-		SetPosition(GetPosition() + fDT * Vec2{ 0.f, 200.f });
-	}
-	else
-	{
-		m_ePlayerState = EPlayerState::IDLE;
-	}
 }
 
 void CPlayer::LateUpdate()

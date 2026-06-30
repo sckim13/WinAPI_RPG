@@ -202,6 +202,12 @@
     <Filter Include="Engine\03. Object\Skill\Active\Passive">
       <UniqueIdentifier>{c7f2367d-9e12-4ec1-8b02-f533a38c5a58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\04. Component\Movement">
+      <UniqueIdentifier>{63677996-0000-4f49-8e28-c7677a22e193}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\05. Scene\FootHold">
+      <UniqueIdentifier>{9a47285d-2548-4a9a-af5c-2a224729eeb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -393,6 +399,12 @@
     <ClInclude Include="CEffectManager.h">
       <Filter>Engine\02. Manager\EffectManager</Filter>
     </ClInclude>
+    <ClInclude Include="CMovementComponent.h">
+      <Filter>Engine\04. Component\Movement</Filter>
+    </ClInclude>
+    <ClInclude Include="CFootHold.h">
+      <Filter>Engine\05. Scene\FootHold</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -550,6 +562,12 @@
     </ClCompile>
     <ClCompile Include="CEffectManager.cpp">
       <Filter>Engine\02. Manager\EffectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMovementComponent.cpp">
+      <Filter>Engine\04. Component\Movement</Filter>
+    </ClCompile>
+    <ClCompile Include="CFootHold.cpp">
+      <Filter>Engine\05. Scene\FootHold</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -100,5 +100,6 @@ void CMonster::OnDead()
 {
 	cout << "[Monster] Dead" << endl;
 	SetDead();
+	m_NoticeDead.Broadcast();
 }
 
