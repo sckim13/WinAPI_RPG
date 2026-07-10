@@ -5,6 +5,7 @@ using namespace std;
 #include <array>
 #include "Enum.h"
 #include "Vec2.h"
+#include "IPoint.h"
 
 class CCollider;
 class CItem;
@@ -36,7 +37,7 @@ struct TMouseEventCtx
 {
 	EKey eKey;
 	EKeyState eKeyState;
-	Vec2 vCursorPos;
+	IPoint vCursorPos;
 };
 
 struct TCombatCtx

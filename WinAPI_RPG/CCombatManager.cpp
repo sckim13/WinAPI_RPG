@@ -3,7 +3,7 @@
 #include "CCharacter.h"
 #include "CEffectManager.h"
 
-CCombatManager::CCombatManager()
+CCombatManager::CCombatManager() : m_gen(random_device{}())
 {
 }
 
@@ -44,7 +44,12 @@ void CCombatManager::RequestDamage(CCharacter* pCharacter, const vector<long lon
 
 	for (auto Dmg : vecDamage)
 	{
-		CEffectManager::GetInstance()->AddDamageInfo(TDamageInfo{ Dmg, vPos + yOffset, fTimeOffset});
+		// give X Noise line by line for naturality
+		uniform_int_distribution<int> dist(-5, 5);
+		Vec2 fNoiseX = Vec2{ (float)dist(m_gen), 0.f };
+
+		CEffectManager::GetInstance()->AddDamageInfo(TDamageInfo{ Dmg, vPos + yOffset + fNoiseX, fTimeOffset});
+		
 		// DMG UI goes upward to screen line by line
 		yOffset.y -= 40.f;
 		// Give negative time offset to render DMG UI on positive time

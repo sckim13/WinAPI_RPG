@@ -17,10 +17,6 @@ CActiveSkill::~CActiveSkill()
 void CActiveSkill::Initialize()
 {
 	__super::Initialize();
-
-	m_pAnimator = new CAnimator;
-	m_pAnimator->AttachTo(this);
-	m_pAnimator->BindTexture(L"ActiveSkill");
 }
 
 void CActiveSkill::PostInitialize()

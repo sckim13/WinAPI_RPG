@@ -19,8 +19,6 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
-	__super::Initialize();
-
 	m_eObjectType = EObjectType::MONSTER;
 	wstring wstrName = L"Monster_" + to_wstring(GetID());
 	SetName(wstrName);
@@ -31,23 +29,25 @@ void CMonster::Initialize()
 
 	m_pCollider = new CCollider;
 	m_pCollider->AttachTo(this);
+
+	__super::Initialize();
 }
 
 void CMonster::PostInitialize()
 {
-	__super::PostInitialize();
-
 	GetCollider()->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
+
+	__super::PostInitialize();
 }
 
 void CMonster::Update()
 {
-	__super::Update();
-
 	Vec2 vPos = GetPosition();
 	float fDT = CTimeManager::GetInstance()->GetDeltaTime();
 
 	SetPosition(Vec2{ vPos.x, vPos.y });
+
+	__super::Update();
 }
 
 void CMonster::LateUpdate()
@@ -92,7 +92,7 @@ void CMonster::OnHit(long long llDamage)
 	m_llHP = max(m_llHP - llDamage, 0);
 	if (m_llHP == 0)
 	{
-		SetDead();
+		//SetDead();
 	}
 }
 

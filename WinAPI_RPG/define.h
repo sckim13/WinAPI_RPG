@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#define WINCX 1366
+#define WINCY 768
+
 #define SINGLETON(Type)				\
 public:								\
 	static Type* GetInstance()		\

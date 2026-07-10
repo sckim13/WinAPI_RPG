@@ -4,7 +4,7 @@
 #include "CUIManager.h"
 #include "MathUtil.h"
 
-CUI::CUI() : m_bVisible(false), m_eUIType(EUIType::NONE), m_eUIStatus(EUIStatus::IDLE), m_vDragCursorOrigin{}, m_vDragUIOrigin{}
+CUI::CUI() : m_bVisible(false), m_eUIType(EUIType::NONE), m_eUIStatus(EUIStatus::IDLE), m_ptDragCursorOrigin{}, m_ptDragUIOrigin{}
 {
 }
 
@@ -55,22 +55,22 @@ void CUI::OnFocused()
     CUIManager::GetInstance()->UpdateUIOrder(this);
 }
 
-void CUI::SetDragOrigin(Vec2 vUIPos, Vec2 vCursorPos)
+void CUI::SetDragOrigin(IPoint ptUIPos, IPoint ptCursorPos)
 {
-    m_vDragUIOrigin = vUIPos;
-    m_vDragCursorOrigin = vCursorPos;
+    m_ptDragUIOrigin = ptUIPos;
+    m_ptDragCursorOrigin = ptCursorPos;
 }
 
-bool CUI::IsCursorOnUI(Vec2 vCursorPos)
+bool CUI::IsCursorOnUI(const IPoint& ptCursorPos)
 {
     return true;
 }
 
-bool CUI::IsValidInput(Vec2 vCursorPos)
+bool CUI::IsValidInput(IPoint ptCursorPos)
 {
 	if (!IsVisible()) return false;
 
-	if (!IsCursorOnUI(vCursorPos))
+	if (!IsCursorOnUI(ptCursorPos))
 	{
 		switch (GetUIStatus())
 		{
@@ -87,25 +87,25 @@ bool CUI::IsValidInput(Vec2 vCursorPos)
 void CUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
     /* vCursorPos is screen space (not local) */
-    auto [eKey, eKeyState, vCursorPos] = Ctx;
+    auto [eKey, eKeyState, ptCursorPos] = Ctx;
 
     if (eKey == EKey::L_CLICK)
     {
-        MoveUI(eKeyState, vCursorPos);
+        MoveUI(eKeyState, ptCursorPos);
     }
 }
 
-void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
+void CUI::MoveUI(EKeyState eKeyState, const IPoint& ptCursorPos)
 {
     switch (eKeyState)
     {
     case EKeyState::PRESSED:
     case EKeyState::DOUBLE_PRESSED:
     {
-        if (/* this is temporary */ MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_vDummyDragArea))
+        if (/* this is temporary */ MathUtil::IsPointInRect(ptCursorPos, IPoint(GetPosition()), m_vDummyDragArea))
         {
             cout << "[UI]" << magic_enum::enum_name(GetUIType()) << " UI drag start" << endl;
-            SetDragOrigin(GetPosition(), vCursorPos);
+            SetDragOrigin(IPoint(GetPosition()), ptCursorPos);
             SetUIStatus(EUIStatus::MOVE);
         }
         break;
@@ -114,8 +114,8 @@ void CUI::MoveUI(EKeyState eKeyState, const Vec2& vCursorPos)
     {
         if (GetUIStatus() == EUIStatus::MOVE)
         {
-            Vec2 vDragAmount = vCursorPos - m_vDragCursorOrigin;
-            SetPosition(m_vDragUIOrigin + vDragAmount);
+            IPoint ptDragAmount = ptCursorPos - m_ptDragCursorOrigin;
+            SetPosition(Vec2(m_ptDragUIOrigin + ptDragAmount));
         }
         break;
     }

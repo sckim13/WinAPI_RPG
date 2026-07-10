@@ -50,7 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     // Core Initialize
-    if (FAILED(CMainGame::GetInstance()->Initialize(g_hWnd, POINT{ 1360, 768 })))
+    if (FAILED(CMainGame::GetInstance()->Initialize(g_hWnd, POINT{ WINCX, WINCY })))
     {
         MessageBox(nullptr, L"Core Object Initialize Failed", L"ERROR", MB_OK);
 
@@ -173,6 +173,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
+        }
+        break;
+    // ignore ALT
+    case WM_SYSCOMMAND:
+        if ((wParam & 0xFFF0) == SC_KEYMENU)
+        {
+            return 0;
         }
         break;
     case WM_DESTROY:

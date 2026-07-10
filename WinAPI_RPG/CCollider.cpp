@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CObject.h"
 #include "EventContext.h"
+#include "CCameraManager.h"
 
 CCollider::CCollider() : m_iCollisionCount(0), m_rcCollision{}, m_OnCollisionBegin(nullptr), m_vSize{30.f, 30.f}
 {
@@ -58,11 +59,13 @@ void CCollider::Render(HDC hDC)
 	SetBkMode(hDC, TRANSPARENT);
 
 	Vec2 vPos = GetTransform()->GetPosition();
+	IPoint ptScroll = CCameraManager::GetInstance()->GetScroll();
+	
 	Rectangle(hDC,
-		m_rcCollision.left,
-		m_rcCollision.top,
-		m_rcCollision.right,
-		m_rcCollision.bottom
+		m_rcCollision.left + ptScroll.x,
+		m_rcCollision.top + ptScroll.y,
+		m_rcCollision.right + ptScroll.x,
+		m_rcCollision.bottom + ptScroll.y
 	);
 
 	SelectObject(hDC, hPrevPen);

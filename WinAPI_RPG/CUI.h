@@ -15,10 +15,10 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	virtual bool IsCursorOnUI(Vec2 vCursorPos);
-	virtual bool IsValidInput(Vec2 vCursorPos);
+	virtual bool IsCursorOnUI(const IPoint& ptCursorPos);
+	virtual bool IsValidInput(IPoint ptCursorPos);
 
-	void MoveUI(EKeyState eKeyState, const Vec2& vCursorPos);
+	void MoveUI(EKeyState eKeyState, const IPoint& ptCursorPos);
 	virtual void OnMouseEventTriggered(const TMouseEventCtx& Ctx);
 
 protected:
@@ -33,12 +33,12 @@ private:
 	EUIStatus m_eUIStatus;
 
 	// Caching position for UI Drag
-	Vec2 m_vDragCursorOrigin;
-	Vec2 m_vDragUIOrigin;
-	void SetDragOrigin(Vec2 vUIPos, Vec2 vCursorPos);
+	IPoint m_ptDragCursorOrigin;
+	IPoint m_ptDragUIOrigin;
+	void SetDragOrigin(IPoint ptUIPos, IPoint ptCursorPos);
 
 	/* TODO : Later get real value from asset */
-	Vec2 m_vDummyDragArea = Vec2 {100.f, 100.f};
+	IPoint m_vDummyDragArea = IPoint {100.f, 100.f};
 
 public:
 	bool IsVisible() { return m_bVisible; }

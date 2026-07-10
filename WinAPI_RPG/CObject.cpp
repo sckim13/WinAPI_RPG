@@ -21,25 +21,34 @@ void CObject::Initialize()
 		GetID(),
 		[this](const TKeyEventCtx& Ctx) { OnKeyEventTriggered(Ctx); }
 	);
-}
 
-void CObject::PostInitialize()
-{
 	for (CComponent* pComponent : m_vecComponent)
 	{
 		pComponent->Initialize();
 	}
 }
 
+void CObject::PostInitialize()
+{
+	for (CComponent* pComponent : m_vecComponent)
+	{
+		pComponent->PostInitialize();
+	}
+}
+
 void CObject::Update()
 {
+	for (CComponent* pComponent : m_vecComponent)
+	{
+		pComponent->Update();
+	}
 }
 
 void CObject::LateUpdate()
 {
 	for (CComponent* pComponent : m_vecComponent)
 	{
-		pComponent->Update();
+		pComponent->LateUpdate();
 	}
 }
 

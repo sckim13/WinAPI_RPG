@@ -6,7 +6,7 @@
 #include "CCursor.h"
 #include "CUI.h"
 
-CUIManager::CUIManager() : m_pCursor(nullptr)
+CUIManager::CUIManager() : m_pCursor(nullptr), m_pGrabbedObject(nullptr)
 {
 }
 
@@ -92,15 +92,15 @@ CUI* CUIManager::GetUI(wstring wstrName)
 void CUIManager::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
     auto [eKey, eKeyState, DummyCursorPos] = Ctx;
-    Vec2 vCursorPos = m_pCursor->GetPosition();
+    IPoint ptCursorPos = IPoint(m_pCursor->GetPosition());
 
     for (auto iter = m_listUI.begin(); iter != m_listUI.end(); )
     {
         CUI* pUI = (*iter);
 
-        if (pUI->IsValidInput(vCursorPos))
+        if (pUI->IsValidInput(ptCursorPos))
         {
-            pUI->OnMouseEventTriggered(TMouseEventCtx{eKey, eKeyState, vCursorPos});
+            pUI->OnMouseEventTriggered(TMouseEventCtx{eKey, eKeyState, ptCursorPos });
             /* Caution!! : Below function causes dangling iter */
             UpdateUIOrder(pUI);
             /* Caution!! : Above function causes dangling iter */

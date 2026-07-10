@@ -1,9 +1,12 @@
 ﻿#pragma once
 
+class IPoint;
+
 class Vec2
 {
 public:
 	Vec2() : x(0.f), y(0.f) {}
+	explicit Vec2(const IPoint& pt);
 
 	template<typename T>
 	Vec2(T _x, T _y) : x((float)_x), y((float)_y) {}

@@ -16,9 +16,15 @@ public:
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
 
-	CEventDelegate<TCombatCtx> m_hOnCombatTriggered;
+	CEventDelegate<TCombatCtx> m_OnCombatTriggered;
 
 	void RequestDamage(CCharacter* pCharacter, const vector<long long>& vecDamage);
+
+private:
+	// random value picking
+	mt19937 m_gen;
+
+
 
 };
 

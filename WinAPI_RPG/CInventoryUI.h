@@ -20,18 +20,18 @@ public:
 
 	void OnInventoryUpdated(const TInventoryCtx& Ctx);
 
-	virtual bool IsValidInput(Vec2 vCursorPos) override;
+	virtual bool IsValidInput(IPoint ptCursorPos) override;
 
 	virtual void OnKeyEventTriggered(const TKeyEventCtx& Ctx) override;
 	virtual void OnMouseEventTriggered(const TMouseEventCtx& Ctx) override;
 private:
 	CTextureComponent* m_pMainTexture;
-	Vec2 m_pDummyItemRect = Vec2 {100.f, 100.f};
+	IPoint m_ptDummyItemRect = IPoint {100, 100};
 	array<array<const CItem*, MAX_INVENTORY_SIZE>, (int)EInventoryTab::MAX> m_arrItem;
 	EInventoryTab m_eCurrentTab;
 
 
 	// Inherited via CUI
-	bool IsCursorOnUI(Vec2 vCursorPos) override;
+	bool IsCursorOnUI(const IPoint& ptCursorPos) override;
 };
 

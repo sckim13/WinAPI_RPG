@@ -22,6 +22,7 @@
 #include "CSceneManager.h"
 #include "CTimerManager.h"
 #include "CMovementComponent.h"
+#include "CCameraManager.h"
 
 CPlayer::CPlayer() : m_bOnKeyEventCoolDown(false)
 {
@@ -35,12 +36,8 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {	
-	__super::Initialize();
-
 	wstring wstrName = L"Player_" + to_wstring(GetID());
 	SetName(wstrName);
-
-	CItemManager::GetInstance()->SetPlayer(this);
 
 	m_pTextureComponent = new CTextureComponent;
 	m_pTextureComponent->SetOwner(this);
@@ -60,20 +57,23 @@ void CPlayer::Initialize()
 
 	m_pMovementComponent = new CMovementComponent;
 	m_pMovementComponent->AttachTo(this);
+
+	__super::Initialize();
 }
 
 void CPlayer::PostInitialize()
 {
-	__super::PostInitialize();
-
 	m_pCollider->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
 	m_pCollider->m_OnCollisionEnd->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionEnd(Ctx); });
-	
+
+	// TODO Temp Cooldown 1sec
 	CTimerManager::GetInstance()->SetTimer(
 		m_KeyEventCoolDownHandle,
 		[this]() { SetKeyEventEnabled(); },
 		1.f, true
 	);
+
+	__super::PostInitialize();
 }
 
 void CPlayer::Update()
@@ -81,6 +81,8 @@ void CPlayer::Update()
 	__super::Update();
 
 	SortCollisionList();
+
+	UpdateScroll();
 }
 
 void CPlayer::LateUpdate()
@@ -92,8 +94,6 @@ void CPlayer::Release()
 {
 	m_pCollider->m_OnCollisionBegin->DeleteBinding(GetID());
 	m_pCollider->m_OnCollisionEnd->DeleteBinding(GetID());
-
-	CItemManager::GetInstance()->SetPlayer(nullptr);
 }
 
 void CPlayer::Render(HDC hDC)
@@ -168,6 +168,11 @@ void CPlayer::SortCollisionList()
 	{
 		sort(m_vecObjectsOnCollision[i].begin(), m_vecObjectsOnCollision[i].end(), F);
 	}
+}
+
+void CPlayer::UpdateScroll()
+{
+	CCameraManager::GetInstance()->UpdateScroll(GetPosition());
 }
 
 void CPlayer::OnKeyEventTriggered(const TKeyEventCtx& Ctx)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CManager.h"
+#include "Struct.h"
 
 class CTexture;
 
@@ -18,15 +19,20 @@ public:
 
 	void SwtichDamageSkin();
 
-	void AddDamageInfo(const TDamageInfo & tInfo);
+	void AddDamageInfo(const TDamageInfo& tInfo);
 
 private:
-	CTexture* m_vecDamageTexture[10];
+	// random value
+	mt19937 m_gen;
+
+	// Damage Print
+	CTexture* m_vecDamageTexture[10]; 
 
 	list<TDamageInfo> m_listDamage;
 	float m_fExpTime = 2.f;
 
-	void RenderSingleDamage(HDC hDC, const TDamageInfo & tInfo) const;
+	void RenderSingleDamage(HDC hDC, const TDamageInfo & tInfo);
 	bool IsExpired(const TDamageInfo& tInfo);
+	//
 };
 

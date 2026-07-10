@@ -23,18 +23,18 @@ public:
 
 	void UpdateUIOrder(CUI* pUI);
 
+	inline CCursor* GetCursor() { return m_pCursor; }
+
 private:
-	// Separate DamageUI since it does not have order
-	CUI* m_pDamageUI;
-	
 	// All UI Pointers
 	map<wstring, CUI*> m_mapUI;
-
 
 	list<CUI*> m_listUI;
 	unordered_map<CUI*, list<CUI*>::iterator> m_umapUI;
 
 	CCursor* m_pCursor;
-	
+
+	// for click and drop
+	CObject* m_pGrabbedObject;
 };
 

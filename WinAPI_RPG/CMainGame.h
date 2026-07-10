@@ -24,6 +24,9 @@ private:
 	POINT m_WndResolution;
 	HDC m_hDC;
 
+	// GDI+
+	ULONG_PTR m_gdiplusToken = 0;
+
 	HBITMAP m_hBitmap;
 	HDC m_hDCMem;
 };

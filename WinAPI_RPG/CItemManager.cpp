@@ -4,6 +4,7 @@
 #include "CInventory.h"
 #include "CEquipment.h"
 #include "CEquipItem.h"
+#include "CSceneManager.h"
 
 CItemManager::CItemManager()
 {
@@ -39,20 +40,22 @@ void CItemManager::Render(HDC hDC)
 
 void CItemManager::RequestEquipItem(EInventoryTab eTab, int iIdx)
 {
-	CItem* pItem = GetPlayer()->GetInventory()->GetItemByIndex(eTab, iIdx);
+	CPlayer* pPlayer = CSceneManager::GetInstance()->GetPlayer();
+	CItem* pItem = pPlayer->GetInventory()->GetItemByIndex(eTab, iIdx);
 	CEquipItem* pEquipItem = dynamic_cast<CEquipItem*>(pItem);
 	
 	// assert(pEquipItem);
 
-	GetPlayer()->GetInventory()->PopItem(pItem);
-	GetPlayer()->GetEquipment()->Equip(pItem);
+	pPlayer->GetInventory()->PopItem(pItem);
+	pPlayer->GetEquipment()->Equip(pItem);
 }
 
 void CItemManager::RequestUnEquipItem(EEquipSlot eSlot)
 {
-	if (GetPlayer()->GetEquipment()->GetItemBySlot(eSlot))
+	CPlayer* pPlayer = CSceneManager::GetInstance()->GetPlayer();
+	if (pPlayer->GetEquipment()->GetItemBySlot(eSlot))
 	{
-		GetPlayer()->GetEquipment()->UnEquip(eSlot);
+		pPlayer->GetEquipment()->UnEquip(eSlot);
 	}
 	else
 	{
@@ -62,5 +65,6 @@ void CItemManager::RequestUnEquipItem(EEquipSlot eSlot)
 
 void CItemManager::RequestPushItem(CItem* pItem)
 {
-	GetPlayer()->GetInventory()->PushItem(pItem);
+	CPlayer* pPlayer = CSceneManager::GetInstance()->GetPlayer();
+	pPlayer->GetInventory()->PushItem(pItem);
 }

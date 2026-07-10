@@ -14,6 +14,7 @@
 #include <array>
 #include <queue>
 #include <stack>
+#include <random>
 
 
 // User Defined Headers
@@ -23,7 +24,7 @@
 #include "Constant.h"
 #include "Vec2.h"
 #include "Mat3.h"
-#include "Struct.h"
+#include "IPoint.h"
 #include "CAbstractFactory.h"
 
 

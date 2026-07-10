@@ -5,7 +5,7 @@ class CTexture;
 
 class CResourceManager : public CManager
 {
-	SINGLETON(CResourceManager)
+	SINGLETON(CResourceManager);
 
 public:
 	virtual void Initialize() override;
@@ -14,11 +14,15 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Release() override;
 	virtual void Render(HDC hDC) override;
+
 public:
 	CTexture* LoadTexture(const wstring& strKey);
 
 private:
 	map<wstring, CTexture*> m_mapTexture;
+
 	CTexture* FindTexture(const wstring& strKey);
+	
+	void GetMapData(const wstring& wstrPath);
 };
 

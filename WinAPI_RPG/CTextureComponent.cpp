@@ -3,8 +3,9 @@
 #include "CResourceManager.h"
 #include "CTexture.h"
 #include "CObject.h"
+#include "CCameraManager.h"
 
-CTextureComponent::CTextureComponent() : m_pTexture(nullptr)
+CTextureComponent::CTextureComponent() : m_pTexture(nullptr), m_bScrollEnabled(true)
 {
 }
 
@@ -37,17 +38,51 @@ void CTextureComponent::Release()
 
 void CTextureComponent::Render(HDC hDC)
 {
+	IPoint ptScroll = CCameraManager::GetInstance()->GetScroll();
+
 	if (m_pTexture)
 	{
-		m_pTexture->Render(hDC, (int)GetOwner()->GetPosition().x, (int)GetOwner()->GetPosition().y, GetOwner()->IsFlipped());
+		if (GetOwner())
+		{
+			if (m_bScrollEnabled)
+			{
+				// For normal object case
+				m_pTexture->Render(hDC, (int)(GetOwner()->GetPosition().x) + ptScroll.x, (int)(GetOwner()->GetPosition().y) + ptScroll.y);
+			}
+			else
+			{
+				// UI case
+				m_pTexture->Render(hDC, (int)(GetOwner()->GetPosition().x), (int)(GetOwner()->GetPosition().y));
+			}
+		}
+		else
+		{
+			// For map case
+			m_pTexture->Render(hDC, ptScroll.x, ptScroll.y);
+		}
 	}
 }
 
 void CTextureComponent::Render(HDC hDC, int iOffsetX, int iOffsetY)
 {
+	IPoint ptScroll = CCameraManager::GetInstance()->GetScroll();
+
 	if (m_pTexture)
 	{
-		m_pTexture->Render(hDC, (int)GetOwner()->GetPosition().x + iOffsetX, (int)GetOwner()->GetPosition().y + iOffsetY, GetOwner()->IsFlipped());
+		if (GetOwner())
+		{
+			if (m_bScrollEnabled)
+			{
+				// For normal object case
+				m_pTexture->Render(hDC, (int)(GetOwner()->GetPosition().x) + ptScroll.x + iOffsetX, (int)(GetOwner()->GetPosition().y) + ptScroll.y + iOffsetY);
+			}
+			else
+			{
+				// UI case
+				m_pTexture->Render(hDC, (int)(GetOwner()->GetPosition().x), (int)(GetOwner()->GetPosition().y));
+			}
+		}
+		
 	}
 }
 
@@ -56,11 +91,11 @@ void CTextureComponent::BindTexture(const wstring& wstrName)
 	m_pTexture = CResourceManager::GetInstance()->LoadTexture(wstrName);
 }
 
-Vec2 CTextureComponent::GetTextureSize()
+IPoint CTextureComponent::GetTextureSize()
 {
 	if (m_pTexture)
 	{
 		return m_pTexture->GetSize();
 	}
-	return Vec2{0.f, 0.f};
+	return IPoint{0.f, 0.f};
 }

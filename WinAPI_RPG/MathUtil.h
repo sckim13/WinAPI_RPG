@@ -11,11 +11,11 @@ public:
 		return dVec.Size();
 	}
 
-	static bool IsPointInRect(Vec2 vPoint, Vec2 vRectPos, Vec2 vRectSize)
+	static bool IsPointInRect(IPoint ptPoint, IPoint ptRectPos, IPoint ptRectSize)
 	{
-		return (vPoint.x >= vRectPos.x)
-			&& (vPoint.y >= vRectPos.y)
-			&& (vPoint.x <= vRectPos.x + vRectSize.x)
-			&& (vPoint.y <= vRectPos.y + vRectSize.y);
+		return (ptPoint.x >= ptRectPos.x)
+			&& (ptPoint.y >= ptRectPos.y)
+			&& (ptPoint.x <= ptRectPos.x + ptRectSize.x)
+			&& (ptPoint.y <= ptRectPos.y + ptRectSize.y);
 	}
 };

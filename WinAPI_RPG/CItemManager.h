@@ -21,10 +21,7 @@ public:
 	void RequestPushItem(CItem* pItem);
 
 private:
-	CPlayer* m_pPlayer;
 
 public:
-	inline void SetPlayer(CPlayer* pPlayer) { m_pPlayer = pPlayer; }
-	inline CPlayer* GetPlayer() { return m_pPlayer; }
 };
 

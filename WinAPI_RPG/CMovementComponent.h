@@ -20,6 +20,5 @@ private:
 
 public:
 	void SetMaxSpeed(float fSpeed) { m_fMaxSpeed = fSpeed; }
-
 };
 

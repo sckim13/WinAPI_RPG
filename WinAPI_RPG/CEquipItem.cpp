@@ -16,8 +16,6 @@ CEquipItem::~CEquipItem()
 
 void CEquipItem::Initialize()
 {
-	__super::Initialize();
-
 	m_eItemType = EItemType::EQUIP;
 	m_eEquipSlot = EEquipSlot::HEAD;
 
@@ -27,6 +25,8 @@ void CEquipItem::Initialize()
 
 	m_pCollider = new CCollider;
 	m_pCollider->AttachTo(this);
+
+	__super::Initialize();
 }
 
 void CEquipItem::PostInitialize()

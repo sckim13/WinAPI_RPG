@@ -20,11 +20,15 @@ public:
 
 	void BindTexture(const wstring& wstrName);
 
-	Vec2 GetTextureSize();
+	IPoint GetTextureSize();
 
 private:
 	CTexture* m_pTexture;
+	
+	// For UI handling
+	bool m_bScrollEnabled;
 
 public:
+	void SetScrollEnabled(bool bFlag) { m_bScrollEnabled = bFlag; }
 };
 

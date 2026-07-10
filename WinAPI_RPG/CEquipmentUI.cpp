@@ -20,22 +20,23 @@ CEquipmentUI::~CEquipmentUI()
 
 void CEquipmentUI::Initialize()
 {
-	__super::Initialize();
-
 	SetUIType(EUIType::EQUIPMENT);
 
 	m_pMainTexture = new CTextureComponent;
 	m_pMainTexture->AttachTo(this);
 	m_pMainTexture->BindTexture(L"Equipment");
+	m_pMainTexture->SetScrollEnabled(false);
+	
+	__super::Initialize();
 }
 
 void CEquipmentUI::PostInitialize()
 {
-	__super::PostInitialize();
-
 	CSceneManager::GetInstance()->GetPlayer()->GetEquipment()->m_OnEquipmentUpdated->AddBinding(
 		GetID(), [this](TEquipmentCtx Ctx) { OnEquipmentUpdated(Ctx); }
 	);
+
+	__super::PostInitialize();
 }
 
 void CEquipmentUI::Update()
@@ -61,7 +62,7 @@ void CEquipmentUI::Render(HDC hDC)
 	{
 		if (const CItem* pItem = m_arrEquipSlot[i])
 		{
-			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
+			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x) + m_ptDummyItemRect.x, (int)(GetPosition().y) + m_ptDummyItemRect.y);
 		}
 	}
 
@@ -69,9 +70,9 @@ void CEquipmentUI::Render(HDC hDC)
 	__super::Render(hDC);
 }
 
-bool CEquipmentUI::IsValidInput(Vec2 vCursorPos)
+bool CEquipmentUI::IsValidInput(IPoint ptCursorPos)
 {
-	if (!__super::IsValidInput(vCursorPos)) return false;
+	if (!__super::IsValidInput(ptCursorPos)) return false;
 
 	return true;
 }
@@ -96,9 +97,9 @@ void CEquipmentUI::OnKeyEventTriggered(const TKeyEventCtx& Ctx)
 	}
 }
 
-bool CEquipmentUI::IsCursorOnUI(Vec2 vCursorPos)
+bool CEquipmentUI::IsCursorOnUI(const IPoint& ptCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetTextureSize());
+	return MathUtil::IsPointInRect(ptCursorPos, IPoint(GetPosition()), m_pMainTexture->GetTextureSize());
 }
 
 
@@ -110,7 +111,7 @@ void CEquipmentUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 	// cout << magic_enum::enum_name(eKey) << ", " << magic_enum::enum_name(eKeyState) << ", (" << vCursorPos.x << ", " << vCursorPos.y << ")" << endl;
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
-		&& MathUtil::IsPointInRect(vCursorPos - GetPosition(), m_pDummyItemRect, m_pDummyItemRect + Vec2{100.f, 100.f}))
+		&& MathUtil::IsPointInRect(vCursorPos - IPoint(GetPosition()), m_ptDummyItemRect, m_ptDummyItemRect + IPoint{ 100, 100 }))
 	{
 		cout << "[Equipment UI] Item UnEquip event" << endl;
 		CItemManager::GetInstance()->RequestUnEquipItem(EEquipSlot::HEAD);

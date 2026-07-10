@@ -24,11 +24,14 @@ public:
 	virtual void OnCollision(const TCollisionCtx& Ctx) override;
 	virtual void OnCollisionEnd(const TCollisionCtx& Ctx) override;
 
-	void SortCollisionList();
 
 	/* ICombat */
 	virtual void OnHit(long long llDamage) override;
 	virtual void OnDead() override;
+
+	void SortCollisionList();
+
+	void UpdateScroll();
 
 private:
 	EPlayerAnimState m_ePlayerAnimState;

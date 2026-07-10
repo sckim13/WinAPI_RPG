@@ -22,23 +22,24 @@ CInventoryUI::~CInventoryUI()
 
 void CInventoryUI::Initialize()
 {
-	__super::Initialize();
-
 	SetUIType(EUIType::INVENTORY);
 
 	m_pMainTexture = new CTextureComponent;
 	m_pMainTexture->AttachTo(this);
 	m_pMainTexture->BindTexture(L"Inventory");
+	m_pMainTexture->SetScrollEnabled(false);
+
+	__super::Initialize();
 }
 
 void CInventoryUI::PostInitialize()
 {
-	__super::PostInitialize();
-
 	CSceneManager::GetInstance()->GetPlayer()->GetInventory()->m_OnInventoryUpdated->AddBinding(
 		GetID(), 
 		[this](const TInventoryCtx& Ctx) { OnInventoryUpdated(Ctx); }
 	);
+
+	__super::PostInitialize();
 }
 
 void CInventoryUI::Update()
@@ -64,7 +65,7 @@ void CInventoryUI::Render(HDC hDC)
 	{
 		if (const CItem* pItem = m_arrItem[(int)m_eCurrentTab][i])
 		{
-			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x + m_pDummyItemRect.x), (int)(GetPosition().y + m_pDummyItemRect.y));
+			pItem->GetTextureComponent()->Render(hDC, (int)(GetPosition().x + m_ptDummyItemRect.x), (int)(GetPosition().y + m_ptDummyItemRect.y));
 		}
 	}
 
@@ -84,9 +85,9 @@ void CInventoryUI::OnInventoryUpdated(const TInventoryCtx& Ctx)
 	m_arrItem = arrItem;
 }
 
-bool CInventoryUI::IsValidInput(Vec2 vCursorPos)
+bool CInventoryUI::IsValidInput(IPoint ptCursorPos)
 {
-	if(!__super::IsValidInput(vCursorPos)) return false;
+	if (!__super::IsValidInput(ptCursorPos)) return false;
 
 	return true;
 }
@@ -108,18 +109,18 @@ void CInventoryUI::OnMouseEventTriggered(const TMouseEventCtx& Ctx)
 {
 	__super::OnMouseEventTriggered(Ctx);
 
-	auto [eKey, eKeyState, vCursorPos] = Ctx;
+	auto [eKey, eKeyState, ptCursorPos] = Ctx;
 
 	if (eKey == EKey::L_CLICK
 		&& eKeyState == EKeyState::DOUBLE_PRESSED
-		&& MathUtil::IsPointInRect(vCursorPos - GetPosition(), m_pDummyItemRect, m_pDummyItemRect + Vec2{100.f, 100.f}))
+		&& MathUtil::IsPointInRect(ptCursorPos - IPoint(GetPosition()), m_ptDummyItemRect, m_ptDummyItemRect + IPoint{ 100, 100 }))
 	{
 		cout << "[Inventory UI] Item Equip event" << endl;
 		CItemManager::GetInstance()->RequestEquipItem(m_eCurrentTab, 0);
 	}
 }
 
-bool CInventoryUI::IsCursorOnUI(Vec2 vCursorPos)
+bool CInventoryUI::IsCursorOnUI(const IPoint& ptCursorPos)
 {
-	return MathUtil::IsPointInRect(vCursorPos, GetPosition(), m_pMainTexture->GetTextureSize());
+	return MathUtil::IsPointInRect(ptCursorPos, IPoint(GetPosition()), m_pMainTexture->GetTextureSize());
 }

@@ -6,19 +6,29 @@
 
 vector<wstring> g_DamageName =
 {
-    L"Damage_Red_Normal_0",
-    L"Damage_Red_Normal_1",
-    L"Damage_Red_Normal_2",
-    L"Damage_Red_Normal_3",
-    L"Damage_Red_Normal_4",
-    L"Damage_Red_Normal_5",
-    L"Damage_Red_Normal_6",
-    L"Damage_Red_Normal_7",
-    L"Damage_Red_Normal_8",
-    L"Damage_Red_Normal_9"
+    //L"Damage_Red_Normal_0",
+    //L"Damage_Red_Normal_1",
+    //L"Damage_Red_Normal_2",
+    //L"Damage_Red_Normal_3",
+    //L"Damage_Red_Normal_4",
+    //L"Damage_Red_Normal_5",
+    //L"Damage_Red_Normal_6",
+    //L"Damage_Red_Normal_7",
+    //L"Damage_Red_Normal_8",
+    //L"Damage_Red_Normal_9"
+    L"Damage_Red_Cri_0",
+    L"Damage_Red_Cri_1",
+    L"Damage_Red_Cri_2",
+    L"Damage_Red_Cri_3",
+    L"Damage_Red_Cri_4",
+    L"Damage_Red_Cri_5",
+    L"Damage_Red_Cri_6",
+    L"Damage_Red_Cri_7",
+    L"Damage_Red_Cri_8",
+    L"Damage_Red_Cri_9"
 };
 
-CEffectManager::CEffectManager()
+CEffectManager::CEffectManager() : m_gen(random_device{}())
 {
 }
 
@@ -84,12 +94,16 @@ void CEffectManager::SwtichDamageSkin()
 void CEffectManager::AddDamageInfo(const TDamageInfo& tInfo)
 {
     m_listDamage.push_back(tInfo);
+    // TODO Add noise Y to each letter
+    uniform_int_distribution<int> dist(-2, 2);
+    int iRandomY = dist(m_gen);
 }
 
-void CEffectManager::RenderSingleDamage(HDC hDC, const TDamageInfo& tInfo) const
+void CEffectManager::RenderSingleDamage(HDC hDC, const TDamageInfo& tInfo)
 {
     auto [llDamage, vPos, fElapsed] = tInfo;
 
+    // damage line floating upward w.r.t. elapsed time
     float yOffset = -fElapsed * 30.f;
 
     stack<int> s;
@@ -101,13 +115,14 @@ void CEffectManager::RenderSingleDamage(HDC hDC, const TDamageInfo& tInfo) const
         s.push(remainder);
     }
 
-    float fNumberSize = 40.f;
-    float StartPos = -fNumberSize / 2.f * s.size();
+    // letter spacing in a single row
+    float fLetterSpace = 24.f;
+    float StartPos = -fLetterSpace / 2.f * s.size();
     while (!s.empty())
     {
-        m_vecDamageTexture[s.top()]->Render(hDC, vPos.x + StartPos, vPos.y + yOffset);
+        m_vecDamageTexture[s.top()]->Render(hDC, (int)(vPos.x + StartPos), (int)(vPos.y + yOffset));
         s.pop();
-        StartPos += fNumberSize;
+        StartPos += fLetterSpace;
     }
 }
 

@@ -2,7 +2,7 @@
 #include "CCharacter.h"
 #include "CMovementComponent.h"
 
-CCharacter::CCharacter() : m_llHP(10000), m_llMaxHP(10000)
+CCharacter::CCharacter() : m_llHP(10000000000), m_llMaxHP(10000000000)
 {
 }
 
@@ -13,11 +13,11 @@ CCharacter::~CCharacter()
 
 void CCharacter::Initialize()
 {
-	__super::Initialize();
-
 	// TODO 나중에 일반화, 지금은 플레이어에만
 	//m_pMovementComponent = new CMovementComponent;
 	//m_pMovementComponent->AttachTo(this);
+
+	__super::Initialize();
 }
 
 void CCharacter::PostInitialize()

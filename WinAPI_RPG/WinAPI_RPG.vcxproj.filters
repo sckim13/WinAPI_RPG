@@ -124,9 +124,6 @@
     <Filter Include="Engine\03. Object\Controller">
       <UniqueIdentifier>{6c465f50-b76a-4423-924c-01f493ae4831}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\03. Object\Cursor">
-      <UniqueIdentifier>{87f21a36-8756-4619-b95e-b0e55db79d5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\02. Manager\CollisionManager">
       <UniqueIdentifier>{68f5ef6a-da14-4649-9d76-c0b2599851a6}</UniqueIdentifier>
     </Filter>
@@ -207,6 +204,30 @@
     </Filter>
     <Filter Include="Engine\05. Scene\FootHold">
       <UniqueIdentifier>{9a47285d-2548-4a9a-af5c-2a224729eeb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\02. Manager\CameraManager">
+      <UniqueIdentifier>{9dee6921-eadb-453e-be16-badccd0bd6fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent">
+      <UniqueIdentifier>{6920d076-cf9b-4d86-81bc-79c97f84a112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent\Image">
+      <UniqueIdentifier>{19824423-d74a-4896-b54e-47da8a6c8da8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent\Button">
+      <UniqueIdentifier>{dbf41611-91a1-412b-aba6-3e1a8dc10e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent\Scroll">
+      <UniqueIdentifier>{cb736f77-adbd-4875-adb4-7de75dcdaf85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent\Slot">
+      <UniqueIdentifier>{f5f4b601-eeff-4db6-9e24-61c3380a3068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\04. Component\UIComponent\MoveArea">
+      <UniqueIdentifier>{4f396803-847d-4e0c-8069-82d60a3e9992}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\03. Object\Cursor">
+      <UniqueIdentifier>{87f21a36-8756-4619-b95e-b0e55db79d5c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -405,6 +426,15 @@
     <ClInclude Include="CFootHold.h">
       <Filter>Engine\05. Scene\FootHold</Filter>
     </ClInclude>
+    <ClInclude Include="CCameraManager.h">
+      <Filter>Engine\02. Manager\CameraManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IPoint.h">
+      <Filter>Engine\01. Util\Type</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIComponent.h">
+      <Filter>Engine\04. Component\UIComponent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -568,6 +598,15 @@
     </ClCompile>
     <ClCompile Include="CFootHold.cpp">
       <Filter>Engine\05. Scene\FootHold</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraManager.cpp">
+      <Filter>Engine\02. Manager\CameraManager</Filter>
+    </ClCompile>
+    <ClCompile Include="IPoint.cpp">
+      <Filter>Engine\01. Util\Type</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIComponent.cpp">
+      <Filter>Engine\04. Component\UIComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

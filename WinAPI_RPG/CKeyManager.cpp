@@ -237,7 +237,7 @@ void CKeyManager::Update()
 		{
 			/* UI Mouse Event Handling */
 			// cout << "[Key Manager] Event " << magic_enum::enum_name(m_mapInputEvent[(EKey)i]) << ", " << magic_enum::enum_name(m_vecKey[i].eKeyState) << " is triggered" << endl;
-			m_OnMouseEventTriggered->Broadcast(TMouseEventCtx{ (EKey)i, m_vecKey[i].eKeyState, Vec2{0.f, 0.f} });
+			m_OnMouseEventTriggered->Broadcast(TMouseEventCtx{ (EKey)i, m_vecKey[i].eKeyState, IPoint{0, 0} });
 		}
 		else
 		{

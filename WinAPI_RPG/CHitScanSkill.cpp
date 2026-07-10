@@ -17,30 +17,30 @@ CHitScanSkill::~CHitScanSkill()
 
 void CHitScanSkill::Initialize()
 {
-	__super::Initialize();
-
+	m_pAnimator = new CAnimator;
+	m_pAnimator->AttachTo(this);
 	m_pAnimator->BindTexture(L"ActiveSkill");
 	
 	m_pCollider = new CCollider;
 	m_pCollider->AttachTo(this);
 	m_pCollider->SetSize(m_pAnimator->GetFrameSize());
 	m_pCollider->SetEnabled(false);
+
+	__super::Initialize();
 }
 
 void CHitScanSkill::PostInitialize()
 {
-	__super::PostInitialize();
-
 	m_pCollider->m_OnCollisionBegin->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionBegin(Ctx); });
 	m_pCollider->m_OnCollisionEnd->AddBinding(GetID(), [this](const TCollisionCtx& Ctx) { OnCollisionEnd(Ctx); });
 
 	m_pAnimator->m_OnFinished->AddBinding(GetID(), [this]() { OnAnimationFinished(); });
+
+	__super::PostInitialize();
 }
 
 void CHitScanSkill::Update()
 {
-	__super::Update();
-
 	if (m_pAnimator->GetCurrentFrame() == m_iHitScanFrame)
 	{
 		m_pCollider->SetEnabled(true);
@@ -49,6 +49,8 @@ void CHitScanSkill::Update()
 	{
 		m_pCollider->SetEnabled(false);
 	}
+
+	__super::Update();
 }
 
 void CHitScanSkill::LateUpdate()
@@ -85,7 +87,7 @@ void CHitScanSkill::OnCollisionBegin(const TCollisionCtx& Ctx)
 
 	if (CMonster* pMonster = dynamic_cast<CMonster*>(pObject))
 	{
-		CCombatManager::GetInstance()->RequestDamage(pMonster, vector<long long>{1000, 1001, 1002, 1003});
+		CCombatManager::GetInstance()->RequestDamage(pMonster, vector<long long>{12345678, 123456789, 9876543210, 1234567890});
 	}
 }
 

@@ -2,6 +2,8 @@
 
 #include "CObject.h"
 
+class CAnimator;
+
 class CCursor : public CObject
 {
 public:
@@ -16,8 +18,11 @@ public:
 	virtual void Render(HDC hDC) override;
 
 private:
-	POINT m_ptCursorPos;
+	IPoint m_ptCursorPos;
+	ECursorState m_eCursorState;
+	CAnimator* m_pAnimator;
 
 public:
+	inline void SetCursorState(ECursorState eState) { m_eCursorState = eState; }
 };
 

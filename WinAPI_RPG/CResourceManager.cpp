@@ -2,44 +2,53 @@
 #include "CResourceManager.h"
 #include "CPathManager.h"
 #include "CTexture.h"
+#include "Struct.h"
 
-map<const wstring, const wstring> g_TextureSource =
+vector<TTextureInfo> g_TextureSource =
 {
-    {L"Monster", L"Texture\\Monster.bmp"},
-    {L"Player", L"Texture\\Player.bmp"},
-    {L"Inventory", L"Texture\\Inventory.bmp"},
-    {L"Equipment", L"Texture\\Equipment.bmp"},
-    {L"Cursor", L"Texture\\Cursor.bmp"},
-    {L"ActiveSkill", L"Texture\\ActiveSkill.bmp"},
-    {L"Item", L"Texture\\Item.bmp"},
+    // UI
+    TTextureInfo {L"Monster",       ETextureType::BMP, L"Texture\\Monster"},
+    TTextureInfo {L"Player",        ETextureType::BMP, L"Texture\\Player"},
+    TTextureInfo {L"Inventory",     ETextureType::PNG, L"Texture\\Inventory"},
+    TTextureInfo {L"Equipment",     ETextureType::PNG, L"Texture\\Equipment"},
+    TTextureInfo {L"Cursor",        ETextureType::BMP, L"Texture\\Cursor"},
+    TTextureInfo {L"ActiveSkill",   ETextureType::PNG, L"Texture\\ActiveSkill"},
+    TTextureInfo {L"Item",          ETextureType::BMP, L"Texture\\Item"},
 
-    // Damage
-    {L"Damage_Red_Normal_0", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.0.bmp"},
-    {L"Damage_Red_Normal_1", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.1.bmp"},
-    {L"Damage_Red_Normal_2", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.2.bmp"},
-    {L"Damage_Red_Normal_3", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.3.bmp"},
-    {L"Damage_Red_Normal_4", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.4.bmp"},
-    {L"Damage_Red_Normal_5", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.5.bmp"},
-    {L"Damage_Red_Normal_6", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.6.bmp"},
-    {L"Damage_Red_Normal_7", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.7.bmp"},
-    {L"Damage_Red_Normal_8", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.8.bmp"},
-    {L"Damage_Red_Normal_9", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed1.9.bmp"},
-    {L"Damage_Red_Normal_man", L"Texture\\UI\\Damage\\Normal\\208.effect.NoCustom.NoRed1.3.bmp"},
-    {L"Damage_Red_Normal_eok", L"Texture\\UI\\Damage\\Normal\\208.effect.NoCustom.NoRed1.4.bmp"},
-    {L"Damage_Red_Normal_miss", L"Texture\\UI\\Damage\\Normal\\0.effect.NoRed0.Miss.bmp"},
-    {L"Damage_Red_Cri_0", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.0.bmp"},
-    {L"Damage_Red_Cri_1", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.1.bmp"},
-    {L"Damage_Red_Cri_2", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.2.bmp"},
-    {L"Damage_Red_Cri_3", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.3.bmp"},
-    {L"Damage_Red_Cri_4", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.4.bmp"},
-    {L"Damage_Red_Cri_5", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.5.bmp"},
-    {L"Damage_Red_Cri_6", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.6.bmp"},
-    {L"Damage_Red_Cri_7", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.7.bmp"},
-    {L"Damage_Red_Cri_8", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.8.bmp"},
-    {L"Damage_Red_Cri_9", L"Texture\\UI\\Damage\\Critical\\0.effect.NoCri1.9.bmp"},
-    {L"Damage_Red_Cri_man", L"Texture\\UI\\Damage\\Critical\\208.effect.NoCustom.NoCri1.3.bmp"},
-    {L"Damage_Red_Cri_eok", L"Texture\\UI\\Damage\\Critical\\208.effect.NoCustom.NoCri1.4.bmp"},
+    // Damage Skin
+    TTextureInfo {L"Damage_Red_Normal_0",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.0"},
+    TTextureInfo {L"Damage_Red_Normal_1",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.1"},
+    TTextureInfo {L"Damage_Red_Normal_2",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.2"},
+    TTextureInfo {L"Damage_Red_Normal_3",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.3"},
+    TTextureInfo {L"Damage_Red_Normal_4",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.4"},
+    TTextureInfo {L"Damage_Red_Normal_5",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.5"},
+    TTextureInfo {L"Damage_Red_Normal_6",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.6"},
+    TTextureInfo {L"Damage_Red_Normal_7",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.7"},
+    TTextureInfo {L"Damage_Red_Normal_8",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.8"},
+    TTextureInfo {L"Damage_Red_Normal_9",    ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed1.9"},
+    TTextureInfo {L"Damage_Red_Normal_man",  ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\208.effect.NoCustom.NoRed1.3"},
+    TTextureInfo {L"Damage_Red_Normal_eok",  ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\208.effect.NoCustom.NoRed1.4"},
+    TTextureInfo {L"Damage_Red_Normal_miss", ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Normal\\0.effect.NoRed0.Miss"},
+    TTextureInfo {L"Damage_Red_Cri_0",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.0"},
+    TTextureInfo {L"Damage_Red_Cri_1",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.1"},
+    TTextureInfo {L"Damage_Red_Cri_2",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.2"},
+    TTextureInfo {L"Damage_Red_Cri_3",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.3"},
+    TTextureInfo {L"Damage_Red_Cri_4",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.4"},
+    TTextureInfo {L"Damage_Red_Cri_5",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.5"},
+    TTextureInfo {L"Damage_Red_Cri_6",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.6"},
+    TTextureInfo {L"Damage_Red_Cri_7",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.7"},
+    TTextureInfo {L"Damage_Red_Cri_8",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.8"},
+    TTextureInfo {L"Damage_Red_Cri_9",       ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\0.effect.NoCri1.9"},
+    TTextureInfo {L"Damage_Red_Cri_man",     ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\208.effect.NoCustom.NoCri1.3"},
+    TTextureInfo {L"Damage_Red_Cri_eok",     ETextureType::PNG, L"Texture\\UI\\Damage\\Default\\Critical\\208.effect.NoCustom.NoCri1.4"},
 
+    // Map
+    TTextureInfo {L"map_background1",   ETextureType::PNG, L"Texture\\map_background1"},
+    TTextureInfo {L"map_front1",        ETextureType::PNG, L"Texture\\map_front1"},
+};
+
+vector<int> g_DamageSkinSource =
+{
 
 };
 
@@ -57,18 +66,31 @@ void CResourceManager::Initialize()
 {
     const wstring strBasetPath = CPathManager::GetInstance()->GetBasePath();
 
-    for (auto pair : g_TextureSource)
+    for (auto& format : g_TextureSource)
     {
-        const wstring& strKey = pair.first;
-        const wstring& strRelPath = pair.second;
+        auto [strKey, eType, strRelPath] = format;
 
         CTexture* pTexture = new CTexture;
 
+        pTexture->SetType(eType);
         pTexture->SetKey(strKey);
         pTexture->SetRelativePath(strRelPath);
 
         wstring strAssetPath = strBasetPath + strRelPath;
-        pTexture->Load(strAssetPath);
+        
+        switch(eType)
+        {
+        case ETextureType::BMP:
+            pTexture->LoadBMP(strAssetPath + L".bmp");
+            break;
+        case ETextureType::PNG:
+            pTexture->LoadPNG(strAssetPath + L".png");
+            break;
+        default:
+            assert(0);
+            break;
+            
+        }
 
         m_mapTexture.insert({ strKey, pTexture });
     }
@@ -135,4 +157,8 @@ CTexture* CResourceManager::FindTexture(const wstring& strKey)
     {
         return nullptr;
     }
+}
+
+void CResourceManager::GetMapData(const wstring& wstrPath)
+{
 }

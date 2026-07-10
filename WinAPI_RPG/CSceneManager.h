@@ -20,14 +20,16 @@ public:
 	void AddObject(CObject* pObject, EObjectType eType);
 	void RequestAddObject(CObject* pObject, EObjectType eType);
 
+
 private:
 	CCursor* m_pCursor;
 	CPlayer* m_pPlayer;
-	CScene* m_arrScene[(UINT)ESceneType::MAX];
+	map<wstring, CScene*> m_mapScene;
 	CScene* m_pCurrentScene;
 
 public:
 	inline CPlayer* GetPlayer() { return m_pPlayer; }
 	inline CScene* GetScene() { return m_pCurrentScene; }
+	inline list<CObject*>* GetObjectList(EObjectType eType);
 };
 

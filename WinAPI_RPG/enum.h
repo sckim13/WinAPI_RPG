@@ -16,16 +16,6 @@ enum class EObjectType
 	MAX,
 };
 
-enum class ESceneType
-{
-	START,
-	STAGE_01,
-	STAGE_02,
-	END,
-
-	MAX,
-};
-
 enum class EPlayerAnimState
 {
 	STAND,
@@ -127,6 +117,7 @@ enum class ESkillType
 
 	ACTIVE_NONE,
 	HITSCAN,
+	KEYDOWN,
 	PROJECTILE,
 	SUMMON,
 	ACTIVE_MAX,
@@ -283,4 +274,28 @@ enum class EUIStatus
 {
 	IDLE,
 	MOVE,
+};
+
+enum class EScrollMode
+{
+	NONE,
+	LINEAR,
+	EASE,
+	TILE,
+};
+
+enum class ETextureType
+{
+	NONE, // for error handling
+	BMP,
+	PNG,
+};
+
+enum class ECursorState
+{
+	IDLE,
+	ONCLICK,
+	HOVERING_BUTTON,
+	HOVERING_SCROLL,
+	HOVERING_SLOT,
 };

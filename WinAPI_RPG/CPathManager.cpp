@@ -18,7 +18,7 @@ void CPathManager::Initialize()
 	GetCurrentDirectory(MAX_PATH_SIZE, m_szBasePath);
 	
 	fs::path AssetPath(m_szBasePath);
-	AssetPath = AssetPath.parent_path() / L"Release" / L"Asset" / L"" ;
+	AssetPath = AssetPath / L"Resource" / L"";
 	
 	wcscpy_s(m_szBasePath, AssetPath.c_str());
 }

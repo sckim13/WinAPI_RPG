@@ -49,6 +49,10 @@ HRESULT CMainGame::Initialize(HWND hWnd, POINT WndResolution)
 
 	SetWindowPos(m_hWnd, nullptr, (iScreenW - iWindowW) / 2, (iScreenH - iWindowH) / 2, iWindowW, iWindowH, 0);
 
+	// GDI+ Startup
+	Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+	Gdiplus::GdiplusStartup(&m_gdiplusToken, &gdiplusStartupInput, nullptr);
+
 	// Manager initialize
 	CTimeManager::GetInstance()->Initialize();
 	CKeyManager::GetInstance()->Initialize();
